@@ -18,12 +18,12 @@
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>19.0.2</version>
+            <version>21</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>19.0.2</version>
+            <version>21</version>
         </dependency>
         <dependency>
             <groupId>org.controlsfx</groupId>
@@ -47,6 +47,8 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
+
+
     </dependencies>
 
     <build>
@@ -69,7 +71,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>com.example.gearfit/com.example.gearfit.HelloApplication</mainClass>
+                            <mainClass>com.example.gearfit/com.example.gearfit.Launcher</mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
                             <jlinkImageName>app</jlinkImageName>

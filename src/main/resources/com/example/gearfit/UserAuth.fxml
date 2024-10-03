@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="680.0" prefWidth="980.0" styleClass="parent" stylesheets="@UserAuthStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.UserAuthController">
+   <children>
+      <Pane layoutY="140.0" prefHeight="400.0" prefWidth="980.0" styleClass="pane">
+         <children>
+            <Label layoutX="21.0" layoutY="98.0" text="Don't have an account?" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="21.0" layoutY="138.0" text="What are you waiting for? Click on this button now" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="21.0" layoutY="185.0" mnemonicParsing="false" onAction="#open_signUp" prefHeight="32.0" prefWidth="93.0" styleClass="transition-btn-white-border" text="Sign Up" />
+            <Label layoutX="800.0" layoutY="98.0" text="Have an account?" textFill="WHITE">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label layoutX="620.0" layoutY="138.0" text="What are you waiting for? Click on this button now" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            <Button layoutX="863.0" layoutY="185.0" mnemonicParsing="false" onAction="#open_signIn" prefHeight="32.0" prefWidth="93.0" styleClass="transition-btn-white-border" text="Sign In" />
+            <VBox id="vbox" fx:id="vbox" layoutX="21.0" layoutY="-49.0" prefHeight="480.0" prefWidth="480.0" styleClass="white-pane" />
+         </children></Pane>
+   </children>
+</AnchorPane>
