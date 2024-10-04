@@ -21,7 +21,7 @@
       </Label>
       <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="232.0" prefHeight="40.0" prefWidth="200.0">
          <children>
-            <TextField fx:id="usernameField" promptText="Username" styleClass="auth-box" HBox.hgrow="ALWAYS" />
+            <TextField promptText="Username" styleClass="auth-box" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="15.0" />
@@ -29,7 +29,7 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
          <children>
-            <PasswordField  fx:id="passwordField" promptText="Password" styleClass="auth-box" HBox.hgrow="ALWAYS">
+            <PasswordField  promptText="Password" styleClass="auth-box" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
