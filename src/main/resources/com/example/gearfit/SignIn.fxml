@@ -8,7 +8,8 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" styleClass="blue-panel" stylesheets="@UserAuthStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.scene.control.PasswordField?>
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" styleClass="blue-panel" stylesheets="@UserAuthStyles.css" xmlns="http://javafx.com/javafx/21" fx:controller="com.example.gearfit.UserAuthController" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Label text="Sign In" textFill="#2196f3">
          <font>
@@ -20,7 +21,7 @@
       </Label>
       <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="232.0" prefHeight="40.0" prefWidth="200.0">
          <children>
-            <TextField promptText="Email" styleClass="auth-box" HBox.hgrow="ALWAYS" />
+            <TextField fx:id="usernameField" promptText="Username" styleClass="auth-box" HBox.hgrow="ALWAYS" />
          </children>
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="15.0" />
@@ -28,17 +29,17 @@
       </HBox>
       <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="200.0">
          <children>
-            <TextField promptText="Password" styleClass="auth-box" HBox.hgrow="ALWAYS">
+            <PasswordField  fx:id="passwordField" promptText="Password" styleClass="auth-box" HBox.hgrow="ALWAYS">
                <HBox.margin>
                   <Insets />
                </HBox.margin>
-            </TextField>
+            </PasswordField>
          </children>
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="15.0" />
          </VBox.margin>
       </HBox>
-      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="450.0" styleClass="blue-btn" text="Sign In">
+      <Button mnemonicParsing="false" prefHeight="42.0" prefWidth="450.0" styleClass="blue-btn" text="Sign In" onAction="#handleLogin">
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="30.0" />
          </VBox.margin>
