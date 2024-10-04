@@ -1,10 +1,11 @@
-package com.example.gearfit.controllers;
+package com.example.gearfit;
 
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
@@ -23,14 +24,17 @@ public class UserAuthController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        TranslateTransition transition = new TranslateTransition(Duration.seconds(1), vbox);
+
         try {
-            fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignUp.fxml"));
+            fxml = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+            vbox.getChildren().removeAll();
             vbox.getChildren().setAll(fxml);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println("");
         }
-
     }
+
 
     public void open_signIn(ActionEvent event) {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(1), vbox);
@@ -39,7 +43,7 @@ public class UserAuthController implements Initializable {
 
         transition.setOnFinished((e) -> {
             try {
-                fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignIn.fxml"));
+                fxml = FXMLLoader.load(getClass().getResource("SignIn.fxml"));
                 vbox.getChildren().removeAll();
                 vbox.getChildren().setAll(fxml);
             } catch (IOException ex) {
@@ -55,7 +59,7 @@ public class UserAuthController implements Initializable {
 
         transition.setOnFinished((e) -> {
             try {
-                fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignUp.fxml"));
+                fxml = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
                 vbox.getChildren().removeAll();
                 vbox.getChildren().setAll(fxml);
             } catch (IOException ex) {
@@ -63,5 +67,6 @@ public class UserAuthController implements Initializable {
             }
         });
     }
+
 
 }
