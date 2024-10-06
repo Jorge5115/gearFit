@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="680.0" prefWidth="980.0" styleClass="parent" stylesheets="@UserAuthStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.UserAuthController">
+<AnchorPane prefHeight="680.0" prefWidth="980.0" styleClass="parent" stylesheets="@styles/UserAuthStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.UserAuthController">
    <children>
       <Pane layoutY="140.0" prefHeight="400.0" prefWidth="980.0" styleClass="pane">
          <children>

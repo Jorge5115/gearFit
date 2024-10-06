@@ -8,4 +8,6 @@ module com.example.gearfit {
 
     opens com.example.gearfit to javafx.fxml;
     exports com.example.gearfit;
+    exports com.example.gearfit.controllers;
+    opens com.example.gearfit.controllers to javafx.fxml;
 }

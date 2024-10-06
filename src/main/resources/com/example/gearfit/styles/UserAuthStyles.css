@@ -1,3 +1,6 @@
+/**
+    UserAuth.fxml / SignIn.fxml / SignUp.fxml
+ */
 
 .parent {
     -fx-background-color: transparent;
@@ -40,5 +43,3 @@
     -fx-border-radius: 5px;
     -fx-text-fill: #ffffff ;
 }
-
-

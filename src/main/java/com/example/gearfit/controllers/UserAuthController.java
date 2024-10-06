@@ -1,4 +1,4 @@
-package com.example.gearfit;
+package com.example.gearfit.controllers;
 
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
@@ -24,7 +24,7 @@ public class UserAuthController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            fxml = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+            fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignUp.fxml"));
             vbox.getChildren().setAll(fxml);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -39,11 +39,8 @@ public class UserAuthController implements Initializable {
 
         transition.setOnFinished((e) -> {
             try {
-                fxml = FXMLLoader.load(getClass().getResource("SignIn.fxml"));
+                fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignIn.fxml"));
                 vbox.getChildren().removeAll();
-
-                System.out.println("Cargando SignIn.fxml desde: " + getClass().getResource("SignIn.fxml"));
-
                 vbox.getChildren().setAll(fxml);
             } catch (IOException ex) {
 
@@ -58,7 +55,7 @@ public class UserAuthController implements Initializable {
 
         transition.setOnFinished((e) -> {
             try {
-                fxml = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+                fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignUp.fxml"));
                 vbox.getChildren().removeAll();
                 vbox.getChildren().setAll(fxml);
             } catch (IOException ex) {
@@ -67,6 +64,4 @@ public class UserAuthController implements Initializable {
         });
     }
 
-    public void handleLogin(ActionEvent actionEvent) {
-    }
 }
