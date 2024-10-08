@@ -1,0 +1,40 @@
+
+.blue-panel {
+    -fx-background-color: #151928;
+}
+
+.auth-box {
+    -fx-background-color: transparent;
+    -fx-border-color: #DEDEE4;
+    -fx-border-width: 0px 0px 1px 0px;
+    -fx-text-fill: whitesmoke;
+}
+
+.auth{
+    -fx-background-color: transparent;
+}
+
+.blue-btn{
+    -fx-background-color: #2196f3;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #ffffff ;
+}
+
+.blue-btn:hover{
+    -fx-background-color: #2196f3;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #000000;
+}
+
+.close-btn{
+    -fx-background-color: #ea2311;
+    -fx-border-radius: 5px;
+    -fx-opacity: 0.3;
+}
+
+.close-btn:hover{
+    -fx-background-color: #ea2311;
+    -fx-border-radius: 5px;
+    -fx-opacity: 1;
+}
+
