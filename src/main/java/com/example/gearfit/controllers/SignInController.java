@@ -1,5 +1,6 @@
 package com.example.gearfit.controllers;
 
+import com.example.gearfit.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,6 +22,7 @@ public class SignInController {
     @FXML
     private PasswordField passwordField;
 
+    private UserDAO usuarioDAO = new UserDAO();
     @FXML
     private void pressSignInButton(ActionEvent event) {
         String email = emailField.getText();
@@ -31,7 +33,6 @@ public class SignInController {
             showAlert("Error", "Por favor, completa ambos campos.");
         } else {
             if (authenticate(email, password)) {
-                //showAlert("Éxito", "Inicio de sesión exitoso.");
                 loadMainView(event);
             } else {
                 showAlert("Error", "Credenciales incorrectas.");
@@ -51,10 +52,8 @@ public class SignInController {
     }
 
     // Función para comprobar el email y la contraseña en la base de datos
-    private boolean authenticate(String email, String password) {
-        // Aquí irá la lógica para autenticar al usuario (verificar las credenciales con una base de datos)
-
-        return email.equals("usuario@gmail.com") && password.equals("123");
+    private boolean authenticate(String nombre, String password) {
+        return usuarioDAO.verificarContrasena(nombre,password);
     }
 
     // Función para mostrar una alerta con un mensaje personalizado

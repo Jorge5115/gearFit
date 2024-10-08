@@ -12,6 +12,7 @@ import java.io.IOException;
 public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        Database.initializeDatabase();
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("UserAuth.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.setFill(Color.TRANSPARENT);

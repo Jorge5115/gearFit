@@ -1,5 +1,7 @@
 package com.example.gearfit.controllers;
 
+import com.example.gearfit.User;
+import com.example.gearfit.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,6 +15,7 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class SignUpController {
 
@@ -24,6 +27,7 @@ public class SignUpController {
 
     @FXML
     private PasswordField passwordField;
+    private UserDAO usuarioDAO = new UserDAO();
 
 
     @FXML
@@ -32,8 +36,8 @@ public class SignUpController {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        // Validar las entradas
-        if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
+        // LO COMENTO PORQUE SE HACEN LAS COMPROBACIONES EN LA CLASE USUARIO!!!!!!
+        /**if (username.isEmpty() || email.isEmpty() || password.isEmpty()) {
             showAlert("Error", "Por favor, completa todos los campos.");
         } else if (!isValidUsername(username)) {
             showAlert("Error", "La contraseña debe tener al menos 3 caracteres.");
@@ -41,16 +45,16 @@ public class SignUpController {
             showAlert("Error", "El formato del correo electrónico no es válido.");
         } else if (!isValidPassword(password)) {
             showAlert("Error", "La contraseña debe tener al menos 8 caracteres.");
-        } else {
+        } else {**/
             // Meter la lógica para registrar al usuario (que no se repita en la base de datos, etc)
-            if (registerUser(username, email, password)) {
-                // showAlert("Éxito", "Registro exitoso.");
-                loadMainView(event);
-            } else {
-                showAlert("Error", "Error al registrar el usuario.");
-            }
+        if (registerUser(username, email, password)) {
+            // showAlert("Éxito", "Registro exitoso.");
+            loadMainView(event);
+        } else {
+            showAlert("Error", "Error al registrar el usuario.");
         }
     }
+
     // Método para cargar la vista MainView.fxml
     private void loadMainView(ActionEvent event) {
         try {
@@ -61,6 +65,20 @@ public class SignUpController {
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+    private boolean registerUser(String username, String email, String password) {
+        try {
+            User usuario = new User();
+            usuario.setNombre(username);  // Validación automática en setter
+            usuario.setEmail(email);      // Validación automática en setter
+
+            usuarioDAO.addUser(usuario, password);
+            return true;
+        } catch (IllegalArgumentException e) {
+            // Captura de las excepciones lanzadas por validaciones en setters, si las has incluido
+            showAlert("Error", e.getMessage());
+            return false;
         }
     }
 
@@ -80,11 +98,7 @@ public class SignUpController {
     }
 
     // Función para registrar al usuario en la base de datos
-    private boolean registerUser(String username, String email, String password) {
-        // Lógica para registrar al usuario (conectar a base de datos, API, etc.)
-        // Actualmente, es solo un ejemplo que siempre retorna verdadero
-        return true;
-    }
+
 
     // Función para mostrar una alerta con un mensaje personalizado
     private void showAlert(String title, String message) {
