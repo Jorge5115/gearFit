@@ -2,9 +2,16 @@ package com.example.gearfit.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class SignInController {
 
@@ -24,11 +31,22 @@ public class SignInController {
             showAlert("Error", "Por favor, completa ambos campos.");
         } else {
             if (authenticate(email, password)) {
-                showAlert("Éxito", "Inicio de sesión exitoso.");
-
+                //showAlert("Éxito", "Inicio de sesión exitoso.");
+                loadMainView(event);
             } else {
                 showAlert("Error", "Credenciales incorrectas.");
             }
+        }
+    }
+    private void loadMainView(ActionEvent event) {
+        try {
+            Parent mainView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/MainView.fxml"));
+            Scene mainScene = new Scene(mainView);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(mainScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -46,5 +64,11 @@ public class SignInController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    @FXML
+    private void closeApplication(ActionEvent event) {
+        // Obtiene el Stage actual y lo cierra
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }

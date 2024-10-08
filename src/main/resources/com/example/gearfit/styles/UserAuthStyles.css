@@ -43,3 +43,12 @@
     -fx-border-radius: 5px;
     -fx-text-fill: #ffffff ;
 }
+
+.exit-button {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.exit-button .graphic {
+    -fx-fill: red;
+}

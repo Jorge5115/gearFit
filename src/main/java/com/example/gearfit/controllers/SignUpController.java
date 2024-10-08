@@ -2,9 +2,17 @@ package com.example.gearfit.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+
+
+import java.io.IOException;
 
 public class SignUpController {
 
@@ -16,6 +24,7 @@ public class SignUpController {
 
     @FXML
     private PasswordField passwordField;
+
 
     @FXML
     private void pressSignUpButton(ActionEvent event) {
@@ -35,11 +44,23 @@ public class SignUpController {
         } else {
             // Meter la lógica para registrar al usuario (que no se repita en la base de datos, etc)
             if (registerUser(username, email, password)) {
-                showAlert("Éxito", "Registro exitoso.");
-                // Redirigir a la página de inicio de sesión o directamente meter al usuario en el MainView
+                // showAlert("Éxito", "Registro exitoso.");
+                loadMainView(event);
             } else {
                 showAlert("Error", "Error al registrar el usuario.");
             }
+        }
+    }
+    // Método para cargar la vista MainView.fxml
+    private void loadMainView(ActionEvent event) {
+        try {
+            Parent mainView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/MainView.fxml"));
+            Scene mainScene = new Scene(mainView);
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(mainScene);
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -50,7 +71,7 @@ public class SignUpController {
 
     // Función para validar el formato del correo electrónico
     private boolean isValidEmail(String email) {
-        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+        return email.matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}$");
     }
 
     // Función para validar la contraseña (mínimo 8 caracteres en este caso)
@@ -72,5 +93,11 @@ public class SignUpController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    @FXML
+    private void closeApplication(ActionEvent event) {
+        // Obtiene el Stage actual y lo cierra
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        stage.close();
     }
 }
