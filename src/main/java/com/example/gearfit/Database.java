@@ -4,7 +4,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class Database {
-    private static final String URL = "jdbc:sqlite:C:\\Users\\fuent\\OneDrive\\Documentos\\GitHub\\gearFit\\src\\gearFit.db";
+    private static final String URL = "jdbc:sqlite:gearFit.db";
 
     static {
         try {
