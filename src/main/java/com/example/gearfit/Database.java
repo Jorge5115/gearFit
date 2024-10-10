@@ -33,7 +33,7 @@ public class Database {
                 String sql = "CREATE TABLE IF NOT EXISTS usuarios (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
                         "nombre TEXT NOT NULL," +
-                        "email TEXT NOT NULL UNIQUE, +" +
+                        "email TEXT NOT NULL UNIQUE, "+
                         "password TEXT NOT NULL);";
                 conn.createStatement().execute(sql);
                 System.out.println("Tabla creada.");
