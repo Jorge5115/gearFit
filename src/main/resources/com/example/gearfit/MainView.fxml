@@ -1,10 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="800.0" prefWidth="980.0" styleClass="parent" stylesheets="@styles/MainViewStyles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.MainViewController">
+<AnchorPane prefHeight="800.0" prefWidth="980.0" styleClass="parent" stylesheets="@styles/MainView.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.MainViewController">
    <children>
-      <Pane layoutX="50.0" layoutY="13.0" prefHeight="780.0" prefWidth="880.0" styleClass="pane" />
+      <Pane layoutX="50.0" layoutY="50.0" prefHeight="700.0" prefWidth="880.0" styleClass="pane">
+         <children>
+            <VBox alignment="CENTER" layoutX="22.0" layoutY="25.0" prefHeight="650.0" prefWidth="180.0" styleClass="main-vbox-selector">
+               <children>
+                  <Button mnemonicParsing="false" styleClass="icon-btn">
+                     <graphic>
+                        <ImageView fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/person.png" />
+                           </image></ImageView>
+                     </graphic>
+                     <VBox.margin>
+                        <Insets bottom="150.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" styleClass="vbox-btn-selector" text="Inicio">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="74.0" layoutY="352.0" mnemonicParsing="false" styleClass="vbox-btn-selector" text="Nutricion">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="74.0" layoutY="364.0" mnemonicParsing="false" styleClass="vbox-btn-selector" text="Entrenamiento">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Button>
+                  <Button layoutX="74.0" layoutY="377.0" mnemonicParsing="false" styleClass="logOut-btn-selector" text="Log Out">
+                     <VBox.margin>
+                        <Insets top="150.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+            <VBox layoutX="220.0" layoutY="88.0" prefHeight="525.0" prefWidth="637.0" styleClass="main-vbox-selector" />
+         </children></Pane>
    </children>
 </AnchorPane>

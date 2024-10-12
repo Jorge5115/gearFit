@@ -1,11 +1,5 @@
-package com.example.gearfit;
+package com.example.gearfit.models;
 
-import org.mindrot.jbcrypt.BCrypt;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.regex.Pattern;
 
 public class User {

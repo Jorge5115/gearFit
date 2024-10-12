@@ -12,4 +12,10 @@ module com.example.gearfit {
     exports com.example.gearfit;
     exports com.example.gearfit.controllers;
     opens com.example.gearfit.controllers to javafx.fxml;
+    exports com.example.gearfit.models;
+    opens com.example.gearfit.models to javafx.fxml;
+    exports com.example.gearfit.repositories;
+    opens com.example.gearfit.repositories to javafx.fxml;
+    exports com.example.gearfit.connections;
+    opens com.example.gearfit.connections to javafx.fxml;
 }

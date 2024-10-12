@@ -1,7 +1,7 @@
 package com.example.gearfit.controllers;
 
-import com.example.gearfit.User;
-import com.example.gearfit.UserDAO;
+import com.example.gearfit.models.User;
+import com.example.gearfit.repositories.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class SignUpController {
 

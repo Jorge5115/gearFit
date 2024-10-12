@@ -1,5 +1,7 @@
-package com.example.gearfit;
+package com.example.gearfit.repositories;
 
+import com.example.gearfit.connections.Database;
+import com.example.gearfit.models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.Connection;
@@ -11,7 +13,7 @@ import java.util.List;
 
 public class UserDAO {
 
-    // Método para agregar un usuario
+    // Agregar un usuario
     public void addUser(User usuario, String password) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
         String sql = "INSERT INTO usuarios(nombre, email, password) VALUES(?, ?, ?)";
@@ -28,7 +30,7 @@ public class UserDAO {
         }
     }
 
-    // Método para consultar todos los usuarios
+    // Consultar todos los usuarios
     public List<User> queryUsers() {
         List<User> usuarios = new ArrayList<>();
         String sql = "SELECT * FROM usuarios";
@@ -50,7 +52,7 @@ public class UserDAO {
         return usuarios;
     }
 
-    // Método para eliminar un usuario por ID
+    // Eliminar un usuario por ID
     public void deleteUser(int id) {
         String sql = "DELETE FROM usuarios WHERE id = ?";
 
@@ -68,7 +70,7 @@ public class UserDAO {
         }
     }
 
-    // Método para actualizar un usuario
+    // Actualizar un usuario
     public void updateUser(User usuario, String password) {
         String sql = "UPDATE usuarios SET nombre = ?, email = ?, password = ? WHERE id = ?";
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -90,7 +92,7 @@ public class UserDAO {
         }
     }
 
-    // Método para buscar un usuario por ID
+    // Buscar un usuario por ID
     public User findUserById(int id) {
         String sql = "SELECT * FROM usuarios WHERE id = ?";
         User usuario = null;
@@ -113,6 +115,7 @@ public class UserDAO {
         }
         return usuario;
     }
+
     public boolean verificarContrasena(String nombre, String password) {
         String sql = "SELECT password FROM usuarios WHERE nombre = ?";
 
