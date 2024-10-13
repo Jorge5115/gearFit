@@ -4,81 +4,64 @@
 }
 
 .pane {
-    -fx-background-color: #151928;
-    -fx-background-radius: 50px;
+    -fx-background-color: #2196f3;
+    -fx-background-radius: 17px 15px 15px 17px;
 }
 
 .main-vbox-selector {
-    -fx-background-color: #23273b;
-    -fx-background-radius: 30px;
+    -fx-background-color: #151928;
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-background-radius: 15px 0 0 15px;
 }
 
-.icon-btn {
-    -fx-background-color: transparent;
-    -fx-background-radius: 50px;
-}
-
-.icon-btn:hover {
-    -fx-background-radius: 50px;
-    -fx-background-color: #515567;
+.main-vbox-windows {
+    -fx-background-color: #151928;
+    -fx-background-radius: 15px;
 }
 
 .vbox-btn-selector {
     -fx-background-radius: 20px;
     -fx-background-color: #2196f3;
-    -fx-min-width: 150px;
-    -fx-max-width: 150px;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
     -fx-min-height: 50px;
     -fx-max-height: 50px;
-
-    -fx-text-fill: #ffffff;
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-    -fx-font-size: 16px;
-    -fx-opacity: 0.5;
+    -fx-opacity: 0.6;
 }
 
 .vbox-btn-selector:hover {
     -fx-background-radius: 20px;
     -fx-background-color: #2196f3;
-    -fx-min-width: 150px;
-    -fx-max-width: 150px;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
     -fx-min-height: 50px;
     -fx-max-height: 50px;
-
-    -fx-text-fill: #000000;
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-    -fx-font-size: 16px;
     -fx-opacity: 1;
 }
 
 .logOut-btn-selector {
     -fx-background-radius: 20px;
     -fx-background-color: #ea2311;
-    -fx-min-width: 150px;
-    -fx-max-width: 150px;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
     -fx-min-height: 50px;
     -fx-max-height: 50px;
-
-    -fx-text-fill: #ffffff;
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-    -fx-font-size: 16px;
-    -fx-opacity: 0.3;
+    -fx-opacity: 0.5;
 }
 
 .logOut-btn-selector:hover {
     -fx-background-radius: 20px;
     -fx-background-color: #ea2311;
-    -fx-min-width: 150px;
-    -fx-max-width: 150px;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
     -fx-min-height: 50px;
     -fx-max-height: 50px;
-
-    -fx-text-fill: #000000;
-    -fx-font-family: "Arial";
-    -fx-font-weight: bold;
-    -fx-font-size: 16px;
     -fx-opacity: 1;
+}
+
+.tittle-main{
+    -fx-background-color: #151928;
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
 }
