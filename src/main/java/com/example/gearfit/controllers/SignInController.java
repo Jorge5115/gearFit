@@ -71,8 +71,8 @@ public class SignInController {
 
 
     // Función para comprobar el email y la contraseña en la base de datos
-    private boolean authenticate(String nombre, String password) {
-        return usuarioDAO.verificarContrasena(nombre,password);
+    private boolean authenticate(String email, String password) {
+        return usuarioDAO.verificarContrasena(email ,password);
     }
 
     // Función para mostrar una alerta con un mensaje personalizado

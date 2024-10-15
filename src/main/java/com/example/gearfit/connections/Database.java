@@ -31,11 +31,13 @@ public class Database {
         try (Connection conn = connect()) {
             if (conn != null) {
                 // Crear la tabla si no existe
-                String sql = "CREATE TABLE IF NOT EXISTS usuarios (" +
+                String sql = "CREATE TABLE IF NOT EXISTS registered_users (" +
                         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                        "nombre TEXT NOT NULL," +
+                        "username TEXT NOT NULL," +
                         "email TEXT NOT NULL UNIQUE, " +
-                        "password TEXT NOT NULL);";
+                        "password TEXT NOT NULL, " +
+                        "height DOUBLE NOT NULL, " +
+                        "weight DOUBLE NOT NULL); ";
                 conn.createStatement().execute(sql);
                 System.out.println("Tabla creada.");
             }

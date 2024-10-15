@@ -3,7 +3,6 @@ package com.example.gearfit.controllers;
 import com.example.gearfit.models.User;
 import com.example.gearfit.repositories.UserDAO;
 import javafx.animation.FadeTransition;
-import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -31,7 +30,7 @@ public class SignUpController {
     @FXML
     private PasswordField passwordField;
 
-    private UserDAO usuarioDAO = new UserDAO();
+    private UserDAO usernameDAO = new UserDAO();
 
 
     @FXML
@@ -85,11 +84,9 @@ public class SignUpController {
 
     private boolean registerUser(String username, String email, String password) {
         try {
-            User usuario = new User();
-            usuario.setNombre(username);
-            usuario.setEmail(email);
+            User user = new User(username, email);
 
-            usuarioDAO.addUser(usuario, password);
+            usernameDAO.addUser(user, password);
             return true;
         } catch (IllegalArgumentException e) {
             // Captura de las excepciones lanzadas por validaciones en setters, si las has incluido

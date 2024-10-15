@@ -3,43 +3,64 @@ package com.example.gearfit.models;
 import java.util.regex.Pattern;
 
 public class User {
+
     private int id;
-    private String nombre;
+
+    private String username;
+
     private String email;
 
+    private double height;
 
-    // Constructor
-    public User(int id, String nombre, String email) {
+    private double weight;
+
+    public User(int id, String nombre, String email, double height, String weight) {
         setId(id);
-        setNombre(nombre);
+        setUsername(username);
         setEmail(email);
     }
 
-    public User() {
-        // constructor vacio
+    public User(String username, String email){
+        setUsername(username);
+        setEmail(email);
+        setHeight(0.0);
+        setWeight(0.0);
     }
 
-    // Getters
     public int getId() {
         return id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
         return email;
     }
 
-
-    // Setters
-    public void setId(int id) {
-        this.id = id;
+    public double getHeight() {
+        return height;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     public void setEmail(String email) {
