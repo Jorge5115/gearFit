@@ -1,6 +1,7 @@
 package com.example.gearfit.controllers;
 
 import com.example.gearfit.repositories.UserDAO;
+import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,28 +49,26 @@ public class SignInController {
         try {
             Parent mainView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/MainView.fxml"));
 
-            // Crear la escena y establecer el fondo como transparente
+            // Crear la escena
             Scene mainScene = new Scene(mainView);
             mainScene.setFill(Color.TRANSPARENT); // Establecer fondo transparente
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-
             stage.setScene(mainScene);
 
-            // Crear la animación de escalado
-            ScaleTransition scaleTransition = new ScaleTransition(Duration.seconds(1), mainView);
-            scaleTransition.setFromX(0);
-            scaleTransition.setFromY(0);
-            scaleTransition.setToX(1);
-            scaleTransition.setToY(1);
-            scaleTransition.play(); // Reproducir la animación
+            // Crear la animación de desvanecimiento
+            FadeTransition fadeTransition = new FadeTransition(Duration.seconds(1), mainView);
+            fadeTransition.setFromValue(0);  // Comienza desde transparente
+            fadeTransition.setToValue(1);    // Hasta opaco (completamente visible)
+            fadeTransition.play();           // Reproducir la animación
 
-            stage.show(); // Mostrar la ventana después de configurar la animación
+            stage.show();  // Mostrar la ventana
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
     // Función para comprobar el email y la contraseña en la base de datos
     private boolean authenticate(String nombre, String password) {
