@@ -14,17 +14,23 @@ public class User {
 
     private double weight;
 
-    public User(int id, String nombre, String email, double height, String weight) {
+    public User(int id, String username, String email, double height, double weight) {
         setId(id);
         setUsername(username);
         setEmail(email);
+        setHeight(height);
+        setWeight(weight);
     }
 
     public User(String username, String email){
         setUsername(username);
         setEmail(email);
-        setHeight(0.0);
-        setWeight(0.0);
+        /*setHeight();
+        setWeight();*/
+    }
+
+    public User() {
+
     }
 
     public int getId() {
@@ -40,6 +46,9 @@ public class User {
     }
 
     public void setUsername(String username) {
+        if (username == null || username.length() < 3) {
+            throw new IllegalArgumentException("El nombre de usuario debe tener al menos 3 caracteres.");
+        }
         this.username = username;
     }
 
@@ -72,7 +81,7 @@ public class User {
     }
 
     private boolean esEmailValido(String email) {
-        String emailRegex = "^[A-Za-z0-9+_.-]+@(.+)$"; // Expresión regular básica para el email
+        String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"; // Expresión regular básica para el email
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(email).matches();
     }

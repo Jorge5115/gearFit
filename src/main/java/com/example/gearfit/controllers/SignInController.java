@@ -1,5 +1,7 @@
 package com.example.gearfit.controllers;
 
+import com.example.gearfit.connections.SessionManager;
+import com.example.gearfit.models.User;
 import com.example.gearfit.repositories.UserDAO;
 import javafx.animation.FadeTransition;
 import javafx.animation.ScaleTransition;
@@ -37,9 +39,13 @@ public class SignInController {
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Error", "Por favor, completa ambos campos.");
         } else {
-            if (authenticate(email, password)) {
+            User authenticatedUser = authenticate(email, password); // Cambiado aquí
+            if (authenticatedUser != null) {
+                // Establecer el usuario en la sesión
+                SessionManager.setCurrentUser(authenticatedUser);
                 loadMainView(event);
             } else {
+                //Hay que hacer expcecion porque aunque pongas bien las credenciales sale ese error por distintos motivos
                 showAlert("Error", "Credenciales incorrectas.");
             }
         }
@@ -71,8 +77,8 @@ public class SignInController {
 
 
     // Función para comprobar el email y la contraseña en la base de datos
-    private boolean authenticate(String email, String password) {
-        return usuarioDAO.verificarContrasena(email ,password);
+    private User authenticate(String email, String password) {
+        return usuarioDAO.getUserByEmailAndPassword(email ,password);
     }
 
     // Función para mostrar una alerta con un mensaje personalizado

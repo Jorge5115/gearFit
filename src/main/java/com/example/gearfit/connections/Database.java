@@ -20,7 +20,7 @@ public class Database {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(URL);
-            System.out.println("Conexión establecida.");
+            //System.out.println("Conexión establecida.");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -39,7 +39,7 @@ public class Database {
                         "height DOUBLE NOT NULL, " +
                         "weight DOUBLE NOT NULL); ";
                 conn.createStatement().execute(sql);
-                System.out.println("Tabla creada.");
+                //System.out.println("Tabla creada.");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

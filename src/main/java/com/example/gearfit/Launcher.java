@@ -1,6 +1,7 @@
 package com.example.gearfit;
 
 import com.example.gearfit.connections.Database;
+import com.example.gearfit.repositories.UserDAO;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
