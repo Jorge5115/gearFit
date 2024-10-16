@@ -1,12 +1,13 @@
-package com.example.gearfit;
+package com.example.gearfit.controllers;
 
 import javafx.animation.TranslateTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.event.ActionEvent;
 
@@ -24,17 +25,14 @@ public class UserAuthController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        TranslateTransition transition = new TranslateTransition(Duration.seconds(1), vbox);
-
         try {
-            fxml = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
-            vbox.getChildren().removeAll();
+            fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignUp.fxml"));
             vbox.getChildren().setAll(fxml);
         } catch (IOException ex) {
-            System.out.println("");
+            ex.printStackTrace();
         }
-    }
 
+    }
 
     public void open_signIn(ActionEvent event) {
         TranslateTransition transition = new TranslateTransition(Duration.seconds(1), vbox);
@@ -43,7 +41,7 @@ public class UserAuthController implements Initializable {
 
         transition.setOnFinished((e) -> {
             try {
-                fxml = FXMLLoader.load(getClass().getResource("SignIn.fxml"));
+                fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignIn.fxml"));
                 vbox.getChildren().removeAll();
                 vbox.getChildren().setAll(fxml);
             } catch (IOException ex) {
@@ -59,7 +57,7 @@ public class UserAuthController implements Initializable {
 
         transition.setOnFinished((e) -> {
             try {
-                fxml = FXMLLoader.load(getClass().getResource("SignUp.fxml"));
+                fxml = FXMLLoader.load(getClass().getResource("/com/example/gearfit/SignUp.fxml"));
                 vbox.getChildren().removeAll();
                 vbox.getChildren().setAll(fxml);
             } catch (IOException ex) {

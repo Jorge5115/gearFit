@@ -1,0 +1,67 @@
+
+.parent {
+    -fx-background-color: transparent;
+}
+
+.pane {
+    -fx-background-color: #2196f3;
+    -fx-background-radius: 17px 15px 15px 17px;
+}
+
+.main-vbox-selector {
+    -fx-background-color: #151928;
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-background-radius: 15px 0 0 15px;
+}
+
+.main-vbox-windows {
+    -fx-background-color: #151928;
+    -fx-background-radius: 15px;
+}
+
+.vbox-btn-selector {
+    -fx-background-radius: 20px;
+    -fx-background-color: #2196f3;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+    -fx-opacity: 0.6;
+}
+
+.vbox-btn-selector:hover {
+    -fx-background-radius: 20px;
+    -fx-background-color: #2196f3;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+    -fx-opacity: 1;
+}
+
+.logOut-btn-selector {
+    -fx-background-radius: 20px;
+    -fx-background-color: #ea2311;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+    -fx-opacity: 0.5;
+}
+
+.logOut-btn-selector:hover {
+    -fx-background-radius: 20px;
+    -fx-background-color: #ea2311;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+    -fx-opacity: 1;
+}
+
+.tittle-main{
+    -fx-background-color: #151928;
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
+}

@@ -1,0 +1,42 @@
+.title {
+    -fx-text-fill: #ffffff; /* Color del texto blanco */
+    -fx-font-size: 24px; /* Tamaño de fuente grande */
+    -fx-font-weight: bold; /* Texto en negrita */
+    -fx-padding: 10px; /* Espaciado alrededor del texto */
+    -fx-alignment: center; /* Centrar el texto */
+}
+/* Estilo general para el contenedor de ajustes */
+.settings-pane {
+    -fx-background-color: #151928; /* Fondo oscuro para el contenedor */
+    -fx-background-radius: 15px; /* Bordes redondeados */
+    -fx-padding: 20px; /* Espaciado interno */
+}
+
+/* Estilo para los campos de entrada de texto */
+.text-field {
+    -fx-background-color: #ffffff; /* Fondo blanco para los campos de texto */
+    -fx-border-color: #2196f3; /* Borde azul */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-padding: 10px; /* Espaciado interno */
+}
+
+/* Estilo para las etiquetas */
+.label {
+    -fx-text-fill: #ffffff; /* Color de texto blanco */
+    -fx-font-size: 14px; /* Tamaño de fuente */
+    -fx-padding: 5px; /* Espaciado interno */
+}
+
+/* Estilo para los botones */
+.save-button {
+    -fx-background-color: #2196f3; /* Fondo azul */
+    -fx-background-radius: 10px; /* Bordes redondeados */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+    -fx-padding: 10px 20px; /* Espaciado interno */
+}
+
+/* Efecto de hover para los botones */
+.save-button:hover {
+    -fx-background-color: #1976d2; /* Color más oscuro al pasar el ratón */
+    -fx-opacity: 0.9; /* Ligera opacidad */
+}

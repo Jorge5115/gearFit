@@ -2,10 +2,11 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" styleClass="blue-panel" stylesheets="@styles/UserAuthStyles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.SignUpController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" styleClass="blue-panel" stylesheets="@styles/SignUp.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.SignUpController">
    <children>
       <Label text="Sign Up" textFill="#2196f3">
          <font>
@@ -18,6 +19,14 @@
       <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="232.0" prefHeight="40.0" prefWidth="200.0">
          <children>
             <TextField fx:id="usernameField" promptText="Username" styleClass="auth-box" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@icons/person.png" />
+               </image>
+            </ImageView>
          </children>
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="15.0" />
@@ -26,6 +35,13 @@
       <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="196.0" prefHeight="40.0" prefWidth="200.0">
          <children>
             <TextField fx:id="emailField" promptText="Email" styleClass="auth-box" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/mail.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin></ImageView>
          </children>
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="15.0" />
@@ -37,12 +53,41 @@
          </VBox.margin>
          <children>
             <PasswordField fx:id="passwordField" promptText="Password" styleClass="auth-box" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/padlock.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="5.0" top="1.0" />
+               </HBox.margin>
+            </ImageView>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" onAction="#pressSignUpButton" prefHeight="42.0" prefWidth="450.0" styleClass="blue-btn" text="Sign Up">
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#pressSignUpButton" prefHeight="40.0" prefWidth="380.0" styleClass="blue-btn" text="Sign Up">
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </Button>
+            <!--<Button fx:id="exitButton" styleClass="exit-button" onAction="#closeApplication">
+               <graphic>
+                  <ImageView fitWidth="16" fitHeight="16" image="@/com/example/gearfit/icons/cruz.png" />
+               </graphic>
+            </Button> -->
+            <Button onAction="#closeApplication" prefHeight="40.0" prefWidth="100.0" styleClass="close-btn">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="close-btn">
+                     <image>
+                        <Image url="@icons/cross.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="30.0" />
          </VBox.margin>
-      </Button>
+      </HBox>
    </children>
 </VBox>

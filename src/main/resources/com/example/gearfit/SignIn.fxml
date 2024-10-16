@@ -2,10 +2,11 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" styleClass="blue-panel" stylesheets="@styles/UserAuthStyles.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.SignInController">
+<VBox alignment="CENTER_LEFT" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="480.0" styleClass="blue-panel" stylesheets="@styles/SignIn.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.SignInController">
    <children>
       <Label text="Sign In" textFill="#2196f3">
          <font>
@@ -18,6 +19,13 @@
       <HBox alignment="CENTER_LEFT" layoutX="25.0" layoutY="232.0" prefHeight="40.0" prefWidth="200.0">
          <children>
             <TextField fx:id="emailField" promptText="Email" styleClass="auth-box" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@icons/person.png" />
+               </image>
+               <HBox.margin>
+                  <Insets left="5.0" top="5.0" />
+               </HBox.margin></ImageView>
          </children>
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="15.0" />
@@ -29,12 +37,35 @@
          </VBox.margin>
          <children>
             <PasswordField fx:id="passwordField" promptText="Password" styleClass="auth-box" HBox.hgrow="ALWAYS" />
+            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+               <HBox.margin>
+                  <Insets left="5.0" top="1.0" />
+               </HBox.margin>
+               <image>
+                  <Image url="@icons/padlock.png" />
+               </image></ImageView>
          </children>
       </HBox>
-      <Button mnemonicParsing="false" onAction="#pressSignInButton" prefHeight="42.0" prefWidth="450.0" styleClass="blue-btn" text="Sign In">
+      <HBox prefHeight="40.0" prefWidth="200.0">
+         <children>
+            <Button mnemonicParsing="false" onAction="#pressSignInButton" prefHeight="40.0" prefWidth="380.0" styleClass="blue-btn" text="Sign In">
+               <HBox.margin>
+                  <Insets right="15.0" />
+               </HBox.margin>
+            </Button>
+                  <Button alignment="CENTER" onAction="#closeApplication" prefHeight="40.0" prefWidth="100.0" styleClass="close-btn">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/cross.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
          <VBox.margin>
             <Insets left="15.0" right="15.0" top="30.0" />
          </VBox.margin>
-      </Button>
+      </HBox>
    </children>
 </VBox>

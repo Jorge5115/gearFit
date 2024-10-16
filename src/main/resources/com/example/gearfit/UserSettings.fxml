@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="850.0" stylesheets="@styles/UserSettings.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.UserSettingsController">
+    <children>
+        <Text layoutX="20.0" layoutY="40.0" styleClass="title" text="Configuraciones del Usuario" />
+
+        <Label layoutX="20.0" layoutY="95.0" prefHeight="30.0" prefWidth="195.0" styleClass="label" text="Modificar nombre de usuario:" />
+        <TextField fx:id="usernameField" layoutX="267.0" layoutY="90.0" styleClass="text-field" />
+
+        <Label layoutX="20.0" layoutY="135.0" styleClass="label" text="Modificar contraseña:" />
+        <PasswordField fx:id="passwordField" layoutX="267.0" layoutY="130.0" styleClass="text-field" />
+
+        <Label layoutX="20.0" layoutY="176.0" prefHeight="30.0" prefWidth="182.0" styleClass="label" text="Modificar peso (kg):" />
+        <TextField fx:id="weightField" layoutX="267.0" layoutY="171.0" styleClass="text-field" />
+
+        <Label layoutX="20.0" layoutY="206.0" styleClass="label" text="Modificar altura (cm):" />
+        <TextField fx:id="heightField" layoutX="267.0" layoutY="211.0" styleClass="text-field" />
+
+        <Button layoutX="20.0" layoutY="250.0" onAction="#handleSaveChanges" styleClass="save-button" text="Guardar Cambios" />
+    </children>
+</AnchorPane>
