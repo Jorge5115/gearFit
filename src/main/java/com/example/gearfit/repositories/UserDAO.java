@@ -87,8 +87,8 @@ public class UserDAO {
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
             pstmt.setString(1, usuario.getUsername());
-            pstmt.setDouble(2, usuario.getWeight());
-            pstmt.setDouble(3, usuario.getHeight());
+            pstmt.setDouble(2, usuario.getHeight());
+            pstmt.setDouble(3, usuario.getWeight());
 
             // Si se proporciona una nueva contraseña, la hasheamos y la agregamos
             if (password != null && !password.isEmpty()) {
