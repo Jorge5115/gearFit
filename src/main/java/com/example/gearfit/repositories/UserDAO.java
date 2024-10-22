@@ -1,6 +1,7 @@
 package com.example.gearfit.repositories;
 
 import com.example.gearfit.connections.Database;
+import com.example.gearfit.connections.SessionManager;
 import com.example.gearfit.models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -193,6 +194,7 @@ public class UserDAO {
 
             if (rs.next()) {
                 String dbPassword = rs.getString("password");
+
                 // Compara la contraseña hasheada
                 if (BCrypt.checkpw(password, dbPassword)) {
                     // Si la contraseña es correcta, crea y devuelve un nuevo objeto User
@@ -200,9 +202,15 @@ public class UserDAO {
                     user.setId(rs.getInt("id"));
                     user.setUsername(rs.getString("username"));
                     user.setEmail(rs.getString("email"));
-                    // Configura otros atributos si es necesario
+                    user.setHeight(rs.getDouble("height"));
+                    user.setWeight(rs.getDouble("weight"));
+                    //user.setPassword(dbPassword); no se si funciona
                     return user;
+                } else {
+                    System.out.println("Contraseña incorrecta.");
                 }
+            } else {
+                System.out.println("No se encontró el usuario con el email: " + email);
             }
         } catch (SQLException e) {
             e.printStackTrace();

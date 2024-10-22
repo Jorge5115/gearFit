@@ -14,6 +14,8 @@ import java.io.IOException;
 public class Launcher extends Application {
     @Override
     public void start(Stage stage) throws IOException {
+        /*UserDAO userDAO = new UserDAO();
+        userDAO.deleteUser(10);*/ //PRUEBAS DE USUARIOOOOOO
         Database.initializeDatabase();
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("UserAuth.fxml"));
         Scene scene = new Scene(fxmlLoader.load());

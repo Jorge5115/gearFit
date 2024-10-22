@@ -32,6 +32,9 @@ public class UserSettingsController {
         // Inicializa currentUser desde la sesión o el contexto
         currentUser = SessionManager.getCurrentUser();
         if (currentUser != null) {
+            System.out.println("Usuario autenticado: " + currentUser.getUsername()); // Depuración
+            System.out.println("Peso: " + currentUser.getWeight()); // Depuración
+            System.out.println("Altura: " + currentUser.getHeight()); // Depuración
             // Rellena los campos con la información del usuario
             usernameField.setText(currentUser.getUsername());
             weightField.setText(String.valueOf(currentUser.getWeight()));
@@ -75,7 +78,10 @@ public class UserSettingsController {
             userDAO.updateUser(currentUser,hashedPassword);
             showAlert("Éxito", "Cambios guardados exitosamente.");
 
-
+            // Actualizar directamente los campos de la interfaz
+            usernameField.setText(currentUser.getUsername());
+            weightField.setText(String.valueOf(currentUser.getWeight()));
+            heightField.setText(String.valueOf(currentUser.getHeight()));
         } catch (Exception e) {
             showAlert("Error", "Ocurrió un error al guardar los cambios: " + e.getMessage());
         }
