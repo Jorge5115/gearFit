@@ -40,3 +40,17 @@
     -fx-background-color: #1976d2; /* Color más oscuro al pasar el ratón */
     -fx-opacity: 0.9; /* Ligera opacidad */
 }
+
+/* Estilo para el botón de eliminar cuenta (color rojo) */
+.delete-button {
+    -fx-background-color: #f44336; /* Fondo rojo */
+    -fx-background-radius: 10px; /* Bordes redondeados */
+    -fx-text-fill: #ffffff; /* Texto blanco */
+    -fx-padding: 10px 20px; /* Espaciado interno */
+}
+
+/* Efecto de hover para el botón de eliminar cuenta */
+.delete-button:hover {
+    -fx-background-color: #d32f2f; /* Color más oscuro al pasar el ratón */
+    -fx-opacity: 0.9; /* Ligera opacidad */
+}

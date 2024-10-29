@@ -21,5 +21,7 @@
         <TextField fx:id="heightField" layoutX="267.0" layoutY="211.0" styleClass="text-field" />
 
         <Button layoutX="20.0" layoutY="250.0" onAction="#handleSaveChanges" styleClass="save-button" text="Guardar Cambios" />
+
+        <Button layoutX="20.0" layoutY="305.0" onAction="#handleDeleteAccount" prefHeight="38.0" prefWidth="132.0" styleClass="delete-button" text="Eliminar Cuenta" />
     </children>
 </AnchorPane>
