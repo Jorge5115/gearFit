@@ -1,5 +1,7 @@
 package com.example.gearfit.models;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import java.util.regex.Pattern;
 
 public class User {
@@ -13,6 +15,7 @@ public class User {
     private double height;
 
     private double weight;
+    private String password; // Añadir campo para la contraseña
 
     public User(int id, String username, String email, double height, double weight) {
         setId(id);
@@ -84,6 +87,14 @@ public class User {
         String emailRegex = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$"; // Expresión regular básica para el email
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(email).matches();
+    }
+    public String getPassword() {
+        // No implementamos un getter para la contraseña para evitar exponerla
+        return password;
+    }
+    public void setPassword(String password) {
+        // Hashea la contraseña y la almacena
+        this.password = BCrypt.hashpw(password, BCrypt.gensalt());
     }
 
 }

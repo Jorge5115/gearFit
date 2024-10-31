@@ -39,7 +39,7 @@ public class SignInController {
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Error", "Por favor, completa ambos campos.");
         } else {
-            User authenticatedUser = authenticate(email, password); // Cambiado aquí
+            User authenticatedUser = authenticate(email, password);
             if (authenticatedUser != null) {
                 // Establecer el usuario en la sesión
                 SessionManager.setCurrentUser(authenticatedUser);

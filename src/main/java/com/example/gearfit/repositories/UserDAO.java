@@ -57,58 +57,62 @@ public class UserDAO {
     }
 
     // Eliminar un usuario por ID
-    public void deleteUser(int id) {
+    public boolean deleteUser(int userId) {
         String sql = "DELETE FROM registered_users WHERE id = ?";
 
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, id);
+            pstmt.setInt(1, userId);
             int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Usuario eliminado con éxito.");
-            } else {
-                System.out.println("No se encontró el usuario con ID: " + id);
-            }
+            return rowsAffected > 0; // Devuelve true si se eliminó al menos una fila
+
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return false; // Devuelve false en caso de error
         }
     }
 
     // Actualizar un usuario
-    public void updateUser(User usuario, String password) {
-        StringBuilder sql = new StringBuilder("UPDATE registered_users SET username = ?, height = ?, weight = ?");
-
-        // Agrega la actualización de la contraseña solo si se proporciona una nueva
-        if (password != null && !password.isEmpty()) {
-            sql.append(", password = ?");
-        }
-        sql.append(" WHERE id = ?");
-
+    public void updateUser(User user, String hashedPassword) {
+        String sql = "UPDATE registered_users SET username = ?, height = ?, weight = ?, password = ? WHERE id = ?";
         try (Connection conn = Database.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
-            pstmt.setString(1, usuario.getUsername());
-            pstmt.setDouble(2, usuario.getWeight());
-            pstmt.setDouble(3, usuario.getHeight());
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            // Si se proporciona una nueva contraseña, la hasheamos y la agregamos
-            if (password != null && !password.isEmpty()) {
-                String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-                pstmt.setString(4, hashedPassword);
-                pstmt.setInt(5, usuario.getId());
+            pstmt.setString(1, user.getUsername());
+            pstmt.setDouble(2, user.getHeight());
+            pstmt.setDouble(3, user.getWeight());
+
+            // Verifica si `hashedPassword` es nulo o vacío
+            if (hashedPassword != null && !hashedPassword.isEmpty()) {
+                pstmt.setString(4, hashedPassword);  // Actualizar con el nuevo hash
             } else {
-                // Si no hay nueva contraseña, solo actualizamos los campos de nombre y email
-                pstmt.setInt(4, usuario.getId());
+                pstmt.setString(4, getPasswordFromDB(user.getId())); // Obtener el hash actual de la BD si no hay cambio de contraseña
             }
+
+            pstmt.setInt(5, user.getId());
 
             int rowsAffected = pstmt.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Usuario actualizado con éxito.");
-            } else {
-                System.out.println("No se encontró el usuario con ID: " + usuario.getId());
+            System.out.println("Filas actualizadas: " + rowsAffected);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public String getPasswordFromDB(int userId) {
+        String sql = "SELECT password FROM registered_users WHERE id = ?";
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, userId);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("password");
             }
         } catch (SQLException e) {
-            System.out.println("Error al actualizar el usuario: " + e.getMessage());
+            e.printStackTrace();
         }
+        return null;
     }
 
     /*
@@ -136,7 +140,7 @@ public class UserDAO {
         return usuario;
     }*/
 
-    public boolean verificarContrasena(String email, String password) {
+    public boolean verifyPassword(String email, String password) {
         String sql = "SELECT password FROM registered_users WHERE email = ?";
 
         try (Connection conn = Database.connect();
@@ -193,6 +197,7 @@ public class UserDAO {
 
             if (rs.next()) {
                 String dbPassword = rs.getString("password");
+
                 // Compara la contraseña hasheada
                 if (BCrypt.checkpw(password, dbPassword)) {
                     // Si la contraseña es correcta, crea y devuelve un nuevo objeto User
@@ -200,9 +205,14 @@ public class UserDAO {
                     user.setId(rs.getInt("id"));
                     user.setUsername(rs.getString("username"));
                     user.setEmail(rs.getString("email"));
-                    // Configura otros atributos si es necesario
+                    user.setHeight(rs.getDouble("height"));
+                    user.setWeight(rs.getDouble("weight"));
                     return user;
+                } else {
+                    System.out.println("Contraseña incorrecta.");
                 }
+            } else {
+                System.out.println("No se encontró el usuario con el email: " + email);
             }
         } catch (SQLException e) {
             e.printStackTrace();

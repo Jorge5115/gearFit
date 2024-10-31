@@ -5,10 +5,18 @@ import com.example.gearfit.models.User;
 import com.example.gearfit.repositories.UserDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
+
+import java.io.IOException;
+import java.util.Optional;
 
 public class UserSettingsController {
 
@@ -32,6 +40,9 @@ public class UserSettingsController {
         // Inicializa currentUser desde la sesión o el contexto
         currentUser = SessionManager.getCurrentUser();
         if (currentUser != null) {
+            System.out.println("Usuario autenticado: " + currentUser.getUsername()); // Depuración
+            System.out.println("Peso: " + currentUser.getWeight()); // Depuración
+            System.out.println("Altura: " + currentUser.getHeight()); // Depuración
             // Rellena los campos con la información del usuario
             usernameField.setText(currentUser.getUsername());
             weightField.setText(String.valueOf(currentUser.getWeight()));
@@ -75,9 +86,70 @@ public class UserSettingsController {
             userDAO.updateUser(currentUser,hashedPassword);
             showAlert("Éxito", "Cambios guardados exitosamente.");
 
-
+            // Actualizar directamente los campos de la interfaz
+            usernameField.setText(currentUser.getUsername());
+            weightField.setText(String.valueOf(currentUser.getWeight()));
+            heightField.setText(String.valueOf(currentUser.getHeight()));
         } catch (Exception e) {
             showAlert("Error", "Ocurrió un error al guardar los cambios: " + e.getMessage());
+        }
+    }
+    public boolean promptForPassword(ActionEvent event) {
+        // Crear el diálogo
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Confirmar Eliminación");
+        dialog.setHeaderText("Ingresa tu contraseña para confirmar la eliminación de la cuenta.");
+
+        // Crear un PasswordField
+        PasswordField passwordField = new PasswordField();
+        passwordField.setPromptText("Contraseña");
+
+        // Agregar el PasswordField al diálogo
+        VBox vbox = new VBox(passwordField);
+        dialog.getDialogPane().setContent(vbox);
+
+        // Agregar botones al diálogo
+        dialog.getDialogPane().getButtonTypes().addAll(ButtonType.OK, ButtonType.CANCEL);
+
+        // Mostrar el diálogo y esperar a que el usuario lo cierre
+        dialog.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                String password = passwordField.getText();
+                // Aquí puedes verificar la contraseña
+                boolean isCorrect = userDAO.verifyPassword(SessionManager.getCurrentUser().getEmail(), password);
+                if (isCorrect) {
+                    // Lógica para eliminar la cuenta
+                    userDAO.deleteUser(currentUser.getId());
+                    loadLoginView(event);
+                    System.out.println("Cuenta eliminada correctamente.");
+                } else {
+                    showAlert("Error", "La contraseña es incorrecta.");
+                }
+            }
+        });
+        return true; // o false dependiendo de la lógica que desees
+    }
+    @FXML
+    public void handleDeleteAccount(ActionEvent event) {
+        promptForPassword(event);
+    }
+    private void loadLoginView(ActionEvent event) {
+        try {
+            // Cargar la vista de inicio de sesión
+            Parent mainView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/UserAuth.fxml"));
+
+            // Obtener la ventana actual desde el evento
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+            // Crear la escena y establecer el fondo como transparente
+            Scene mainScene = new Scene(mainView);
+            mainScene.setFill(Color.TRANSPARENT); // Establecer fondo transparente
+
+            stage.setScene(mainScene);
+            stage.show();
+            SessionManager.logOut(); // Limpiar la sesión del usuario
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
