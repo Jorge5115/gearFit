@@ -12,7 +12,7 @@
          <children>
             <VBox alignment="TOP_CENTER" prefHeight="650.0" prefWidth="180.0" styleClass="main-vbox-selector">
                <children>
-                  <Button mnemonicParsing="false" styleClass="vbox-btn-selector" onAction="#handleUserSettings">
+                  <Button mnemonicParsing="false" onAction="#handleUserSettings" styleClass="vbox-btn-selector">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -70,7 +70,7 @@
                </children>
             </VBox>
             <Text layoutX="127.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="tittle-main" text="Gear Fit" />
-            <Pane layoutX="116.0" layoutY="72.0" prefHeight="544.0" prefWidth="850.0" styleClass="main-vbox-windows" fx:id="mainVBoxWindows"/>
+            <Pane fx:id="mainVBoxWindows" layoutX="116.0" layoutY="100.0" prefHeight="500.0" prefWidth="850.0" styleClass="main-vbox-windows" />
          </children></Pane>
    </children>
 </AnchorPane>

@@ -1,56 +1,31 @@
-.title {
-    -fx-text-fill: #ffffff; /* Color del texto blanco */
-    -fx-font-size: 24px; /* Tamaño de fuente grande */
-    -fx-font-weight: bold; /* Texto en negrita */
-    -fx-padding: 10px; /* Espaciado alrededor del texto */
-    -fx-alignment: center; /* Centrar el texto */
-}
-/* Estilo general para el contenedor de ajustes */
-.settings-pane {
-    -fx-background-color: #151928; /* Fondo oscuro para el contenedor */
-    -fx-background-radius: 15px; /* Bordes redondeados */
-    -fx-padding: 20px; /* Espaciado interno */
+.parent{
+    background-color: #865b5b;
 }
 
-/* Estilo para los campos de entrada de texto */
-.text-field {
-    -fx-background-color: #ffffff; /* Fondo blanco para los campos de texto */
-    -fx-border-color: #2196f3; /* Borde azul */
-    -fx-border-radius: 5px; /* Bordes redondeados */
-    -fx-padding: 10px; /* Espaciado interno */
+.userIcon {
+    -fx-background-color: #9c45f5;
+    -fx-background-radius: 10px;
+    -fx-min-width: 40px;
+    -fx-min-height: 40px;
+    -fx-alignment: center;
+    -fx-text-fill: #000000;
+    -fx-font-size: 150%;
 }
 
-/* Estilo para las etiquetas */
-.label {
-    -fx-text-fill: #ffffff; /* Color de texto blanco */
-    -fx-font-size: 14px; /* Tamaño de fuente */
-    -fx-padding: 5px; /* Espaciado interno */
+.text-field{
+    -fx-background-color: #ffffff;
 }
 
-/* Estilo para los botones */
-.save-button {
-    -fx-background-color: #2196f3; /* Fondo azul */
-    -fx-background-radius: 10px; /* Bordes redondeados */
-    -fx-text-fill: #ffffff; /* Texto blanco */
-    -fx-padding: 10px 20px; /* Espaciado interno */
+.userEmail {
+    -fx-font-size: 150%;
+    -fx-opacity: 0.5;
 }
 
-/* Efecto de hover para los botones */
-.save-button:hover {
-    -fx-background-color: #1976d2; /* Color más oscuro al pasar el ratón */
-    -fx-opacity: 0.9; /* Ligera opacidad */
+.global-textfield-settings {
+    -fx-background-radius: 20px;
+    -fx-min-width: 300px;
+    -fx-max-width: 300px;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
 }
 
-/* Estilo para el botón de eliminar cuenta (color rojo) */
-.delete-button {
-    -fx-background-color: #f44336; /* Fondo rojo */
-    -fx-background-radius: 10px; /* Bordes redondeados */
-    -fx-text-fill: #ffffff; /* Texto blanco */
-    -fx-padding: 10px 20px; /* Espaciado interno */
-}
-
-/* Efecto de hover para el botón de eliminar cuenta */
-.delete-button:hover {
-    -fx-background-color: #d32f2f; /* Color más oscuro al pasar el ratón */
-    -fx-opacity: 0.9; /* Ligera opacidad */
-}

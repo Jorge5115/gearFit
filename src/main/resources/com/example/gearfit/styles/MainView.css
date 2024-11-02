@@ -18,6 +18,7 @@
 .main-vbox-windows {
     -fx-background-color: #151928;
     -fx-background-radius: 15px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
 }
 
 .vbox-btn-selector {
@@ -60,8 +61,10 @@
     -fx-opacity: 1;
 }
 
-.tittle-main{
+.tittle-main {
     -fx-background-color: #151928;
     -fx-font-weight: bold;
     -fx-font-size: 30px;
 }
+
+

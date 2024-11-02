@@ -3,7 +3,8 @@ package com.example.gearfit.connections;
 import com.example.gearfit.models.User;
 
 public class SessionManager {
-    //ALMACENAR Y RECUPERAR INFORMACION DEL USUARIO AUTENTICADO
+
+    // ALMACENAR Y RECUPERAR INFORMACION DEL USUARIO AUTENTICADO
     private static User currentUser;
 
     // Método para establecer el usuario actualmente autenticado
