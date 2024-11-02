@@ -157,6 +157,7 @@ public class UserDAO {
         }
         return false; // El usuario no existe o la contraseña no coincide
     }
+
     public boolean usernameExists(String username) {
         String sql = "SELECT COUNT(*) FROM registered_users WHERE username = ?";
 

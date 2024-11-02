@@ -12,13 +12,21 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.io.IOException;
 import java.util.Optional;
+import java.util.Random;
 
 public class UserSettingsController {
+
+    @FXML
+    private Label userIcon; // Este Label será el icono del usuario
+
+    @FXML
+    private Label emailLabel;
 
     @FXML
     private TextField usernameField;
@@ -33,6 +41,7 @@ public class UserSettingsController {
     private PasswordField passwordField;
 
     private UserDAO userDAO = new UserDAO();
+
     private User currentUser; // Esto debería contener el usuario actualmente autenticado
 
     @FXML
@@ -40,9 +49,8 @@ public class UserSettingsController {
         // Inicializa currentUser desde la sesión o el contexto
         currentUser = SessionManager.getCurrentUser();
         if (currentUser != null) {
-            System.out.println("Usuario autenticado: " + currentUser.getUsername()); // Depuración
-            System.out.println("Peso: " + currentUser.getWeight()); // Depuración
-            System.out.println("Altura: " + currentUser.getHeight()); // Depuración
+            createUserIcon(currentUser.getUsername());
+            emailLabel.setText(currentUser.getEmail());
             // Rellena los campos con la información del usuario
             usernameField.setText(currentUser.getUsername());
             weightField.setText(String.valueOf(currentUser.getWeight()));
@@ -52,6 +60,13 @@ public class UserSettingsController {
             showAlert("Error", "No se encontró el usuario autenticado.");
         }
     }
+
+    private void createUserIcon(String username) {
+        // Obtiene la inicial para poner en el Label
+        String initial = username.substring(0, 1).toUpperCase();
+        userIcon.setText(initial);
+    }
+
     @FXML
     public void handleSaveChanges(ActionEvent event) {
         String username = usernameField.getText().trim();
