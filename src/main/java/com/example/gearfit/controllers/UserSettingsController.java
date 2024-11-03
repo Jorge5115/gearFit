@@ -32,13 +32,17 @@ public class UserSettingsController {
     private TextField usernameField;
 
     @FXML
+    private PasswordField passwordField;
+
+    @FXML
     private TextField weightField;
 
     @FXML
     private TextField heightField;
 
     @FXML
-    private PasswordField passwordField;
+    public TextField caloriesField;
+
 
     private UserDAO userDAO = new UserDAO();
 
@@ -53,8 +57,9 @@ public class UserSettingsController {
             emailLabel.setText(currentUser.getEmail());
             // Rellena los campos con la información del usuario
             usernameField.setText(currentUser.getUsername());
-            weightField.setText(String.valueOf(currentUser.getWeight()));
             heightField.setText(String.valueOf(currentUser.getHeight()));
+            weightField.setText(String.valueOf(currentUser.getWeight()));
+            caloriesField.setText(String.valueOf(currentUser.getCalories()));
         } else {
             // Maneja el caso en que no hay un usuario autenticado
             showAlert("Error", "No se encontró el usuario autenticado.");
@@ -72,15 +77,17 @@ public class UserSettingsController {
         String username = usernameField.getText().trim();
         String weightStr = weightField.getText().trim();
         String heightStr = heightField.getText().trim();
+        String caloriesStr = caloriesField.getText().trim();
         String password = passwordField.getText().trim(); // Obtener la nueva contraseña si es que se desea cambiar
 
-
+        int height;
         double weight;
-        double height;
+        int calories;
 
         try {
+            height = Integer.parseInt(heightStr);
             weight = Double.parseDouble(weightStr);
-            height = Double.parseDouble(heightStr);
+            calories = Integer.parseInt(caloriesStr);
         } catch (NumberFormatException e) {
             showAlert("Error", "Por favor, introduce un peso y altura válidos.");
             return;
@@ -91,6 +98,7 @@ public class UserSettingsController {
             currentUser.setUsername(username);
             currentUser.setWeight(weight);
             currentUser.setHeight(height);
+            currentUser.setCalories(calories);
 
             // Si hay una nueva contraseña, hashearla y actualizar el usuario
             String hashedPassword = null;
@@ -98,17 +106,19 @@ public class UserSettingsController {
                 hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             }
 
-            userDAO.updateUser(currentUser,hashedPassword);
+            userDAO.updateUser(currentUser, hashedPassword);
             showAlert("Éxito", "Cambios guardados exitosamente.");
 
             // Actualizar directamente los campos de la interfaz
             usernameField.setText(currentUser.getUsername());
-            weightField.setText(String.valueOf(currentUser.getWeight()));
             heightField.setText(String.valueOf(currentUser.getHeight()));
+            weightField.setText(String.valueOf(currentUser.getWeight()));
+            caloriesField.setText(String.valueOf(currentUser.getCalories()));
         } catch (Exception e) {
             showAlert("Error", "Ocurrió un error al guardar los cambios: " + e.getMessage());
         }
     }
+
     public boolean promptForPassword(ActionEvent event) {
         // Crear el diálogo
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -144,10 +154,12 @@ public class UserSettingsController {
         });
         return true; // o false dependiendo de la lógica que desees
     }
+
     @FXML
     public void handleDeleteAccount(ActionEvent event) {
         promptForPassword(event);
     }
+
     private void loadLoginView(ActionEvent event) {
         try {
             // Cargar la vista de inicio de sesión

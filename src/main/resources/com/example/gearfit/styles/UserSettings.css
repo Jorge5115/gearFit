@@ -1,31 +1,107 @@
-.parent{
-    background-color: #865b5b;
+.pane{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+}
+
+.title{
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+}
+
+.title-info{
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #151928;
 }
 
 .userIcon {
     -fx-background-color: #9c45f5;
-    -fx-background-radius: 10px;
-    -fx-min-width: 40px;
-    -fx-min-height: 40px;
-    -fx-alignment: center;
+    -fx-background-radius: 3px;
     -fx-text-fill: #000000;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-min-width: 40px;
+    -fx-max-width: 40px;
     -fx-font-size: 150%;
 }
 
-.text-field{
-    -fx-background-color: #ffffff;
+.user-email{
+    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-text-fill: #606060;
+    -fx-font-size: 12px;
 }
 
-.userEmail {
-    -fx-font-size: 150%;
-    -fx-opacity: 0.5;
+.user-settings {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #808080;
+}
+
+.user-settings-info{
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #808080;
+}
+
+.global-vbox-user{
+    -fx-border-color: #151928;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
 }
 
 .global-textfield-settings {
-    -fx-background-radius: 20px;
-    -fx-min-width: 300px;
-    -fx-max-width: 300px;
+    -fx-background-radius: 5px;
     -fx-min-height: 30px;
     -fx-max-height: 30px;
+    -fx-min-width: 325px;
+    -fx-max-width: 325px;
 }
 
+.delete-button{
+    -fx-background-color: #f5a021;
+    -fx-border-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+    -fx-min-width: 150px;
+    -fx-max-width: 150px;
+    -fx-opacity: 0.7;
+}
+
+.delete-button:hover{
+    -fx-background-color: #f13626;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+    -fx-min-width: 150px;
+    -fx-max-width: 150px;
+    -fx-opacity: 1;
+}
+
+.save-button{
+    -fx-background-color: #2196f3;
+    -fx-border-radius: 5px;
+    -fx-font-weight: bold;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+    -fx-min-width: 150px;
+    -fx-max-width: 150px;
+    -fx-opacity: 0.7;
+}
+
+.save-button:hover{
+    -fx-background-color: #1259ab;
+    -fx-border-radius: 5px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+    -fx-min-width: 150px;
+    -fx-max-width: 150px;
+    -fx-opacity: 1;
+}
