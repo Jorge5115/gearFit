@@ -65,25 +65,29 @@
 }
 
 .delete-button {
-    -fx-background-color: #f5a021;
+    -fx-background-color: #ffffff;
+    -fx-border-color: #f13626;
+    -fx-text-fill: #f13626;
     -fx-border-radius: 5px;
     -fx-font-weight: bold;
     -fx-min-height: 30px;
     -fx-max-height: 30px;
-    -fx-min-width: 150px;
-    -fx-max-width: 150px;
-    -fx-opacity: 0.7;
+    -fx-min-width: 125px;
+    -fx-max-width: 125px;
+    -fx-opacity: 0.5;
 }
 
 .delete-button:hover {
     -fx-background-color: #f13626;
-    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-border-color: #f13626;
     -fx-text-fill: #ffffff;
+    -fx-border-radius: 5px;
     -fx-font-weight: bold;
     -fx-min-height: 30px;
     -fx-max-height: 30px;
-    -fx-min-width: 150px;
-    -fx-max-width: 150px;
+    -fx-min-width: 125px;
+    -fx-max-width: 125px;
     -fx-opacity: 1;
 }
 
@@ -93,9 +97,9 @@
     -fx-font-weight: bold;
     -fx-min-height: 30px;
     -fx-max-height: 30px;
-    -fx-min-width: 150px;
-    -fx-max-width: 150px;
-    -fx-opacity: 0.7;
+    -fx-min-width: 349px;
+    -fx-max-width: 349px;
+    -fx-opacity: 0.8;
 }
 
 .save-button:hover {
@@ -105,7 +109,7 @@
     -fx-font-weight: bold;
     -fx-min-height: 30px;
     -fx-max-height: 30px;
-    -fx-min-width: 150px;
-    -fx-max-width: 150px;
+    -fx-min-width: 349px;
+    -fx-max-width: 349px;
     -fx-opacity: 1;
 }

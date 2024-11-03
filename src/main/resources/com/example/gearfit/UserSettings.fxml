@@ -106,9 +106,9 @@
                </children>
             </VBox>
       
-                          <Button layoutX="434.0" layoutY="411.0" onAction="#handleDeleteAccount" prefHeight="25.0" prefWidth="108.0" styleClass="delete-button" text="Eliminar cuenta" />
+                          <Button layoutX="658.0" layoutY="321.0" onAction="#handleDeleteAccount" prefHeight="25.0" prefWidth="108.0" styleClass="delete-button" text="Eliminar cuenta" />
       
-                          <Button layoutX="633.0" layoutY="411.0" onAction="#handleSaveChanges" styleClass="save-button" text="Guardar cambios" />
+                          <Button layoutX="434.0" layoutY="411.0" onAction="#handleSaveChanges" styleClass="save-button" text="Guardar cambios" />
          </children>
       </Pane>
     </children>

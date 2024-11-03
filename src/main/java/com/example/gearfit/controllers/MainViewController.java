@@ -59,4 +59,16 @@ public class MainViewController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void handleWelcomeGuide(ActionEvent event) {
+        try {
+            // Cargar la vista de información de bienvenida de usuario
+            Parent welcomeGuideView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/WelcomeGuide.fxml"));
+            mainVBoxWindows.getChildren().clear(); // Limpiar el contenido anterior
+            mainVBoxWindows.getChildren().add(welcomeGuideView); // Añadir la nueva vista
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
