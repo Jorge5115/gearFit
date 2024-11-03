@@ -1,18 +1,19 @@
-.pane{
+.pane {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10px;
 }
 
-.title{
+.title {
+    -fx-font-family: "HelveticaNeueLT Std";
     -fx-text-fill: #000000;
     -fx-font-weight: bold;
     -fx-font-size: 25px;
 }
 
-.title-info{
+.title-info {
+    -fx-font-family: "HelveticaNeueLT Std";
     -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #151928;
+    -fx-opacity: 0.5;
 }
 
 .userIcon {
@@ -28,7 +29,7 @@
     -fx-font-size: 150%;
 }
 
-.user-email{
+.user-email {
     -fx-font-family: "HelveticaNeueLT Std";
     -fx-text-fill: #606060;
     -fx-font-size: 12px;
@@ -40,16 +41,19 @@
     -fx-text-fill: #808080;
 }
 
-.user-settings-info{
+.user-settings-info {
     -fx-font-size: 11px;
     -fx-font-weight: bold;
     -fx-text-fill: #808080;
 }
 
-.global-vbox-user{
+.global-vbox-user {
     -fx-border-color: #151928;
     -fx-border-radius: 5px;
     -fx-border-width: 2px;
+    -fx-background-radius: 6px;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
 }
 
 .global-textfield-settings {
@@ -60,7 +64,7 @@
     -fx-max-width: 325px;
 }
 
-.delete-button{
+.delete-button {
     -fx-background-color: #f5a021;
     -fx-border-radius: 5px;
     -fx-font-weight: bold;
@@ -71,7 +75,7 @@
     -fx-opacity: 0.7;
 }
 
-.delete-button:hover{
+.delete-button:hover {
     -fx-background-color: #f13626;
     -fx-border-radius: 5px;
     -fx-text-fill: #ffffff;
@@ -83,7 +87,7 @@
     -fx-opacity: 1;
 }
 
-.save-button{
+.save-button {
     -fx-background-color: #2196f3;
     -fx-border-radius: 5px;
     -fx-font-weight: bold;
@@ -94,7 +98,7 @@
     -fx-opacity: 0.7;
 }
 
-.save-button:hover{
+.save-button:hover {
     -fx-background-color: #1259ab;
     -fx-border-radius: 5px;
     -fx-text-fill: #ffffff;

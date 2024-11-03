@@ -11,7 +11,7 @@
       <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
          <children>
               <Text layoutX="238.0" layoutY="50.0" styleClass="title" text="Edita tu información personal" />
-            <Text layoutX="184.0" layoutY="76.0" styleClass="title-info" text="Gestiona tu información, la privacidad y la seguridad para mejorar tu experiencia" />
+            <Text layoutX="152.0" layoutY="78.0" styleClass="title-info" text="Gestiona tu información, la privacidad y la seguridad para mejorar tu experiencia en GearFit." />
             <HBox alignment="CENTER" layoutX="42.0" layoutY="102.0" prefHeight="40.0" prefWidth="349.0">
                <children>
             
@@ -79,8 +79,8 @@
                   </TextField>
                </children>
             </VBox>
-            <Label layoutX="434.0" layoutY="101.0" styleClass="user-settings" text="Cambiar contraseña" />
-            <VBox layoutX="434.0" layoutY="129.0" styleClass="global-vbox-user">
+            <Label layoutX="434.0" layoutY="131.0" styleClass="user-settings" text="Cambiar contraseña" />
+            <VBox layoutX="434.0" layoutY="159.0" styleClass="global-vbox-user">
                <children>
       
                           <Label alignment="CENTER" styleClass="user-settings-info" text="Contraseña actual">
@@ -88,17 +88,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                    <PasswordField fx:id="passwordField" styleClass="global-textfield-settings">
-                     <VBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </VBox.margin>
-                  </PasswordField>
-                  <Label alignment="CENTER" styleClass="user-settings-info" text="Nueva contraseña">
-                     <VBox.margin>
-                        <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
-                     </VBox.margin>
-                  </Label>
-                  <PasswordField promptText="Debe contener como mínimo 8 caracteres" styleClass="global-textfield-settings">
+                    <PasswordField fx:id="passwordField" promptText="Debe contener como mínimo 8 caracteres" styleClass="global-textfield-settings">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin>
@@ -108,7 +98,7 @@
                         <Insets bottom="5.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin>
                   </Label>
-                  <PasswordField styleClass="global-textfield-settings">
+                  <PasswordField fx:id="repeatPasswordField" styleClass="global-textfield-settings">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" />
                      </VBox.margin>
