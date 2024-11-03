@@ -16,15 +16,16 @@ public class UserDAO {
     // Agregar un usuario
     public void addUser(User user, String password) {
         String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
-        String sql = "INSERT INTO registered_users(username, email, password, height, weight) VALUES(?, ?, ?,?,?)";
+        String sql = "INSERT INTO registered_users(username, email, password, height, weight, calories) VALUES(?, ?, ?, ?, ?, ?)";
 
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, user.getUsername());
             pstmt.setString(2, user.getEmail());
             pstmt.setString(3, hashedPassword); // Hasheamos la contraseña
-            pstmt.setDouble(4, user.getHeight());
+            pstmt.setInt(4, user.getHeight());
             pstmt.setDouble(5, user.getWeight());
+            pstmt.setInt(6, user.getCalories());
             pstmt.executeUpdate();
             System.out.println("Usuario agregado con éxito.");
         } catch (SQLException e) {
@@ -45,9 +46,10 @@ public class UserDAO {
                         rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("email"),
-                        rs.getDouble("height"),
-                        rs.getDouble("weight")
-                );
+                        rs.getInt("height"),
+                        rs.getDouble("weight"),
+                        rs.getInt("calories")
+                        );
                 users.add(user);
             }
         } catch (SQLException e) {
@@ -74,22 +76,24 @@ public class UserDAO {
 
     // Actualizar un usuario
     public void updateUser(User user, String hashedPassword) {
-        String sql = "UPDATE registered_users SET username = ?, height = ?, weight = ?, password = ? WHERE id = ?";
+        String sql = "UPDATE registered_users SET username = ?, height = ?, weight = ?, calories = ?, password = ? WHERE id = ?";
         try (Connection conn = Database.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setString(1, user.getUsername());
-            pstmt.setDouble(2, user.getHeight());
+            pstmt.setInt(2, user.getHeight());
             pstmt.setDouble(3, user.getWeight());
+            pstmt.setInt(4, user.getCalories());
+
 
             // Verifica si `hashedPassword` es nulo o vacío
             if (hashedPassword != null && !hashedPassword.isEmpty()) {
-                pstmt.setString(4, hashedPassword);  // Actualizar con el nuevo hash
+                pstmt.setString(5, hashedPassword);  // Actualizar con el nuevo hash
             } else {
-                pstmt.setString(4, getPasswordFromDB(user.getId())); // Obtener el hash actual de la BD si no hay cambio de contraseña
+                pstmt.setString(5, getPasswordFromDB(user.getId())); // Obtener el hash actual de la BD si no hay cambio de contraseña
             }
 
-            pstmt.setInt(5, user.getId());
+            pstmt.setInt(6, user.getId());
 
             int rowsAffected = pstmt.executeUpdate();
             System.out.println("Filas actualizadas: " + rowsAffected);
@@ -206,8 +210,9 @@ public class UserDAO {
                     user.setId(rs.getInt("id"));
                     user.setUsername(rs.getString("username"));
                     user.setEmail(rs.getString("email"));
-                    user.setHeight(rs.getDouble("height"));
+                    user.setHeight(rs.getInt("height"));
                     user.setWeight(rs.getDouble("weight"));
+                    user.setCalories(rs.getInt("calories"));
                     return user;
                 } else {
                     System.out.println("Contraseña incorrecta.");

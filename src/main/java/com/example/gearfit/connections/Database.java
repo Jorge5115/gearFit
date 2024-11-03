@@ -36,8 +36,9 @@ public class Database {
                         "username TEXT NOT NULL," +
                         "email TEXT NOT NULL UNIQUE, " +
                         "password TEXT NOT NULL, " +
-                        "height DOUBLE NOT NULL, " +
-                        "weight DOUBLE NOT NULL); ";
+                        "height INT NOT NULL, " +
+                        "weight DOUBLE NOT NULL, " +
+                        "calories INT NOT NULL); ";
                 conn.createStatement().execute(sql);
                 //System.out.println("Tabla creada.");
             }

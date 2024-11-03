@@ -32,13 +32,20 @@ public class UserSettingsController {
     private TextField usernameField;
 
     @FXML
+    private PasswordField passwordField;
+
+    @FXML
+    private PasswordField repeatPasswordField;
+
+    @FXML
     private TextField weightField;
 
     @FXML
     private TextField heightField;
 
     @FXML
-    private PasswordField passwordField;
+    public TextField caloriesField;
+
 
     private UserDAO userDAO = new UserDAO();
 
@@ -53,8 +60,10 @@ public class UserSettingsController {
             emailLabel.setText(currentUser.getEmail());
             // Rellena los campos con la información del usuario
             usernameField.setText(currentUser.getUsername());
-            weightField.setText(String.valueOf(currentUser.getWeight()));
             heightField.setText(String.valueOf(currentUser.getHeight()));
+            weightField.setText(String.valueOf(currentUser.getWeight()));
+            caloriesField.setText(String.valueOf(currentUser.getCalories()));
+
         } else {
             // Maneja el caso en que no hay un usuario autenticado
             showAlert("Error", "No se encontró el usuario autenticado.");
@@ -70,20 +79,36 @@ public class UserSettingsController {
     @FXML
     public void handleSaveChanges(ActionEvent event) {
         String username = usernameField.getText().trim();
-        String weightStr = weightField.getText().trim();
-        String heightStr = heightField.getText().trim();
-        String password = passwordField.getText().trim(); // Obtener la nueva contraseña si es que se desea cambiar
+        String weightString = weightField.getText().trim();
+        String heightString = heightField.getText().trim();
+        String caloriesString = caloriesField.getText().trim();
+        String password = passwordField.getText().trim();
+        String repeatPassword = repeatPasswordField.getText().trim();
 
-
+        int height;
         double weight;
-        double height;
+        int calories;
 
         try {
-            weight = Double.parseDouble(weightStr);
-            height = Double.parseDouble(heightStr);
+            height = Integer.parseInt(heightString);
+            weight = Double.parseDouble(weightString);
+            calories = Integer.parseInt(caloriesString);
         } catch (NumberFormatException e) {
             showAlert("Error", "Por favor, introduce un peso y altura válidos.");
             return;
+        }
+
+        // Validación de contraseña
+        if (!password.isEmpty() || !repeatPassword.isEmpty()) {
+            if (password.length() < 8) {
+                showAlert("Error", "La contraseña debe tener al menos 8 caracteres.");
+                return;
+            }
+
+            if (!password.equals(repeatPassword)) {
+                showAlert("Error", "Las contraseñas no coinciden. Por favor, verifica e intenta nuevamente.");
+                return;
+            }
         }
 
         // Actualizar el usuario en la base de datos
@@ -91,24 +116,32 @@ public class UserSettingsController {
             currentUser.setUsername(username);
             currentUser.setWeight(weight);
             currentUser.setHeight(height);
+            currentUser.setCalories(calories);
 
-            // Si hay una nueva contraseña, hashearla y actualizar el usuario
+            // Si hay una nueva contraseña válida, hashearla y actualizar el usuario
             String hashedPassword = null;
             if (!password.isEmpty()) {
                 hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
             }
 
-            userDAO.updateUser(currentUser,hashedPassword);
+            userDAO.updateUser(currentUser, hashedPassword);
             showAlert("Éxito", "Cambios guardados exitosamente.");
 
             // Actualizar directamente los campos de la interfaz
             usernameField.setText(currentUser.getUsername());
-            weightField.setText(String.valueOf(currentUser.getWeight()));
             heightField.setText(String.valueOf(currentUser.getHeight()));
+            weightField.setText(String.valueOf(currentUser.getWeight()));
+            caloriesField.setText(String.valueOf(currentUser.getCalories()));
+
+            // Limpiar los campos de contraseña después de guardar
+            passwordField.clear();
+            repeatPasswordField.clear();
         } catch (Exception e) {
             showAlert("Error", "Ocurrió un error al guardar los cambios: " + e.getMessage());
         }
     }
+
+
     public boolean promptForPassword(ActionEvent event) {
         // Crear el diálogo
         Dialog<ButtonType> dialog = new Dialog<>();
@@ -144,10 +177,12 @@ public class UserSettingsController {
         });
         return true; // o false dependiendo de la lógica que desees
     }
+
     @FXML
     public void handleDeleteAccount(ActionEvent event) {
         promptForPassword(event);
     }
+
     private void loadLoginView(ActionEvent event) {
         try {
             // Cargar la vista de inicio de sesión

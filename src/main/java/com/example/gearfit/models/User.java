@@ -12,28 +12,29 @@ public class User {
 
     private String email;
 
-    private double height;
+    private int height;
 
     private double weight;
+
     private String password; // Añadir campo para la contraseña
 
-    public User(int id, String username, String email, double height, double weight) {
+    private int calories;
+
+    public User(int id, String username, String email, int height, double weight, int calories) {
         setId(id);
         setUsername(username);
         setEmail(email);
         setHeight(height);
         setWeight(weight);
+        setCalories(calories);
     }
 
     public User(String username, String email){
         setUsername(username);
         setEmail(email);
-        /*setHeight();
-        setWeight();*/
     }
 
     public User() {
-
     }
 
     public int getId() {
@@ -59,11 +60,11 @@ public class User {
         return email;
     }
 
-    public double getHeight() {
+    public int getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(int height) {
         this.height = height;
     }
 
@@ -74,6 +75,10 @@ public class User {
     public void setWeight(double weight) {
         this.weight = weight;
     }
+
+    public int getCalories() { return calories; }
+
+    public void setCalories(int calories) { this.calories = calories; }
 
     public void setEmail(String email) {
         if (esEmailValido(email)) {
@@ -88,6 +93,7 @@ public class User {
         Pattern pattern = Pattern.compile(emailRegex);
         return pattern.matcher(email).matches();
     }
+
     public String getPassword() {
         // No implementamos un getter para la contraseña para evitar exponerla
         return password;
