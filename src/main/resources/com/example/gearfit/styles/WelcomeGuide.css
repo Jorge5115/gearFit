@@ -1,0 +1,33 @@
+.pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+}
+
+.title {
+    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+}
+
+.global-vbox {
+    -fx-border-color: #151928;
+    -fx-border-radius: 5px;
+    -fx-border-width: 2px;
+    -fx-background-radius: 6px;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+}
+
+.icon-button {
+    -fx-background-color: #9c45f5;
+    -fx-background-radius: 3px;
+    -fx-text-fill: #000000;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-min-width: 40px;
+    -fx-max-width: 40px;
+    -fx-font-size: 150%;
+}
