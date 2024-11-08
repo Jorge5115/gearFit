@@ -1,0 +1,48 @@
+.pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+}
+
+.global-vbox-training {
+    -fx-spacing: 10px;
+    -fx-padding: 15px;
+    -fx-background-color: #e6e6e6;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.vertical-scrollbar {
+    -fx-background-color: #cccccc;
+    -fx-pref-width: 10px;
+    -fx-border-color: transparent;
+}
+
+.vertical-scrollbar .increment-button,
+.vertical-scrollbar .decrement-button {
+    -fx-background-color: #aaaaaa;
+}
+
+.vertical-scrollbar .track {
+    -fx-background-color: #e0e0e0;
+}
+
+.vertical-scrollbar .thumb {
+    -fx-background-color: #8a8a8a;
+}
+
+.add-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-padding: 10px 300px;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+.add-button:hover {
+    -fx-background-color: #45a049;
+}
+
+.add-button:pressed {
+    -fx-background-color: #3e8e41;
+}
