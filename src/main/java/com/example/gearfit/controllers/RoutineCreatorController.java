@@ -54,7 +54,7 @@ public class RoutineCreatorController {
             System.out.println("Nombre de rutina: " + routineName);
             System.out.println("Días seleccionados: " + selectedDays);
 
-            // Aquí podríamos añadir lógica para guardar los días seleccionados (separado en el DAO)
+            // Aquí meteremos lógica para guardar los días seleccionados (separado en el DAO)
 
             // Limpiar los campos después de guardar
             routineNameField.clear();
@@ -65,7 +65,6 @@ public class RoutineCreatorController {
             fridayCheckBox.setSelected(false);
             saturdayCheckBox.setSelected(false);
             sundayCheckBox.setSelected(false);
-
         } else {
             System.out.println("Error al crear la rutina.");
         }

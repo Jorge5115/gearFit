@@ -24,7 +24,14 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try {
+            // Cargar la vista de ajustes de usuario
+            Parent userSettingsView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/WelcomeGuide.fxml"));
+            mainVBoxWindows.getChildren().clear(); // Limpiar el contenido anterior
+            mainVBoxWindows.getChildren().add(userSettingsView); // Añadir la nueva vista
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void logOutSession(ActionEvent event) {
