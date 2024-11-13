@@ -1,7 +1,6 @@
 package com.example.gearfit.controllers;
 
 import com.example.gearfit.connections.SessionManager;
-import javafx.animation.ScaleTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,8 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,7 +24,14 @@ public class MainViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        try {
+            // Cargar la vista de ajustes de usuario
+            Parent userSettingsView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/WelcomeGuide.fxml"));
+            mainVBoxWindows.getChildren().clear(); // Limpiar el contenido anterior
+            mainVBoxWindows.getChildren().add(userSettingsView); // Añadir la nueva vista
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void logOutSession(ActionEvent event) {
@@ -65,6 +69,18 @@ public class MainViewController implements Initializable {
         try {
             // Cargar la vista de información de bienvenida de usuario
             Parent welcomeGuideView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/WelcomeGuide.fxml"));
+            mainVBoxWindows.getChildren().clear(); // Limpiar el contenido anterior
+            mainVBoxWindows.getChildren().add(welcomeGuideView); // Añadir la nueva vista
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleRoutineSelector(ActionEvent event) {
+        try {
+            // Cargar la vista de información de bienvenida de usuario
+            Parent welcomeGuideView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/RoutineSelector.fxml"));
             mainVBoxWindows.getChildren().clear(); // Limpiar el contenido anterior
             mainVBoxWindows.getChildren().add(welcomeGuideView); // Añadir la nueva vista
         } catch (IOException e) {

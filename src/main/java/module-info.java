@@ -7,6 +7,7 @@ module com.example.gearfit {
     requires java.desktop;
     requires java.sql;
     requires jbcrypt;
+    requires java.mail;
 
     opens com.example.gearfit to javafx.fxml;
     exports com.example.gearfit;

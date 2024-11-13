@@ -9,14 +9,11 @@ public class User {
     private int id;
 
     private String username;
-
     private String email;
 
     private int height;
-
     private double weight;
-
-    private String password; // Añadir campo para la contraseña
+    private String password;
 
     private int calories;
 

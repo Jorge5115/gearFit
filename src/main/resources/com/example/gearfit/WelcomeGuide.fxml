@@ -1,14 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.example.gearfit.controllers.WelcomeGuideController"
-            prefHeight="400.0" prefWidth="600.0">
+<AnchorPane prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/WelcomeGuide.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.WelcomeGuideController">
+    <children>
+        <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
+            <children>
+                <VBox alignment="CENTER_LEFT" prefHeight="475.0" prefWidth="825.0">
+                    <children>
+                        <!-- Título de bienvenida -->
+                        <HBox alignment="CENTER_LEFT" spacing="5.0">
+                            <children>
+                                <Label styleClass="title" text="Bienvenido/a a" />
+                                <Label styleClass="title-name" text="GearFit!">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></Label>
+                        <ImageView fitHeight="100.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@icons/fitness.png" />
+                           </image>
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                        </ImageView>
+                            </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                        </HBox>
 
+                        <!-- Mensaje de bienvenida -->
+                        <Label fx:id="usernameLabel" styleClass="welcome-title" text="¡Hola usuario!">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></Label>
+
+                        <Label styleClass="welcome-message" text="Estamos encantados de tenerte a bordo. GearFit está diseñado para ayudarte a gestionar y optimizar tus rutinas de entrenamiento y seguimiento nutricional de manera integral. Nuestro objetivo es que alcances tus metas de salud y bienestar de forma fácil y eficiente, todo en una única plataforma." wrapText="true">
+                     <VBox.margin>
+                        <Insets bottom="15.0" />
+                     </VBox.margin></Label>
+
+                        <!-- Título de sección de servicios -->
+                        <Label styleClass="info-title" text="GearFit te ofrece:">
+                     <VBox.margin>
+                        <Insets bottom="5.0" />
+                     </VBox.margin></Label>
+
+                        <!-- Lista de viñetas -->
+                        <VBox alignment="CENTER_LEFT" spacing="5.0">
+                            <children>
+                                <HBox spacing="5.0">
+                                    <Label styleClass="bullet-point" text="•" />
+                                    <Label styleClass="info-title-message" text="Rutinas de Ejercicio:" />
+                                </HBox>
+                        <Label styleClass="info-message" text="Crea y personaliza tus rutinas para cada día de la semana, eligiendo los ejercicios a tu medida" wrapText="true">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin></Label>
+                                <HBox spacing="5.0">
+                                    <Label styleClass="bullet-point" text="•" />
+                                    <Label styleClass="info-title-message" text="Seguimiento Nutricional:" />
+                                </HBox>
+                        <Label styleClass="info-message" text="Lleva un control detallado de tus hábitos alimenticios y consulta planes de comidas." wrapText="true">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin></Label>
+                                <HBox spacing="5.0">
+                                    <Label styleClass="bullet-point" text="•" />
+                                    <Label styleClass="info-title-message" text="Estadísticas de Progreso:" wrapText="true" />
+                                </HBox>
+                           <Label styleClass="info-message" text="Observa tu evolución con gráficas y métricas personalizadas." wrapText="true">
+                           <VBox.margin>
+                              <Insets left="10.0" />
+                           </VBox.margin></Label>
+                            </children>
+                     <VBox.margin>
+                        <Insets bottom="20.0" />
+                     </VBox.margin>
+                        </VBox>
+
+                        <!-- Mensaje motivacional -->
+                        <Label alignment="CENTER" styleClass="motivational-message" text="¡Estás a un paso de tu mejor versión! Avanza, cuida tu cuerpo, y alcanza tus metas." wrapText="true" />
+                    </children>
+                    <padding>
+                        <Insets bottom="20.0" left="50.0" right="50.0" top="20.0" />
+                    </padding>
+                </VBox>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>
