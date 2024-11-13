@@ -1,5 +1,6 @@
 package com.example.gearfit.controllers;
 
+import com.example.gearfit.connections.EmailService;
 import com.example.gearfit.connections.SessionManager;
 import com.example.gearfit.exceptions.UserRegistrationException;
 import com.example.gearfit.models.User;
@@ -34,6 +35,8 @@ public class SignUpController {
 
     private UserDAO usernameDAO = new UserDAO();
 
+    private EmailService emailService = new EmailService();;
+
 
     @FXML
     private void pressSignUpButton(ActionEvent event){
@@ -43,6 +46,7 @@ public class SignUpController {
 
         User registeredUser  = registerUser(username,email,password);
         if (registeredUser != null) {
+            emailService.sendWelcomeEmail(email);
             SessionManager.setCurrentUser(registeredUser);
             loadMainView(event);
         } else {
