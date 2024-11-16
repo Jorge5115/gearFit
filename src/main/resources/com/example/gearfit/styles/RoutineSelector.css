@@ -46,3 +46,34 @@
 .add-button:pressed {
     -fx-background-color: #3e8e41;
 }
+
+.routine-button{
+    -fx-background-radius: 5px;
+    -fx-min-height: 35px;
+    -fx-max-height: 35px;
+    -fx-min-width: 600px;
+    -fx-max-width: 600px;
+    -fx-background-color: #bdbdbd;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+}
+
+.routine-button:hover{
+    -fx-background-radius: 5px;
+    -fx-min-height: 35px;
+    -fx-max-height: 35px;
+    -fx-min-width: 600px;
+    -fx-max-width: 600px;
+    -fx-background-color: #8a8a8a;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+}
+
+.scroll-vertical-vbox {
+    -fx-background-color: transparent;
+}
+
+.scroll-vertical-vbox .scroll-bar:vertical {
+    -fx-background-color: transparent
+}
+
+
+

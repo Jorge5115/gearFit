@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineCreatorController">
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/RoutineCreator.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineCreatorController">
     <children>
-        <Pane layoutX="100.0" layoutY="50.0" prefHeight="300.0" prefWidth="400.0">
+        <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0">
             <children>
-                <VBox spacing="10" alignment="CENTER">
+                <VBox prefHeight="475.0" prefWidth="825.0" spacing="10">
                     <Label text="Crear Nueva Rutina" />
                     <TextField fx:id="routineNameField" promptText="Nombre de la rutina" />
 
                     <!-- Sección para seleccionar los días de la semana -->
-                    <HBox spacing="10" alignment="CENTER">
+                    <HBox alignment="CENTER" spacing="10">
                         <CheckBox fx:id="mondayCheckBox" text="Lunes" />
                         <CheckBox fx:id="tuesdayCheckBox" text="Martes" />
                         <CheckBox fx:id="wednesdayCheckBox" text="Miércoles" />
@@ -23,8 +30,11 @@
                     </HBox>
 
                     <!-- Botones de acción -->
-                    <Button text="Guardar" onAction="#saveRoutine"/>
-                    <Button text="Cancelar" onAction="#cancelRoutine"/>
+                    <Button onAction="#saveRoutine" text="Crear Rutina" />
+                    <Button onAction="#cancelRoutine" text="Cancelar" />
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
                 </VBox>
             </children>
         </Pane>

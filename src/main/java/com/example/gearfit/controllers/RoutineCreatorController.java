@@ -4,14 +4,23 @@ import com.example.gearfit.models.Routine;
 import com.example.gearfit.repositories.RoutineDAO;
 import com.example.gearfit.connections.SessionManager;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class RoutineCreatorController {
+
+
+    @FXML
+    private AnchorPane rootPane;
 
     @FXML
     private TextField routineNameField;
@@ -65,14 +74,37 @@ public class RoutineCreatorController {
             fridayCheckBox.setSelected(false);
             saturdayCheckBox.setSelected(false);
             sundayCheckBox.setSelected(false);
+
+            replaceContent("/com/example/gearfit/RoutineSelector.fxml");
         } else {
             System.out.println("Error al crear la rutina.");
         }
     }
 
-    // Método para cancelar la creación de la rutina
     @FXML
-    public void cancelRoutine(ActionEvent event) {
-        // Lógica para cancelar (por ejemplo, cerrar la ventana o limpiar campos)
+    private void cancelRoutine(ActionEvent event) {
+        replaceContent("/com/example/gearfit/RoutineSelector.fxml");
+
     }
+
+    private void replaceContent(String fxmlPath) {
+        try {
+            // Cargar el archivo FXML de la nueva vista
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent newContent = loader.load();
+
+            // Reemplazar solo el contenido interior del rootPane (sin cambiar la estructura principal)
+            rootPane.getChildren().setAll(newContent);
+
+            // Anclar el nuevo contenido a los bordes del AnchorPane para asegurarnos de que ocupe todo el espacio
+            AnchorPane.setTopAnchor(newContent, 0.0);
+            AnchorPane.setBottomAnchor(newContent, 0.0);
+            AnchorPane.setLeftAnchor(newContent, 0.0);
+            AnchorPane.setRightAnchor(newContent, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }
