@@ -3,31 +3,20 @@
     -fx-background-radius: 10px;
 }
 
+.title{
+    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+}
+
 .global-vbox-training {
-    -fx-spacing: 10px;
+    -fx-spacing: 30px;
     -fx-padding: 15px;
     -fx-background-color: #e6e6e6;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-}
 
-.vertical-scrollbar {
-    -fx-background-color: #cccccc;
-    -fx-pref-width: 10px;
-    -fx-border-color: transparent;
-}
-
-.vertical-scrollbar .increment-button,
-.vertical-scrollbar .decrement-button {
-    -fx-background-color: #aaaaaa;
-}
-
-.vertical-scrollbar .track {
-    -fx-background-color: #e0e0e0;
-}
-
-.vertical-scrollbar .thumb {
-    -fx-background-color: #8a8a8a;
 }
 
 .add-button {
@@ -36,7 +25,7 @@
     -fx-font-size: 14px;
     -fx-padding: 10px 315px;
     -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
+    -fx-background-radius: 10px;
 }
 
 .add-button:hover {
@@ -48,23 +37,44 @@
 }
 
 .routine-button{
-    -fx-background-radius: 5px;
-    -fx-min-height: 35px;
-    -fx-max-height: 35px;
-    -fx-min-width: 600px;
-    -fx-max-width: 600px;
+    -fx-background-radius: 10px;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+    -fx-min-width: 680px;
+    -fx-max-width: 680px;
     -fx-background-color: #bdbdbd;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+    -fx-alignment: CENTER;
 }
 
 .routine-button:hover{
-    -fx-background-radius: 5px;
-    -fx-min-height: 35px;
-    -fx-max-height: 35px;
+    -fx-background-radius: 10px;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+    -fx-min-width: 680px;
+    -fx-max-width: 680px;
+    -fx-background-color: #8a8a8a;
+}
+
+.routine-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #3a3a3a;
     -fx-min-width: 600px;
     -fx-max-width: 600px;
-    -fx-background-color: #8a8a8a;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+    -fx-alignment: CENTER_LEFT;
+}
+
+.delete-button {
+    -fx-background-radius: 10px;
+    -fx-background-color: #b92110;
+    -fx-min-width: 40px;
+    -fx-max-width: 40px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-alignment: CENTER_RIGHT;
+}
+
+.delete-button:hover {
+    -fx-background-color: #e12612;
 }
 
 .scroll-vertical-vbox {

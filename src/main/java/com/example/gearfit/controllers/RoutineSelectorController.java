@@ -12,13 +12,17 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class RoutineSelectorController {
 
@@ -45,23 +49,52 @@ public class RoutineSelectorController {
             // Limpiar la lista en el VBox antes de añadir los elementos
             RoutinesList.getChildren().clear();
 
-            // Para cada rutina, crea un Label y agrégalo al VBox
             for (Routine routine : routines) {
-                Button routineButton = new Button(routine.getName());
-                routineButton.getStyleClass().add("routine-button");
+                // Crear un HBox para contener el texto y el botón
+                HBox routineBox = new HBox();
+                routineBox.getStyleClass().add("routine-button");
 
-                // Evento de clic para mostrar detalles de la rutina
-                routineButton.setOnMouseClicked(event -> {
-                    System.out.println("Clicked on routine: " + routine.getName());
-                    // Aquí puedes cargar más detalles o iniciar una acción específica
+                // Crear un Label para el nombre de la rutina
+                Label routineLabel = new Label(routine.getName());
+                routineLabel.getStyleClass().add("routine-label");
+
+                // Crear un botón para borrar la rutina
+                Button deleteButton = new Button();
+                deleteButton.getStyleClass().add("delete-button");
+
+                // Crear un ImageView con la imagen del ícono
+                ImageView deleteIcon = new ImageView((getClass().getResource("/com/example/gearfit/icons/bin-black.png")).toExternalForm());
+                deleteIcon.setFitWidth(30);
+                deleteIcon.setFitHeight(30);
+                deleteIcon.setPreserveRatio(true);
+
+                // Configurar el ImageView como gráfico del botón
+                deleteButton.setGraphic(deleteIcon);
+
+                // Asignar evento al botón para borrar la rutina
+                deleteButton.setOnAction(event -> {
+                    System.out.println("Deleting routine: " + routine.getName());
+                    deleteRoutine(routine);
+                    loadUserRoutines(); // Recargar las rutinas después de borrar
                 });
 
-                RoutinesList.getChildren().add(routineButton);  // Añade el Label al VBox
+                // Añadir el Label y el botón al HBox
+                routineBox.getChildren().addAll(routineLabel, deleteButton);
+
+                // Añadir el HBox al VBox principal
+                RoutinesList.getChildren().add(routineBox);
             }
         } else {
             System.out.println("No se encontró un usuario autenticado en la sesión.");
         }
     }
+
+
+    private void deleteRoutine(Routine routine) {
+        RoutineDAO.deleteRoutine(routine.getId());
+        System.out.println("Routine deleted: " + routine.getName());
+    }
+
 
     @FXML
     public void addNewRoutine(ActionEvent event) {

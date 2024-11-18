@@ -7,10 +7,10 @@
     <children>
         <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
             <children>
-                <ScrollPane fitToWidth="true" layoutX="40.0" layoutY="48.0" prefHeight="300.0" prefWidth="743.0" styleClass="scroll-vertical-vbox">
+                <Label layoutX="41.0" layoutY="40.0" styleClass="title" text="Mis Rutinas" />
+                <ScrollPane fitToWidth="true" layoutX="40.0" layoutY="88.0" prefHeight="260.0" prefWidth="743.0" styleClass="scroll-vertical-vbox">
                     <VBox fx:id="RoutinesList" alignment="CENTER" styleClass="global-vbox-training" />
                 </ScrollPane>
-
                 <Button layoutX="41.0" layoutY="387.0" mnemonicParsing="false" onAction="#addNewRoutine" styleClass="add-button" text="Crear nueva rutina" />
             </children>
         </Pane>

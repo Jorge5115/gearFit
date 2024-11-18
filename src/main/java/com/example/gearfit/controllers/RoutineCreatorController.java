@@ -52,7 +52,6 @@ public class RoutineCreatorController {
         if (sundayCheckBox.isSelected()) selectedDays.add("Domingo");
 
         // Crear el objeto Routine con el nombre y el ID del usuario
-        System.out.println(userId);
         Routine newRoutine = new Routine(userId, routineName);
 
         // Guardar la rutina en la base de datos
@@ -63,23 +62,21 @@ public class RoutineCreatorController {
             System.out.println("Nombre de rutina: " + routineName);
             System.out.println("Días seleccionados: " + selectedDays);
 
-            // Aquí meteremos lógica para guardar los días seleccionados (separado en el DAO)
+            // Guardar los días seleccionados en la tabla routine_days
+            boolean areDaysSaved = RoutineDAO.saveRoutineDays(newRoutine.getId(), selectedDays);
 
-            // Limpiar los campos después de guardar
-            routineNameField.clear();
-            mondayCheckBox.setSelected(false);
-            tuesdayCheckBox.setSelected(false);
-            wednesdayCheckBox.setSelected(false);
-            thursdayCheckBox.setSelected(false);
-            fridayCheckBox.setSelected(false);
-            saturdayCheckBox.setSelected(false);
-            sundayCheckBox.setSelected(false);
+            if (areDaysSaved) {
+                System.out.println("Días de la rutina guardados con éxito.");
+            } else {
+                System.out.println("Error al guardar los días de la rutina.");
+            }
 
             replaceContent("/com/example/gearfit/RoutineSelector.fxml");
         } else {
             System.out.println("Error al crear la rutina.");
         }
     }
+
 
     @FXML
     private void cancelRoutine(ActionEvent event) {
