@@ -3,14 +3,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/RoutineSelector.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineSelectorController">
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/RoutineSelector.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineSelectorController">
     <children>
         <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
-         <children>
-            <VBox fx:id="RoutinesList" alignment="CENTER" layoutX="40.0" layoutY="48.0" prefHeight="318.0" prefWidth="743.0" styleClass="global-vbox-training">
+            <children>
+                <Label layoutX="41.0" layoutY="40.0" styleClass="title" text="Mis Rutinas" />
 
-            </VBox>
-            <Button layoutX="41.0" layoutY="387.0" mnemonicParsing="false" onAction="#addNewRoutine" styleClass="add-button" text="Crear nueva rutina" />
-         </children></Pane>
-   </children>
+
+                <ScrollPane fitToWidth="true" layoutX="40.0" layoutY="88.0" prefHeight="260.0" prefWidth="743.0" styleClass="scroll-vertical-vbox">
+                    <VBox fx:id="RoutinesList" alignment="CENTER" styleClass="global-vbox-training" />
+                </ScrollPane>
+                <Button layoutX="288.0" layoutY="383.0" mnemonicParsing="false" onAction="#addNewRoutine" styleClass="add-button">
+               <graphic>
+                  <HBox styleClass="add-button-box">
+                     <children>
+                         <Label styleClass="add-button-icon" text="+" />
+                         <Label styleClass="add-button-label" text="Crear nueva rutina" />
+                     </children>
+                  </HBox>
+               </graphic>
+            </Button>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

@@ -93,4 +93,26 @@ public class RoutineDAO {
         }
         return false;
     }
+
+    // Método para guardar los días de una rutina
+    public static boolean saveRoutineDays(int routineId, List<String> days) {
+        String sql = "INSERT INTO routine_days (routine_id, day_of_week) VALUES (?, ?)";
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            for (String day : days) {
+                pstmt.setInt(1, routineId);
+                pstmt.setString(2, day);
+                pstmt.addBatch(); // Añadir a un batch para ejecutar múltiples inserciones
+            }
+
+            pstmt.executeBatch(); // Ejecutar todas las inserciones
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al guardar los días de la rutina: " + e.getMessage());
+        }
+        return false;
+    }
+
 }

@@ -10,22 +10,32 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
 public class RoutineSelectorController {
 
     @FXML
-    private VBox RoutinesList;  // El VBox donde se mostrarán las rutinas
+    private VBox RoutinesList;
+
+    @FXML
+    private AnchorPane rootPane;
 
     @FXML
     public void initialize() {
-        loadUserRoutines();  // Llama a este método al inicializar el controlador para cargar las rutinas
+        loadUserRoutines();
     }
 
     private void loadUserRoutines() {
@@ -39,44 +49,72 @@ public class RoutineSelectorController {
             // Limpiar la lista en el VBox antes de añadir los elementos
             RoutinesList.getChildren().clear();
 
-            // Para cada rutina, crea un Label y agrégalo al VBox
             for (Routine routine : routines) {
+                // Crear un HBox para contener el texto y el botón
+                HBox routineBox = new HBox();
+                routineBox.getStyleClass().add("routine-button");
+
+                // Crear un Label para el nombre de la rutina
                 Label routineLabel = new Label(routine.getName());
                 routineLabel.getStyleClass().add("routine-label");
 
-                // Evento de clic para mostrar detalles de la rutina
-                routineLabel.setOnMouseClicked(event -> {
-                    System.out.println("Clicked on routine: " + routine.getName());
-                    // Aquí puedes cargar más detalles o iniciar una acción específica
+                // Crear un botón para borrar la rutina
+                Button deleteButton = new Button();
+                deleteButton.getStyleClass().add("delete-button");
+
+                // Crear un Label con la "X"
+                Label deleteLabel = new Label("X");
+                deleteLabel.getStyleClass().add("delete-label");
+
+                // Añadir el Label con la "X" al botón
+                deleteButton.setGraphic(deleteLabel);
+
+                // Asignar evento al botón para borrar la rutina
+                deleteButton.setOnAction(event -> {
+                    System.out.println("Deleting routine: " + routine.getName());
+                    deleteRoutine(routine);
+                    loadUserRoutines(); // Recargar las rutinas después de borrar
                 });
 
-                RoutinesList.getChildren().add(routineLabel);  // Añade el Label al VBox
+                // Añadir el Label y el botón al HBox
+                routineBox.getChildren().addAll(routineLabel, deleteButton);
+
+                // Añadir el HBox al VBox principal
+                RoutinesList.getChildren().add(routineBox);
             }
         } else {
             System.out.println("No se encontró un usuario autenticado en la sesión.");
         }
     }
 
+    private void deleteRoutine(Routine routine) {
+        RoutineDAO.deleteRoutine(routine.getId());
+        System.out.println("Routine deleted: " + routine.getName());
+    }
+
+
     @FXML
     public void addNewRoutine(ActionEvent event) {
+        replaceContent("/com/example/gearfit/RoutineCreator.fxml");
+    }
+
+    private void replaceContent(String fxmlPath) {
         try {
-            // Cargar la vista del formulario para crear una nueva rutina
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gearfit/RoutineCreator.fxml"));
-            Parent parent = loader.load();
+            // Cargar el archivo FXML de la nueva vista
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent newContent = loader.load();
 
-            // Crear una nueva ventana (stage) para el formulario
-            Stage stage = new Stage();
-            stage.setTitle("Crear Nueva Rutina");
-            stage.setScene(new Scene(parent));
-            stage.initModality(Modality.APPLICATION_MODAL);  // Bloquea la ventana principal mientras se abre esta
-            stage.showAndWait();
+            // Reemplazar solo el contenido interior del rootPane (sin cambiar la estructura principal)
+            rootPane.getChildren().setAll(newContent);
 
-            // Actualizar la lista de rutinas después de agregar la nueva
-            loadUserRoutines();
-
+            // Anclar el nuevo contenido a los bordes del AnchorPane para asegurarnos de que ocupe todo el espacio
+            AnchorPane.setTopAnchor(newContent, 0.0);
+            AnchorPane.setBottomAnchor(newContent, 0.0);
+            AnchorPane.setLeftAnchor(newContent, 0.0);
+            AnchorPane.setRightAnchor(newContent, 0.0);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("Error al abrir el formulario de nueva rutina: " + e.getMessage());
         }
     }
+
 }
