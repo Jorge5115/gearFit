@@ -3,7 +3,7 @@
     -fx-background-radius: 10px;
 }
 
-.title{
+.title {
     -fx-font-family: "HelveticaNeueLT Std";
     -fx-text-fill: #000000;
     -fx-font-weight: bold;
@@ -12,78 +12,108 @@
 
 .global-vbox-training {
     -fx-spacing: 30px;
-    -fx-padding: 15px;
-    -fx-background-color: #e6e6e6;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 5px;
-
 }
 
-.add-button {
-    -fx-background-color: #4CAF50;
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-padding: 10px 315px;
-    -fx-border-radius: 5px;
-    -fx-background-radius: 10px;
-}
-
-.add-button:hover {
-    -fx-background-color: #45a049;
-}
-
-.add-button:pressed {
-    -fx-background-color: #3e8e41;
-}
-
-.routine-button{
-    -fx-background-radius: 10px;
-    -fx-min-height: 50px;
-    -fx-max-height: 50px;
-    -fx-min-width: 680px;
-    -fx-max-width: 680px;
-    -fx-background-color: #bdbdbd;
+.add-button-box{
     -fx-alignment: CENTER;
 }
 
-.routine-button:hover{
+.add-button {
+    -fx-min-height: 60px;
+    -fx-max-height: 60px;
+    -fx-min-width: 280px;
+    -fx-max-width: 280px;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #4CAF50;
     -fx-background-radius: 10px;
-    -fx-min-height: 50px;
-    -fx-max-height: 50px;
+    -fx-background-color: #ffffff;
+}
+
+.add-button-icon {
+    -fx-font-size: 50px;
+    -fx-padding: 0 0 5 0;
+    -fx-text-fill: #4CAF50;
+}
+
+.add-button-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 10;
+    -fx-text-fill: #4CAF50;
+}
+
+.add-button:hover {
+    -fx-border-color: #218328;
+    -fx-background-color: #218328;
+}
+
+.add-button:hover .add-button-icon {
+    -fx-text-fill: #ffffff;
+}
+
+.add-button:hover .add-button-label {
+    -fx-text-fill: #ffffff;
+}
+
+.routine-button {
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
     -fx-min-width: 680px;
     -fx-max-width: 680px;
-    -fx-background-color: #8a8a8a;
+    -fx-alignment: CENTER;
+    -fx-border-radius: 25px;
+    -fx-border-color: #000000;
+    -fx-background-radius: 25px;
+    -fx-background-color: #2196f3;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+}
+
+.routine-button:hover {
+    -fx-background-color: #0f6fb9;
 }
 
 .routine-label {
-    -fx-font-size: 14px;
-    -fx-text-fill: #3a3a3a;
-    -fx-min-width: 600px;
-    -fx-max-width: 600px;
-    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 17px;
+    -fx-text-fill: #1a1a1a;
+    -fx-font-weight: bold;
+    -fx-min-width: 550px;
+    -fx-max-width: 550px;
+    -fx-alignment: CENTER-LEFT;
+    -fx-padding: 0 0 0 30;
 }
 
 .delete-button {
-    -fx-background-radius: 10px;
-    -fx-background-color: #b92110;
-    -fx-min-width: 40px;
-    -fx-max-width: 40px;
-    -fx-min-height: 40px;
-    -fx-max-height: 40px;
-    -fx-alignment: CENTER_RIGHT;
+    -fx-min-width: 150px;
+    -fx-max-width: 150px;
+    -fx-min-height: 20px;
+    -fx-max-height: 20px;
+    -fx-padding: 0 30 0 0;
+    -fx-background-color: transparent;
 }
 
-.delete-button:hover {
-    -fx-background-color: #e12612;
+.delete-label {
+    -fx-font-size: 15px;
+    -fx-alignment: CENTER;
+    -fx-text-fill: #000000;
+}
+
+.delete-button:hover .delete-label {
+    -fx-text-fill: #ffc23f;
 }
 
 .scroll-vertical-vbox {
     -fx-background-color: transparent;
 }
 
-.scroll-vertical-vbox .scroll-bar:vertical {
-    -fx-background-color: transparent
+.scroll-vertical-vbox .viewport {
+    -fx-background-color: transparent;
 }
+
+.scroll-vertical-vbox .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
+
 
 
 

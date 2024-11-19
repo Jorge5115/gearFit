@@ -2,3 +2,21 @@
     -fx-background-color: #ffffff;
     -fx-background-radius: 10px;
 }
+
+.title {
+    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+}
+
+.new-routine-textfield {
+
+}
+
+.create-button {
+}
+
+.cancel-button {
+
+}
