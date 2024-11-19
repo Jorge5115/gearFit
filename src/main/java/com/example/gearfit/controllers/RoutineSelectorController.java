@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
@@ -25,7 +26,6 @@ import java.util.List;
 import java.util.Objects;
 
 public class RoutineSelectorController {
-
 
     @FXML
     private VBox RoutinesList;
@@ -62,14 +62,12 @@ public class RoutineSelectorController {
                 Button deleteButton = new Button();
                 deleteButton.getStyleClass().add("delete-button");
 
-                // Crear un ImageView con la imagen del ícono
-                ImageView deleteIcon = new ImageView((getClass().getResource("/com/example/gearfit/icons/bin-black.png")).toExternalForm());
-                deleteIcon.setFitWidth(30);
-                deleteIcon.setFitHeight(30);
-                deleteIcon.setPreserveRatio(true);
+                // Crear un Label con la "X"
+                Label deleteLabel = new Label("X");
+                deleteLabel.getStyleClass().add("delete-label");
 
-                // Configurar el ImageView como gráfico del botón
-                deleteButton.setGraphic(deleteIcon);
+                // Añadir el Label con la "X" al botón
+                deleteButton.setGraphic(deleteLabel);
 
                 // Asignar evento al botón para borrar la rutina
                 deleteButton.setOnAction(event -> {
@@ -88,7 +86,6 @@ public class RoutineSelectorController {
             System.out.println("No se encontró un usuario autenticado en la sesión.");
         }
     }
-
 
     private void deleteRoutine(Routine routine) {
         RoutineDAO.deleteRoutine(routine.getId());
