@@ -69,6 +69,10 @@ public class RoutineSelectorController {
                 // Añadir el Label con la "X" al botón
                 deleteButton.setGraphic(deleteLabel);
 
+                routineBox.setOnMouseClicked(event -> {
+                    selectRoutine(routine);
+                });
+
                 // Asignar evento al botón para borrar la rutina
                 deleteButton.setOnAction(event -> {
                     System.out.println("Deleting routine: " + routine.getName());
@@ -87,6 +91,32 @@ public class RoutineSelectorController {
         }
     }
 
+    // Añadir un método para manejar la selección de una rutina
+    private void selectRoutine(Routine routine) {
+        // Obtener los días asociados a la rutina
+        List<String> days = RoutineDAO.getDaysByRoutineId(routine.getId());
+
+        // Cargar la ventana RoutineDaySelector y pasarle los días
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gearfit/RoutineDaySelector.fxml"));
+            Parent newContent = loader.load();
+
+            // Obtener el controlador de RoutineDaySelector
+            RoutineDaySelectorController controller = loader.getController();
+            controller.setDays(days);
+
+            // Reemplazar el contenido del rootPane con el nuevo contenido
+            rootPane.getChildren().setAll(newContent);
+
+            // Anclar el nuevo contenido a los bordes del AnchorPane
+            AnchorPane.setTopAnchor(newContent, 0.0);
+            AnchorPane.setBottomAnchor(newContent, 0.0);
+            AnchorPane.setLeftAnchor(newContent, 0.0);
+            AnchorPane.setRightAnchor(newContent, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void deleteRoutine(Routine routine) {
         RoutineDAO.deleteRoutine(routine.getId());
         System.out.println("Routine deleted: " + routine.getName());

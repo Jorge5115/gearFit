@@ -1,0 +1,19 @@
+.day-button {
+    -fx-min-height: 100px;
+    -fx-max-height: 10px;
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #4CAF50;
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff;
+    margin: 5px;
+    padding: 10px;
+    font-size: 18px;
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+.day-button:hover {
+    background-color: #45a049; /* Color de fondo al pasar el mouse */
+}

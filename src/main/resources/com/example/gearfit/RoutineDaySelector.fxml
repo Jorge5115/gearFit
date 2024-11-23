@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/RoutineDaySelector.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineDaySelectorController">
+    <children>
+        <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
+         <children>
+            <HBox fx:id="RoutineDaysList" alignment="CENTER" layoutX="13.0" layoutY="88.0" prefHeight="300.0" prefWidth="800.0" />
+         </children></Pane>
+    </children>
+</AnchorPane>
