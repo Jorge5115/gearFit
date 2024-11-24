@@ -91,7 +91,7 @@ public class RoutineSelectorController {
         }
     }
 
-    // Añadir un método para manejar la selección de una rutina
+    // Manejar la selección de una rutina
     private void selectRoutine(Routine routine) {
         // Obtener los días asociados a la rutina
         List<String> days = RoutineDAO.getDaysByRoutineId(routine.getId());
@@ -103,6 +103,7 @@ public class RoutineSelectorController {
 
             // Obtener el controlador de RoutineDaySelector
             RoutineDaySelectorController controller = loader.getController();
+            controller.setRoutine(routine); // Pasar la rutina
             controller.setDays(days);
 
             // Reemplazar el contenido del rootPane con el nuevo contenido
@@ -117,6 +118,7 @@ public class RoutineSelectorController {
             e.printStackTrace();
         }
     }
+
     private void deleteRoutine(Routine routine) {
         RoutineDAO.deleteRoutine(routine.getId());
         System.out.println("Routine deleted: " + routine.getName());
