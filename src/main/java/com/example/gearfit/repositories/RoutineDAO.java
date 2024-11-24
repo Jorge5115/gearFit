@@ -59,6 +59,26 @@ public class RoutineDAO {
         return routines;
     }
 
+    // Método para obtener los días de una rutina específica
+    public static List<String> getDaysByRoutineId(int routineId) {
+        List<String> days = new ArrayList<>();
+        String sql = "SELECT day_of_week FROM routine_days WHERE routine_id = ?";
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, routineId);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                days.add(rs.getString("day_of_week"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener los días de la rutina: " + e.getMessage());
+        }
+        return days;
+    }
+
     // Método para actualizar el nombre de una rutina
     public static boolean updateRoutine(Routine routine) {
         String sql = "UPDATE routines SET name = ? WHERE id = ?";
