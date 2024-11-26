@@ -5,20 +5,43 @@
 
 <AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/RoutineDayTable.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineDayTableController">
     <children>
-        <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
-            <children>
-                <Label style="-fx-font-size: 24; -fx-font-weight: bold;" text="Ejercicios del Día" AnchorPane.leftAnchor="10" AnchorPane.topAnchor="10" />
+      <Pane layoutX="14.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
+         <children>
+             <Label fx:id="title" layoutX="27.0" layoutY="35.0" styleClass="title" text="Nombre de la rutina + El dia de la rutina" />
 
-                <TableView fx:id="exerciseTable" layoutX="289.0" layoutY="38.0" AnchorPane.bottomAnchor="37.0" AnchorPane.leftAnchor="289.0" AnchorPane.rightAnchor="288.7864052" AnchorPane.topAnchor="38.0">
-                    <columns>
-                        <TableColumn fx:id="nameColumn" text="Nombre" />
-                        <TableColumn fx:id="tempoColumn" text="Tempo" />
-                        <TableColumn fx:id="restTimeColumn" text="Tiempo de Descanso (s)" />
-                    </columns>
-                </TableView>
+             <ScrollPane fx:id="exercisesScrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="27.0" layoutY="71.0" styleClass="scroll-vertical-vbox" vbarPolicy="AS_NEEDED">
+                 <VBox fx:id="exercisesContainer" alignment="CENTER" minHeight="167.0" prefHeight="167.0" prefWidth="480.0" spacing="10.0" styleClass="vertical-exercises-vbox">
+                 <!-- Ejemplo de un botón de ejercicio -->
+                         <Button fx:id="exerciseButton" minHeight="63.0" prefWidth="480.0" styleClass="exercise-button">
+                             <graphic>
+                                 <VBox styleClass="exercise-content">
+                                     <Label text="Ejercicio: Nombre del Ejercicio" />
+                                     <Label text="Tempo: 3-1-1-0" />
+                                     <Label text="Descanso: 60 segundos" />
+                                     <ScrollPane fitToHeight="true" hbarPolicy="AS_NEEDED" styleClass="sets-scrollpane" vbarPolicy="NEVER">
+                                         <content>
+                                             <HBox styleClass="sets-box">
+                                                 <Button styleClass="set-button" text="Serie 1: 10 reps, 20 kg" />
+                                                 <Button styleClass="set-button" text="Serie 2: 8 reps, 25 kg" />
+                                                 <Button styleClass="set-button" text="Serie 3: 12 reps, 15 kg" />
+                                             </HBox>
+                                         </content>
+                                     </ScrollPane>
+                                 </VBox>
+                             </graphic>
+                         </Button>
+                     </VBox>
+             </ScrollPane>
+               <Button layoutX="650.0" layoutY="325.0" onAction="#handleAddExercise" text="Agregar Ejercicio" />
+            <Button layoutX="655.0" layoutY="378.0" onAction="#handleAddExercise" text="Borrar Ejercicio" />
+               <Label layoutX="652.0" layoutY="112.0" text="Repeticiones:" />
+               <TextField fx:id="repetitionsField" layoutX="652.0" layoutY="129.0" promptText="Repeticiones" styleClass="set-textfield" />
+               <Label layoutX="652.0" layoutY="154.0" text="Peso (kg):" />
+               <TextField fx:id="weightField" layoutX="652.0" layoutY="171.0" promptText="Peso" styleClass="set-textfield" />
 
-                <Button layoutX="216.0" layoutY="413.0" onAction="#handleBackButton" text="Volver" AnchorPane.bottomAnchor="37.0" AnchorPane.rightAnchor="559.4140625" />
-
-            </children></Pane>
+                  <Button layoutX="652.0" layoutY="196.0" onAction="#handleAddSeries" text="Agregar Serie" />
+               <Button layoutX="652.0" layoutY="221.0" onAction="#handleUpdateSeries" text="Actualizar Serie" />
+         </children>
+      </Pane>
     </children>
 </AnchorPane>

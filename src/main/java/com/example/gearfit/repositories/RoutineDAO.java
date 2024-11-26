@@ -2,11 +2,14 @@ package com.example.gearfit.repositories;
 
 import com.example.gearfit.connections.Database;
 import com.example.gearfit.models.Exercise;
+import com.example.gearfit.models.ExerciseSet;
 import com.example.gearfit.models.Routine;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class RoutineDAO {
 
@@ -145,5 +148,213 @@ public class RoutineDAO {
         }
         return exercises;
     }
+
+    // Agregar un nuevo ejercicio a la base de datos
+    public static boolean addExercise(Exercise newExercise, String routineDay) {
+        String sql = "INSERT INTO exercises (name, tempo, rest_time, routine_day_id) VALUES (?, ?, ?, ?)";
+
+        // Primero, necesitamos obtener el ID del día de la rutina basado en el routineDay
+        int routineDayId = RoutineDAO.getRoutineDayId(newExercise.getRoutineId(), routineDay);
+        if (routineDayId == -1) {
+            System.out.println("Error: No se encontró el ID del día de la rutina para el día: " + routineDay);
+            return false;
+        }
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, newExercise.getName());
+            pstmt.setString(2, newExercise.getTempo());
+            pstmt.setInt(3, newExercise.getRestTime());
+            pstmt.setInt(4, routineDayId); // Usar el ID del día de la rutina
+
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al agregar el ejercicio: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Metodo auxiliar para obtener el ID del día de la rutina
+    private static int getRoutineDayId(int routineId, String day) {
+        String sql = "SELECT id FROM routine_days WHERE routine_id = ? AND day_of_week = ?";
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, routineId);
+            pstmt.setString(2, day);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener el ID del día de la rutina: " + e.getMessage());
+        }
+        return -1; // Retornar -1 si no se encuentra el ID
+    }
+
+    // Método para agregar una serie de ejercicio
+    public static boolean addExerciseSet(ExerciseSet exerciseSet) {
+        String sql = "INSERT INTO exercise_sets (exercise_id, set_number, repetitions, weight) VALUES (?, ?, ?, ?)";
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, exerciseSet.getExerciseId());
+            pstmt.setInt(2, exerciseSet.getSetNumber());
+            pstmt.setInt(3, exerciseSet.getRepetitions());
+            pstmt.setDouble(4, exerciseSet.getWeight());
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println("Error al agregar la serie: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Método para actualizar una serie de ejercicio
+    public static boolean updateExerciseSet(ExerciseSet exerciseSet) {
+        String sql = "UPDATE exercise_sets SET repetitions = ?, weight = ? WHERE id = ?";
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, exerciseSet.getRepetitions());
+            pstmt.setDouble(2, exerciseSet.getWeight());
+            pstmt.setInt(3, exerciseSet.getId());
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0;
+        } catch (SQLException e) {
+            System.out.println("Error al actualizar la serie de ejercicio: " + e.getMessage());
+            return false;
+        }
+    }
+
+    // Método para obtener las series de un ejercicio
+    public static List<ExerciseSet> getExerciseSetsByExerciseId(int exerciseId) {
+        List<ExerciseSet> sets = new ArrayList<>();
+        String sql = "SELECT * FROM exercise_sets WHERE exercise_id = ? ORDER BY set_number";
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, exerciseId);
+            ResultSet rs = pstmt.executeQuery();
+            while (rs.next()) {
+                ExerciseSet set = new ExerciseSet(
+                        rs.getInt("id"),
+                        rs.getInt("exercise_id"),
+                        rs.getInt("set_number"),
+                        rs.getInt("repetitions"),
+                        rs.getDouble("weight")
+                );
+                sets.add(set);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener las series de ejercicios: " + e.getMessage());
+        }
+        return sets;
+    }
+
+    /*
+    // Obtener ejercicios y sus series por ID de rutina y día
+    public static List<Exercise> getExercisesWithSetsByRoutineDay(int routineId, String routineDay) {
+        List<Exercise> exercises = new ArrayList<>();
+        String sql = "SELECT e.*, es.id AS set_id, es.set_number, es.repetitions, es.weight " +
+                "FROM exercises e " +
+                "LEFT JOIN exercise_sets es ON e.id = es.exercise_id " +
+                "WHERE e.routine_day_id = (SELECT id FROM routine_days WHERE routine_id = ? AND day_of_week = ?)";
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, routineId);
+            pstmt.setString(2, routineDay);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                Exercise exercise = new Exercise(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("tempo"),
+                        rs.getInt("rest_time"),
+                        routineId // Usar el ID de la rutina
+                );
+
+                // Crear y agregar las series al ejercicio
+                ExerciseSet set = new ExerciseSet(
+                        rs.getInt("set_id"),
+                        exercise.getId(),
+                        rs.getInt("set_number"),
+                        rs.getInt("repetitions"),
+                        rs.getDouble("weight")
+                );
+
+                // Solo agregar la serie si no es nula
+                if (set.getId() != 0) {
+                    exercise.addSet(set); // Agregar la serie al ejercicio
+                }
+
+                // Evitar duplicados: si el ejercicio ya existe, no lo agregues de nuevo
+                if (!exercises.contains(exercise)) {
+                    exercises.add(exercise);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ejercicios con series: " + e.getMessage());
+        }
+        return exercises;
+    }
+    */
+
+    public static List<Exercise> getExercisesWithSetsByRoutineDay(int routineId, String routineDay) {
+        List<Exercise> exercises = new ArrayList<>();
+        String sql = "SELECT e.id AS exercise_id, e.name AS exercise_name, e.tempo, e.rest_time, " +
+                "es.id AS set_id, es.set_number, es.repetitions, es.weight " +
+                "FROM exercises e " +
+                "LEFT JOIN exercise_sets es ON e.id = es.exercise_id " +
+                "WHERE e.routine_day_id = (SELECT id FROM routine_days WHERE routine_id = ? AND day_of_week = ?)";
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, routineId);
+            pstmt.setString(2, routineDay);
+            ResultSet rs = pstmt.executeQuery();
+
+            // Mapeo para evitar duplicados de ejercicios
+            Map<Integer, Exercise> exerciseMap = new HashMap<>();
+
+            while (rs.next()) {
+                int exerciseId = rs.getInt("exercise_id");
+                Exercise exercise = exerciseMap.getOrDefault(exerciseId, new Exercise(
+                        exerciseId,
+                        rs.getString("exercise_name"),
+                        rs.getString("tempo"),
+                        rs.getInt("rest_time"),
+                        routineId
+                ));
+
+                // Crear la serie si existen datos en el resultado
+                int setId = rs.getInt("set_id");
+                if (setId > 0) {
+                    ExerciseSet set = new ExerciseSet(
+                            setId,
+                            exerciseId,
+                            rs.getInt("set_number"),
+                            rs.getInt("repetitions"),
+                            rs.getDouble("weight")
+                    );
+                    exercise.addSet(set); // Agregar la serie al ejercicio
+                }
+
+                // Agregar el ejercicio al mapa (solo la primera vez)
+                exerciseMap.putIfAbsent(exerciseId, exercise);
+            }
+
+            exercises.addAll(exerciseMap.values()); // Convertir el mapa en lista
+        } catch (SQLException e) {
+            System.out.println("Error al obtener ejercicios con series: " + e.getMessage());
+        }
+        return exercises;
+    }
+
+
 
 }

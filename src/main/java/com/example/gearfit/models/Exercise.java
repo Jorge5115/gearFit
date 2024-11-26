@@ -1,19 +1,27 @@
 package com.example.gearfit.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Exercise {
-    private int id;          // ID del ejercicio
-    private String name;     // Nombre del ejercicio
-    private String tempo;    // Tempo del ejercicio (ejemplo: '3-1-1-0')
-    private int restTime;    // Tiempo de descanso en segundos
-    private int routineDayId; // ID del día de rutina al que pertenece
+    private int id;
+    private String name;
+    private String tempo;
+    private int restTime;
+    private int routineId; // ID de la rutina a la que pertenece
+    private List<ExerciseSet> sets; // Lista de series asociadas al ejercicio
 
     // Constructor
-    public Exercise(int id, String name, String tempo, int restTime, int routineDayId) {
+    public Exercise(int id, String name, String tempo, int restTime, int routineId) {
         this.id = id;
         this.name = name;
         this.tempo = tempo;
         this.restTime = restTime;
-        this.routineDayId = routineDayId;
+        this.routineId = routineId;
+        this.sets = new ArrayList<>(); // Inicializar la lista de sets
+    }
+
+    public Exercise() {
     }
 
     // Getters y Setters
@@ -49,22 +57,30 @@ public class Exercise {
         this.restTime = restTime;
     }
 
-    public int getRoutineDayId() {
-        return routineDayId;
+    public int getRoutineId() {
+        return routineId;
     }
 
-    public void setRoutineDayId(int routineDayId) {
-        this.routineDayId = routineDayId;
+    public void setRoutineId(int routineId) {
+        this.routineId = routineId;
     }
 
-    @Override
-    public String toString() {
-        return "Exercise{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", tempo='" + tempo + '\'' +
-                ", restTime=" + restTime +
-                ", routineDayId=" + routineDayId +
-                '}';
+    // Método para añadir una serie
+    public void addSet(ExerciseSet set) {
+        sets.add(set);
+    }
+
+    // Método para obtener las series
+    public List<ExerciseSet> getSets() {
+        return sets;
+    }
+
+    // Método para obtener el número total de sets
+    public int getTotalSets() {
+        return sets.size();
+    }
+
+    public void setSets(List<ExerciseSet> sets) {
+        this.sets = sets;
     }
 }

@@ -15,10 +15,12 @@ import java.util.List;
 
 public class RoutineDaySelectorController {
 
+    private Routine routine;
+
     public AnchorPane rootPane;
+
     @FXML
     private HBox RoutineDaysList;
-    private Routine routine; // Agregar un campo para almacenar la rutina
 
     public void setDays(List<String> days) {
         // Limpiar el HBox antes de añadir nuevos días
@@ -45,8 +47,8 @@ public class RoutineDaySelectorController {
     }
 
     private void selectDayRoutine(String routineDay) {
-        // Obtener los ejercicios asociados a la rutina y el día seleccionado
-        List<Exercise> exercises = RoutineDAO.getExercisesByRoutineDay(routine.getId(), routineDay);
+        // Obtener los ejercicios y sus series asociados a la rutina y el día seleccionado
+        List<Exercise> exercises = RoutineDAO.getExercisesWithSetsByRoutineDay(routine.getId(), routineDay);
 
         // Cargar la ventana RoutineDayTable y pasarle los ejercicios
         try {
@@ -55,7 +57,9 @@ public class RoutineDaySelectorController {
 
             // Obtener el controlador de RoutineDayTable
             RoutineDayTableController controller = loader.getController();
+            controller.setRoutineId(routine.getId());
             controller.setExercises(exercises);
+            controller.setRoutineDay(routineDay);
 
             // Reemplazar el contenido del rootPane con el nuevo contenido
             rootPane.getChildren().setAll(newContent);

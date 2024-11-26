@@ -9,20 +9,21 @@
             <children>
                 <Label layoutX="41.0" layoutY="40.0" styleClass="title" text="Mis Rutinas" />
 
-
                 <ScrollPane fitToWidth="true" layoutX="40.0" layoutY="88.0" prefHeight="260.0" prefWidth="743.0" styleClass="scroll-vertical-vbox">
                     <VBox fx:id="RoutinesList" alignment="CENTER" styleClass="global-vbox-training" />
                 </ScrollPane>
+
                 <Button layoutX="288.0" layoutY="383.0" mnemonicParsing="false" onAction="#addNewRoutine" styleClass="add-button">
-               <graphic>
+
+                <graphic>
                   <HBox styleClass="add-button-box">
                      <children>
                          <Label styleClass="add-button-icon" text="+" />
                          <Label styleClass="add-button-label" text="Crear nueva rutina" />
                      </children>
                   </HBox>
-               </graphic>
-            </Button>
+                </graphic>
+                </Button>
             </children>
         </Pane>
     </children>

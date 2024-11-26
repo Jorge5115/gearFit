@@ -1,0 +1,109 @@
+.pane{
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+}
+
+/* Estilo para el botón del ejercicio */
+.exercise-button {
+    -fx-font-size: 13px;
+    -fx-min-width: 480px;
+    -fx-max-width: 480px;
+    -fx-min-height: 150px;
+    -fx-max-height: 150px;
+    -fx-border-width: 3px;
+    -fx-padding: 30 10 20 10;
+    -fx-border-color: #2196f3;
+    -fx-background-color: #e3e3e3;
+}
+
+.exercise-button:hover {
+    -fx-background-color: #bbbbbb;
+}
+
+/* Estilo para el botón de ejercicio seleccionado */
+.exercise-button.exercise-selected {
+    -fx-font-size: 13px;
+    -fx-min-width: 480px;
+    -fx-max-width: 480px;
+    -fx-min-height: 150px;
+    -fx-max-height: 150px;
+    -fx-border-width: 3px;
+    -fx-padding: 30 10 20 10;
+    -fx-border-color: #fc0000;
+    -fx-background-color: #e3e3e3;
+}
+
+/* Estilo para el contenido del ejercicio dentro del botón */
+.exercise-content {
+    -fx-spacing: 5;
+}
+
+/* Estilo para el HBox de las series */
+.sets-box {
+    -fx-spacing: 10;
+    -fx-background-color: transparent;
+}
+
+
+/* Estilo para los botones de serie */
+.set-button {
+    -fx-padding: 10px;
+    -fx-font-size: 13px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-text-fill: #343434;
+    -fx-background-color: #ffffff;
+}
+
+.set-button:hover {
+    -fx-background-color: #5b98ec;
+}
+
+/* Estilo para el botón de serie seleccionado */
+.set-button.set-selected {
+    -fx-padding: 10px;
+    -fx-font-size: 13px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #0f6fb9;
+}
+
+.set-textfield {
+    -fx-min-width: 80px;
+    -fx-max-width: 80px;
+}
+
+/* Estilo para el ScrollPane que contiene las series */
+.sets-scrollpane {
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+    -fx-background-color: transparent;
+}
+
+.sets-scrollpane .viewport {
+    -fx-background-color: transparent;
+}
+
+.sets-scrollpane .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+}
+
+.scroll-vertical-vbox {
+    -fx-min-height: 350px;
+    -fx-max-height: 350px;
+    -fx-background-color: transparent;
+}
+
+.vertical-exercises-vbox {
+    -fx-min-height: 300px;
+    -fx-max-height: 300px;
+}
+
+.scroll-vertical-vbox .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-vertical-vbox .scroll-bar:vertical {
+    -fx-background-color: transparent;
+}
