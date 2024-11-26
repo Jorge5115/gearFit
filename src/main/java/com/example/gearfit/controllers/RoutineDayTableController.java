@@ -2,8 +2,8 @@ package com.example.gearfit.controllers;
 
 import com.example.gearfit.models.Exercise;
 import com.example.gearfit.models.ExerciseSet;
-import com.example.gearfit.models.Routine;
 import com.example.gearfit.repositories.RoutineDAO;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
@@ -14,6 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 public class RoutineDayTableController {
+
+    public Label title;
 
     private int routineId;
 
@@ -42,6 +44,11 @@ public class RoutineDayTableController {
     private TextField repetitionsField;
 
     @FXML
+    private Label actualExerciseClicked;
+    @FXML
+    private Label actualExerciseSetClicked;
+
+    @FXML
     public void initialize() {
         if (exercisesContainer == null) {
             System.out.println("El contenedor de ejercicios no está inicializado.");
@@ -49,7 +56,6 @@ public class RoutineDayTableController {
             System.out.println("El contenedor de ejercicios está inicializado.");
         }
 
-        // Verifica si el ScrollPane está correctamente enlazado
         if (exercisesScrollPane == null) {
             System.out.println("El ScrollPane no está inicializado.");
         } else {
@@ -67,19 +73,6 @@ public class RoutineDayTableController {
             });
         }
 
-        loadExercisesAndDisplay();
-    }
-
-    private void loadExercisesAndDisplay() {
-        // Este es el lugar donde cargas los ejercicios desde la base de datos
-        exercises = RoutineDAO.getExercisesByRoutineDay(routineId, routineDay);
-
-        if (exercises != null && !exercises.isEmpty()) {
-            System.out.println("Ejercicios cargados: ");
-            displayExercises();
-        } else {
-            System.out.println("No hay ejercicios disponibles.");
-        }
     }
 
     public void setRoutineId(int routineId) {
@@ -93,42 +86,18 @@ public class RoutineDayTableController {
 
     public void setRoutineDay(String routineDay) {
         this.routineDay = routineDay;
+        title.setText("Rutina del " + routineDay);
     }
-
-    public void printExercisesWithSets() {
-        if (exercises == null || exercises.isEmpty()) {
-            System.out.println("No hay ejercicios para mostrar.");
-            return;
-        }
-
-        System.out.println("==== Ejercicios y sus Series ====");
-        for (Exercise exercise : exercises) {
-            System.out.println("Ejercicio: " + exercise.getName());
-            System.out.println("  Tempo: " + exercise.getTempo());
-            System.out.println("  Descanso: " + exercise.getRestTime() + " segundos");
-
-            List<ExerciseSet> sets = exercise.getSets();
-            if (sets == null || sets.isEmpty()) {
-                System.out.println("  No hay series para este ejercicio.");
-            } else {
-                System.out.println("  Series:");
-                for (ExerciseSet set : sets) {
-                    System.out.println("    Serie " + set.getSetNumber() + ": " +
-                            set.getRepetitions() + " repeticiones, " +
-                            set.getWeight() + " kg");
-                }
-            }
-        }
-        System.out.println("=================================");
-    }
-
 
     private void displayExercises() {
         exercisesContainer.getChildren().clear(); // Limpiar el contenedor
 
         if (exercises == null || exercises.isEmpty()) {
             System.out.println("No hay ejercicios para mostrar.");
+            actualExerciseClicked.setText("Crea tu primer ejercicio");
             return;
+        } else {
+            actualExerciseClicked.setText("Selecciona un ejercicio");
         }
 
         for (Exercise exercise : exercises) {
@@ -165,6 +134,9 @@ public class RoutineDayTableController {
                 selectedExerciseButton = exerciseButton;
 
                 currentExercise = exercise;
+
+                // Actualizar el Label con el nombre del ejercicio seleccionado
+                actualExerciseClicked.setText("Ejercicio:" + exercise.getName());
                 System.out.println("Ejercicio seleccionado: " + exercise.getName());
             });
 
@@ -173,8 +145,11 @@ public class RoutineDayTableController {
         }
     }
 
-    private void loadAndDisplaySets(Exercise exercise, VBox exerciseContent) { // Cambiar el parámetro a VBox
-        printExercisesWithSets(); // Para depuración
+    private void loadAndDisplaySets(Exercise exercise, VBox exerciseContent) {
+        // Crear un ScrollPane para las series
+        ScrollPane setsScrollPane = new ScrollPane();
+        setsScrollPane.getStyleClass().add("sets-scrollpane");
+        setsScrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 
         HBox setsBox = new HBox();
         setsBox.getStyleClass().add("sets-box");
@@ -184,7 +159,7 @@ public class RoutineDayTableController {
 
         if (sets == null || sets.isEmpty()) {
             System.out.println("No hay series para mostrar para el ejercicio: " + exercise.getName());
-            return; // Si no hay series, salir del método
+            return;
         }
 
         for (ExerciseSet set : sets) {
@@ -197,9 +172,12 @@ public class RoutineDayTableController {
                 }
 
                 setButton.getStyleClass().add("set-selected");
-                selectedSetButton = setButton;
 
+                selectedSetButton = setButton;
                 currentSet = set;
+
+                // Actualizar el Label con información del conjunto seleccionado
+                actualExerciseSetClicked.setText("Serie número " + set.getSetNumber());
 
                 repetitionsField.setText(String.valueOf(set.getRepetitions()));
                 weightField.setText(String.valueOf(set.getWeight()));
@@ -210,11 +188,13 @@ public class RoutineDayTableController {
             setsBox.getChildren().add(setButton);
         }
 
-        // Agregar el HBox de series al VBox del ejercicio (exerciseContent)
-        exerciseContent.getChildren().add(setsBox); // Cambiado a exerciseContent
+        // Agregar el HBox de series al ScrollPane
+        setsScrollPane.setContent(setsBox);
+
+        // Agregar el ScrollPane al VBox del ejercicio (exerciseContent)
+        exerciseContent.getChildren().add(setsScrollPane);
+
     }
-
-
 
     @FXML
     private void handleAddExercise() {
@@ -293,6 +273,8 @@ public class RoutineDayTableController {
                     alert.setContentText("El ejercicio ha sido agregado exitosamente.");
                     alert.showAndWait();
 
+                    actualExerciseClicked.setText("Selecciona un ejercicio");
+
                     // Actualizar la lista de ejercicios
                     exercises = RoutineDAO.getExercisesByRoutineDay(routineId, routineDay);
                     displayExercises(); // Mostrar los ejercicios actualizados
@@ -311,33 +293,6 @@ public class RoutineDayTableController {
                 // Manejo de validación de datos
                 showAlert("Error", e.getMessage(), Alert.AlertType.ERROR);
             }
-        }
-    }
-
-    public void addSeriesToExercise(Exercise exercise, int repetitions, double weight) {
-        int nextSetNumber = exercise.getTotalSets() + 1; // Asumimos que el próximo número de serie es el total de series + 1
-        ExerciseSet newSet = new ExerciseSet(0, exercise.getId(), nextSetNumber, repetitions, weight); // ID será generado automáticamente
-        if (RoutineDAO.addExerciseSet(newSet)) {
-            exercise.addSet(newSet); // Agregar la serie al objeto Exercise
-            displayExercises(); // Actualizar la visualización
-        } else {
-            System.out.println("Error al agregar la serie.");
-        }
-    }
-
-    public void updateSeriesInExercise(Exercise exercise, ExerciseSet updatedSet) {
-        if (RoutineDAO.updateExerciseSet(updatedSet)) {
-            // Actualizar la serie en el objeto Exercise
-            for (ExerciseSet set : exercise.getSets()) {
-                if (set.getId() == updatedSet.getId()) {
-                    set.setRepetitions(updatedSet.getRepetitions());
-                    set.setWeight(updatedSet.getWeight());
-                    break;
-                }
-            }
-            displayExercises(); // Actualizar la visualización
-        } else {
-            System.out.println("Error al actualizar la serie.");
         }
     }
 
@@ -400,5 +355,76 @@ public class RoutineDayTableController {
         alert.showAndWait();
     }
 
+
+    @FXML
+    public void handleDeleteExercise(ActionEvent event) {
+        if (currentExercise == null) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Error");
+            alert.setHeaderText("No se ha seleccionado un ejercicio.");
+            alert.setContentText("Por favor, seleccione un ejercicio para eliminar.");
+            alert.showAndWait();
+            return;
+        }
+
+        // Confirmar la eliminación
+        Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmAlert.setTitle("Confirmar Eliminación");
+        confirmAlert.setHeaderText("¿Estás seguro de que deseas eliminar el ejercicio " + currentExercise.getName() + "?");
+        confirmAlert.setContentText("Esta acción no se puede deshacer.");
+
+        Optional<ButtonType> result = confirmAlert.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Lógica para eliminar el ejercicio
+            boolean success = RoutineDAO.deleteExercise(currentExercise.getId());
+            if (success) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Ejercicio Eliminado");
+                alert.setHeaderText(null);
+                alert.setContentText("El ejercicio ha sido eliminado exitosamente.");
+                alert.showAndWait();
+
+                actualExerciseClicked.setText("Selecciona un ejercicio");
+
+                // Actualizar la lista de ejercicios
+                exercises = RoutineDAO.getExercisesByRoutineDay(routineId, routineDay);
+                displayExercises(); // Mostrar los ejercicios actualizados
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setHeaderText("Error al eliminar el ejercicio.");
+                alert.setContentText("No se pudo eliminar el ejercicio. Intente de nuevo.");
+                alert.showAndWait();
+            }
+        }
+    }
+
+
+    public void addSeriesToExercise(Exercise exercise, int repetitions, double weight) {
+        int nextSetNumber = exercise.getTotalSets() + 1; // Asumimos que el próximo número de serie es el total de series + 1
+        ExerciseSet newSet = new ExerciseSet(0, exercise.getId(), nextSetNumber, repetitions, weight); // ID será generado automáticamente
+        if (RoutineDAO.addExerciseSet(newSet)) {
+            exercise.addSet(newSet); // Agregar la serie al objeto Exercise
+            displayExercises(); // Actualizar la visualización
+        } else {
+            System.out.println("Error al agregar la serie.");
+        }
+    }
+
+    public void updateSeriesInExercise(Exercise exercise, ExerciseSet updatedSet) {
+        if (RoutineDAO.updateExerciseSet(updatedSet)) {
+            // Actualizar la serie en el objeto Exercise
+            for (ExerciseSet set : exercise.getSets()) {
+                if (set.getId() == updatedSet.getId()) {
+                    set.setRepetitions(updatedSet.getRepetitions());
+                    set.setWeight(updatedSet.getWeight());
+                    break;
+                }
+            }
+            displayExercises(); // Actualizar la visualización
+        } else {
+            System.out.println("Error al actualizar la serie.");
+        }
+    }
 
 }

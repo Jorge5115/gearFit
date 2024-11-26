@@ -196,7 +196,7 @@ public class RoutineDAO {
         return -1; // Retornar -1 si no se encuentra el ID
     }
 
-    // Método para agregar una serie de ejercicio
+    // Agregar una serie de un ejercicio
     public static boolean addExerciseSet(ExerciseSet exerciseSet) {
         String sql = "INSERT INTO exercise_sets (exercise_id, set_number, repetitions, weight) VALUES (?, ?, ?, ?)";
         try (Connection conn = Database.connect();
@@ -213,7 +213,7 @@ public class RoutineDAO {
         }
     }
 
-    // Método para actualizar una serie de ejercicio
+    // Actualizar una serie de ejercicio
     public static boolean updateExerciseSet(ExerciseSet exerciseSet) {
         String sql = "UPDATE exercise_sets SET repetitions = ?, weight = ? WHERE id = ?";
         try (Connection conn = Database.connect();
@@ -229,7 +229,7 @@ public class RoutineDAO {
         }
     }
 
-    // Método para obtener las series de un ejercicio
+    // Obtener las series de un ejercicio
     public static List<ExerciseSet> getExerciseSetsByExerciseId(int exerciseId) {
         List<ExerciseSet> sets = new ArrayList<>();
         String sql = "SELECT * FROM exercise_sets WHERE exercise_id = ? ORDER BY set_number";
@@ -252,56 +252,6 @@ public class RoutineDAO {
         }
         return sets;
     }
-
-    /*
-    // Obtener ejercicios y sus series por ID de rutina y día
-    public static List<Exercise> getExercisesWithSetsByRoutineDay(int routineId, String routineDay) {
-        List<Exercise> exercises = new ArrayList<>();
-        String sql = "SELECT e.*, es.id AS set_id, es.set_number, es.repetitions, es.weight " +
-                "FROM exercises e " +
-                "LEFT JOIN exercise_sets es ON e.id = es.exercise_id " +
-                "WHERE e.routine_day_id = (SELECT id FROM routine_days WHERE routine_id = ? AND day_of_week = ?)";
-
-        try (Connection conn = Database.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, routineId);
-            pstmt.setString(2, routineDay);
-            ResultSet rs = pstmt.executeQuery();
-
-            while (rs.next()) {
-                Exercise exercise = new Exercise(
-                        rs.getInt("id"),
-                        rs.getString("name"),
-                        rs.getString("tempo"),
-                        rs.getInt("rest_time"),
-                        routineId // Usar el ID de la rutina
-                );
-
-                // Crear y agregar las series al ejercicio
-                ExerciseSet set = new ExerciseSet(
-                        rs.getInt("set_id"),
-                        exercise.getId(),
-                        rs.getInt("set_number"),
-                        rs.getInt("repetitions"),
-                        rs.getDouble("weight")
-                );
-
-                // Solo agregar la serie si no es nula
-                if (set.getId() != 0) {
-                    exercise.addSet(set); // Agregar la serie al ejercicio
-                }
-
-                // Evitar duplicados: si el ejercicio ya existe, no lo agregues de nuevo
-                if (!exercises.contains(exercise)) {
-                    exercises.add(exercise);
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println("Error al obtener ejercicios con series: " + e.getMessage());
-        }
-        return exercises;
-    }
-    */
 
     public static List<Exercise> getExercisesWithSetsByRoutineDay(int routineId, String routineDay) {
         List<Exercise> exercises = new ArrayList<>();
@@ -356,5 +306,39 @@ public class RoutineDAO {
     }
 
 
+    public static boolean deleteExercise(int exerciseId) {
+        // Primero, eliminamos las series asociadas al ejercicio
+        if (!deleteExerciseSetsByExerciseId(exerciseId)) {
+            System.out.println("Error al eliminar las series asociadas al ejercicio con ID: " + exerciseId);
+            return false;
+        }
 
+        String sql = "DELETE FROM exercises WHERE id = ?";
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, exerciseId);
+            int affectedRows = pstmt.executeUpdate();
+            return affectedRows > 0; // Devuelve true si se eliminó el ejercicio
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar el ejercicio: " + e.getMessage());
+        }
+        return false;
+    }
+
+    // Eliminar las series asociadas a un ejercicio
+    private static boolean deleteExerciseSetsByExerciseId(int exerciseId) {
+        String sql = "DELETE FROM exercise_sets WHERE exercise_id = ?";
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, exerciseId);
+            int affectedRows = pstmt.executeUpdate();
+
+            return affectedRows >= 0; // Devuelve true si se eliminaron las series (0 si no había series)
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar las series del ejercicio: " + e.getMessage());
+        }
+        return false;
+    }
 }

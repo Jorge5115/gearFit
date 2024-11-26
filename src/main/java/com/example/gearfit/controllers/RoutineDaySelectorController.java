@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 
@@ -19,22 +20,26 @@ public class RoutineDaySelectorController {
 
     public AnchorPane rootPane;
 
+    public Label routineNameLabel;
+
     @FXML
     private HBox RoutineDaysList;
 
     public void setDays(List<String> days) {
+        routineNameLabel.setText(routine.getName());
+
         // Limpiar el HBox antes de añadir nuevos días
         RoutineDaysList.getChildren().clear();
 
-        // Añadir un botón por cada día a la lista
         for (String day : days) {
             Button dayButton = new Button(day);
             dayButton.getStyleClass().add("day-button"); // Añadir clase CSS si es necesario
 
+
             // Aquí puedes añadir un evento al botón si lo deseas
             dayButton.setOnAction(event -> {
                 System.out.println("Día seleccionado: " + day);
-                selectDayRoutine(day);
+                selectDayRoutine(day); // Usar el texto del botón como el día
             });
 
             // Añadir el botón al HBox

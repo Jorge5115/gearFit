@@ -1,9 +1,14 @@
-.pane{
+.pane {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10px;
 }
 
-/* Estilo para el botón del ejercicio */
+.title {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333333;
+}
+
 .exercise-button {
     -fx-font-size: 13px;
     -fx-min-width: 480px;
@@ -59,7 +64,6 @@
     -fx-background-color: #5b98ec;
 }
 
-/* Estilo para el botón de serie seleccionado */
 .set-button.set-selected {
     -fx-padding: 10px;
     -fx-font-size: 13px;
@@ -74,10 +78,9 @@
     -fx-max-width: 80px;
 }
 
-/* Estilo para el ScrollPane que contiene las series */
 .sets-scrollpane {
-    -fx-min-height: 50px;
-    -fx-max-height: 50px;
+    -fx-min-height: 60px;
+    -fx-max-height: 60px;
     -fx-background-color: transparent;
 }
 
@@ -92,12 +95,8 @@
 .scroll-vertical-vbox {
     -fx-min-height: 350px;
     -fx-max-height: 350px;
+    -fx-padding: 20 0 0 0;
     -fx-background-color: transparent;
-}
-
-.vertical-exercises-vbox {
-    -fx-min-height: 300px;
-    -fx-max-height: 300px;
 }
 
 .scroll-vertical-vbox .viewport {
@@ -106,4 +105,124 @@
 
 .scroll-vertical-vbox .scroll-bar:vertical {
     -fx-background-color: transparent;
+}
+
+.vbox-set {
+    -fx-spacing: 10;
+    -fx-min-width: 220px;
+    -fx-max-width: 220px;
+    -fx-min-height: 200px;
+    -fx-max-height: 200px;
+    -fx-border-width: 3px;
+    -fx-alignment: center;
+    -fx-border-radius: 10px;
+    -fx-border-color: #2196f3;
+    -fx-background-radius: 17px;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+}
+
+.title-set {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.vbox-exercise {
+    -fx-spacing: 10;
+    -fx-min-width: 220px;
+    -fx-max-width: 220px;
+    -fx-min-height: 150px;
+    -fx-max-height: 150px;
+    -fx-border-width: 3px;
+    -fx-alignment: center;
+    -fx-border-radius: 10px;
+    -fx-border-color: #2196f3;
+    -fx-background-radius: 17px;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+}
+
+.title-exercise {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.button-add-set {
+    -fx-font-size: 13px;
+    -fx-min-width: 120px;
+    -fx-max-width: 120px;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #2196f3;
+    -fx-border-radius: 10px;
+    -fx-border-color: #2196f3;
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff;
+}
+
+.button-add-set:hover {
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #0f6fb9;
+    -fx-background-color: #0f6fb9;
+}
+
+.button-update-set {
+    -fx-font-size: 13px;
+    -fx-min-width: 120px;
+    -fx-max-width: 120px;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #2196f3;
+    -fx-border-radius: 10px;
+    -fx-border-color: #2196f3;
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff;
+}
+
+.button-update-set:hover {
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #0f6fb9;
+    -fx-background-color: #0f6fb9;
+}
+
+.button-add-exercise {
+    -fx-font-size: 16px;
+    -fx-min-width: 160px;
+    -fx-max-width: 160px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #4CAF50;
+    -fx-border-color: #4CAF50;
+    -fx-background-color: #ffffff;
+}
+
+.button-add-exercise:hover {
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #218328;
+    -fx-background-color: #218328;
+}
+
+.button-delete-exercise {
+    -fx-font-size: 16px;
+    -fx-min-width: 160px;
+    -fx-max-width: 160px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #fc0000;
+    -fx-border-color: #fc0000;
+    -fx-background-color: #ffffff;
+}
+
+.button-delete-exercise:hover {
+    -fx-text-fill: #ffffff;
+    -fx-border-color: rgba(252, 0, 0, 0.56);
+    -fx-background-color: rgba(252, 0, 0, 0.56);
 }

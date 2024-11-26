@@ -29,13 +29,13 @@
 .info-title {
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-text-fill: #0078D7;
+    -fx-text-fill: #005293;
 }
 
 .info-title-message {
     -fx-font-size: 15px;
     -fx-font-weight: bold;
-    -fx-text-fill: #005293;
+    -fx-text-fill: #0078D7;
 }
 
 .bullet-point {

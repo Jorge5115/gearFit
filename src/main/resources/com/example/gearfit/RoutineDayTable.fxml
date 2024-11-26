@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -7,10 +8,10 @@
     <children>
       <Pane layoutX="14.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
          <children>
-             <Label fx:id="title" layoutX="27.0" layoutY="35.0" styleClass="title" text="Nombre de la rutina + El dia de la rutina" />
+             <Label fx:id="title" layoutX="41.0" layoutY="40.0" styleClass="title" text="Nombre de la rutina + El dia de la rutina" />
 
-             <ScrollPane fx:id="exercisesScrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="27.0" layoutY="71.0" styleClass="scroll-vertical-vbox" vbarPolicy="AS_NEEDED">
-                 <VBox fx:id="exercisesContainer" alignment="CENTER" minHeight="167.0" prefHeight="167.0" prefWidth="480.0" spacing="10.0" styleClass="vertical-exercises-vbox">
+             <ScrollPane fx:id="exercisesScrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="38.0" layoutY="89.0" prefHeight="350.0" prefWidth="500.0" styleClass="scroll-vertical-vbox" vbarPolicy="AS_NEEDED">
+                 <VBox fx:id="exercisesContainer" alignment="CENTER" prefWidth="537.0" spacing="10.0">
                  <!-- Ejemplo de un botón de ejercicio -->
                          <Button fx:id="exerciseButton" minHeight="63.0" prefWidth="480.0" styleClass="exercise-button">
                              <graphic>
@@ -24,6 +25,7 @@
                                                  <Button styleClass="set-button" text="Serie 1: 10 reps, 20 kg" />
                                                  <Button styleClass="set-button" text="Serie 2: 8 reps, 25 kg" />
                                                  <Button styleClass="set-button" text="Serie 3: 12 reps, 15 kg" />
+                                                 <Button styleClass="set-button" text="Serie 4: 12 reps, 15 kg" />
                                              </HBox>
                                          </content>
                                      </ScrollPane>
@@ -32,15 +34,40 @@
                          </Button>
                      </VBox>
              </ScrollPane>
-               <Button layoutX="650.0" layoutY="325.0" onAction="#handleAddExercise" text="Agregar Ejercicio" />
-            <Button layoutX="655.0" layoutY="378.0" onAction="#handleAddExercise" text="Borrar Ejercicio" />
-               <Label layoutX="652.0" layoutY="112.0" text="Repeticiones:" />
-               <TextField fx:id="repetitionsField" layoutX="652.0" layoutY="129.0" promptText="Repeticiones" styleClass="set-textfield" />
-               <Label layoutX="652.0" layoutY="154.0" text="Peso (kg):" />
-               <TextField fx:id="weightField" layoutX="652.0" layoutY="171.0" promptText="Peso" styleClass="set-textfield" />
-
-                  <Button layoutX="652.0" layoutY="196.0" onAction="#handleAddSeries" text="Agregar Serie" />
-               <Button layoutX="652.0" layoutY="221.0" onAction="#handleUpdateSeries" text="Actualizar Serie" />
+            <VBox alignment="CENTER" layoutX="560.0" layoutY="75.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="200.0" styleClass="vbox-set">
+                     <children>
+                        <Label fx:id="actualExerciseSetClicked" styleClass="title-set" text="Set" />
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                                 <Label text="Repeticiones:" />
+                                 <TextField fx:id="repetitionsField" promptText="Repeticiones" styleClass="set-textfield" />
+                           </children>
+                        </HBox>
+                        <HBox alignment="CENTER" spacing="5.0">
+                           <children>
+                                 <Label text="Peso (en Kg):" />
+                                 <TextField fx:id="weightField" promptText="Peso" styleClass="set-textfield" />
+                           </children>
+                        </HBox>
+                           <Button onAction="#handleUpdateSeries" prefHeight="25.0" prefWidth="88.0" styleClass="button-update-set" text="Actualizar" />
+            
+                                    <Button onAction="#handleAddSeries" styleClass="button-add-set" text="Agregar Serie" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" />
+                     </padding>
+                  </VBox>
+                  <VBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Label fx:id="actualExerciseClicked" styleClass="title-exercise" text="Exercise" />
+                         <Button onAction="#handleAddExercise" styleClass="button-add-exercise" text="Agregar Ejercicio" />
+                        <Button onAction="#handleDeleteExercise" styleClass="button-delete-exercise" text="Borrar Ejercicio" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
          </children>
       </Pane>
     </children>

@@ -10,13 +10,70 @@
     -fx-font-size: 25px;
 }
 
-.new-routine-textfield {
-
+.title-label{
+    -fx-font-size: 14px;
 }
 
-.create-button {
+.title-info {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
 }
 
-.cancel-button {
+.day-button {
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 100px;
+    -fx-max-height: 100px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #0e437e;
+    -fx-opacity: 0.5;
+}
 
+.selected {
+    -fx-background-color: #1259ab;
+    -fx-opacity: 1;
+}
+
+.deselected {
+    -fx-background-color: #0e437e;
+    -fx-opacity: 0.5;
+}
+
+.create-button{
+    -fx-font-size: 16px;
+    -fx-min-width: 160px;
+    -fx-max-width: 160px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #4CAF50;
+    -fx-border-color: #4CAF50;
+    -fx-background-color: #ffffff;
+}
+
+.create-button:hover{
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #357c38;
+    -fx-background-color: #357c38;
+}
+
+.cancel-button{
+    -fx-font-size: 16px;
+    -fx-min-width: 160px;
+    -fx-max-width: 160px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #c90000;
+    -fx-border-color: #c90000;
+    -fx-background-color: #ffffff;
+}
+
+.cancel-button:hover{
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #d30e0e;
+    -fx-background-color: #d30e0e;
 }

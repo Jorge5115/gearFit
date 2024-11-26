@@ -6,7 +6,9 @@ import com.example.gearfit.connections.SessionManager;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
@@ -26,9 +28,8 @@ public class RoutineCreatorController {
     private TextField routineNameField;
 
     @FXML
-    private CheckBox mondayCheckBox, tuesdayCheckBox, wednesdayCheckBox, thursdayCheckBox, fridayCheckBox, saturdayCheckBox, sundayCheckBox;
+    private Button mondayButton, tuesdayButton, wednesdayButton, thursdayButton, fridayButton, saturdayButton, sundayButton;
 
-    // Método para guardar la rutina
     @FXML
     public void saveRoutine(ActionEvent event) {
         String routineName = routineNameField.getText().trim();
@@ -43,13 +44,13 @@ public class RoutineCreatorController {
 
         // Obtener los días seleccionados
         List<String> selectedDays = new ArrayList<>();
-        if (mondayCheckBox.isSelected()) selectedDays.add("Lunes");
-        if (tuesdayCheckBox.isSelected()) selectedDays.add("Martes");
-        if (wednesdayCheckBox.isSelected()) selectedDays.add("Miércoles");
-        if (thursdayCheckBox.isSelected()) selectedDays.add("Jueves");
-        if (fridayCheckBox.isSelected()) selectedDays.add("Viernes");
-        if (saturdayCheckBox.isSelected()) selectedDays.add("Sábado");
-        if (sundayCheckBox.isSelected()) selectedDays.add("Domingo");
+        if (mondayButton.getStyleClass().contains("selected")) selectedDays.add("Lunes");
+        if (tuesdayButton.getStyleClass().contains("selected")) selectedDays.add("Martes");
+        if (wednesdayButton.getStyleClass().contains("selected")) selectedDays.add("Miércoles");
+        if (thursdayButton.getStyleClass().contains("selected")) selectedDays.add("Jueves");
+        if (fridayButton.getStyleClass().contains("selected")) selectedDays.add("Viernes");
+        if (saturdayButton.getStyleClass().contains("selected")) selectedDays.add("Sábado");
+        if (sundayButton.getStyleClass().contains("selected")) selectedDays.add("Domingo");
 
         // Crear el objeto Routine con el nombre y el ID del usuario
         Routine newRoutine = new Routine(userId, routineName);
@@ -77,6 +78,20 @@ public class RoutineCreatorController {
         }
     }
 
+    @FXML
+    private void toggleDay(ActionEvent event) {
+        Button clickedButton = (Button) event.getSource();
+
+        if (clickedButton.getStyleClass().contains("selected")) {
+            // Si ya está seleccionado, lo deseleccionamos
+            clickedButton.getStyleClass().remove("selected");
+            clickedButton.getStyleClass().add("deselected");
+        } else {
+            // Si no está seleccionado, lo seleccionamos
+            clickedButton.getStyleClass().add("selected");
+            clickedButton.getStyleClass().remove("deselected");
+        }
+    }
 
     @FXML
     private void cancelRoutine(ActionEvent event) {
@@ -93,7 +108,7 @@ public class RoutineCreatorController {
             // Reemplazar solo el contenido interior del rootPane (sin cambiar la estructura principal)
             rootPane.getChildren().setAll(newContent);
 
-            // Anclar el nuevo contenido a los bordes del AnchorPane para asegurarnos de que ocupe todo el espacio
+            // Anclar el nuevo contenido a los bordes del AnchorPane para asegurarnos de que ocupe el espacio entero
             AnchorPane.setTopAnchor(newContent, 0.0);
             AnchorPane.setBottomAnchor(newContent, 0.0);
             AnchorPane.setLeftAnchor(newContent, 0.0);

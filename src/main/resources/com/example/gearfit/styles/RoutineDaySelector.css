@@ -1,19 +1,33 @@
+.title {
+    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+}
+
+.title-info {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
 .day-button {
-    -fx-min-height: 100px;
-    -fx-max-height: 10px;
     -fx-min-width: 100px;
     -fx-max-width: 100px;
-    -fx-border-width: 3px;
-    -fx-border-radius: 10px;
-    -fx-border-color: #4CAF50;
-    -fx-background-radius: 10px;
-    -fx-background-color: #ffffff;
-    margin: 5px;
-    padding: 10px;
-    font-size: 18px;
-    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    -fx-min-height: 100px;
+    -fx-max-height: 100px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #0e437e;
+    -fx-opacity: 0.5;
 }
 
 .day-button:hover {
-    background-color: #45a049; /* Color de fondo al pasar el mouse */
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #0e437e;
+    -fx-opacity: 1;
+}
+
+.day-button:pressed {
+    -fx-background-color: #1259ab;
+    -fx-opacity: 1;
 }
