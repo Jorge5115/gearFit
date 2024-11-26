@@ -1,6 +1,9 @@
 package com.example.gearfit.repositories;
 
 import com.example.gearfit.connections.Database;
+import com.example.gearfit.exceptions.DatabaseException;
+import com.example.gearfit.exceptions.PasswordMismatchException;
+import com.example.gearfit.exceptions.UserNotFoundException;
 import com.example.gearfit.models.User;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -29,7 +32,7 @@ public class UserDAO {
             pstmt.executeUpdate();
             System.out.println("Usuario agregado con éxito.");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new DatabaseException("Error al agregar el usuario a la base de datos.", e);
         }
     }
 
@@ -53,7 +56,7 @@ public class UserDAO {
                 users.add(user);
             }
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            throw new DatabaseException("Error al consultar los usuarios de la base de datos.", e);
         }
         return users;
     }
@@ -69,8 +72,7 @@ public class UserDAO {
             return rowsAffected > 0; // Devuelve true si se eliminó al menos una fila
 
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false; // Devuelve false en caso de error
+            throw new DatabaseException("Error al eliminar el usuario con ID: " + userId, e);
         }
     }
 
@@ -215,14 +217,21 @@ public class UserDAO {
                     user.setCalories(rs.getInt("calories"));
                     return user;
                 } else {
-                    System.out.println("Contraseña incorrecta.");
+                    // Si la contraseña no coincide, lanzar excepción personalizada
+                    throw new PasswordMismatchException("Contraseña incorrecta.");
                 }
             } else {
-                System.out.println("No se encontró el usuario con el email: " + email);
+                // Si el usuario no se encuentra, lanzar excepción personalizada
+                throw new UserNotFoundException("No se encontró el usuario con el email: " + email);
             }
+
         } catch (SQLException e) {
-            e.printStackTrace();
+            // Capturamos el error relacionado con la base de datos
+            throw new DatabaseException("Error al acceder a la base de datos: " + e.getMessage());
+        } catch (UserNotFoundException | PasswordMismatchException | DatabaseException e) {
+            // Aquí capturamos las excepciones personalizadas y las manejamos
+            System.out.println("Error: " + e.getMessage());
+            return null; // Retornamos null o podrías decidir lanzar otra excepción o manejar el flujo de otra manera
         }
-        return null; // Si no se encuentra el usuario o la contraseña es incorrecta
     }
 }

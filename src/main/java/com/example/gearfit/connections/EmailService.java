@@ -1,4 +1,6 @@
 package com.example.gearfit.connections;
+import com.example.gearfit.exceptions.EmailServiceException;
+
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
 import java.util.Properties;
@@ -38,9 +40,9 @@ public class EmailService {
 
             // Enviar el correo
             Transport.send(message);
-            System.out.println("Correo enviado con éxito a " + recipientEmail);
+            // System.out.println("Correo enviado con éxito a " + recipientEmail);
         } catch (MessagingException e) {
-            throw new RuntimeException(e);
+            throw new EmailServiceException("Error al enviar el correo a " + recipientEmail, e);
         }
     }
 }

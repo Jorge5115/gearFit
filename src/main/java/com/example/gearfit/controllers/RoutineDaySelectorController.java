@@ -1,11 +1,13 @@
 package com.example.gearfit.controllers;
 
+import com.example.gearfit.exceptions.RoutineDaySelectorException;
 import com.example.gearfit.models.Exercise;
 import com.example.gearfit.models.Routine;
 import com.example.gearfit.repositories.RoutineDAO;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
@@ -26,25 +28,34 @@ public class RoutineDaySelectorController {
     private HBox RoutineDaysList;
 
     public void setDays(List<String> days) {
-        routineNameLabel.setText(routine.getName());
+        try{
+            routineNameLabel.setText(routine.getName());
 
-        // Limpiar el HBox antes de añadir nuevos días
-        RoutineDaysList.getChildren().clear();
+            // Limpiar el HBox antes de añadir nuevos días
+            RoutineDaysList.getChildren().clear();
 
-        for (String day : days) {
-            Button dayButton = new Button(day);
-            dayButton.getStyleClass().add("day-button"); // Añadir clase CSS si es necesario
+            for (String day : days) {
+                Button dayButton = new Button(day);
+                dayButton.getStyleClass().add("day-button"); // Añadir clase CSS si es necesario
 
 
-            // Aquí puedes añadir un evento al botón si lo deseas
-            dayButton.setOnAction(event -> {
-                System.out.println("Día seleccionado: " + day);
-                selectDayRoutine(day); // Usar el texto del botón como el día
-            });
+                // Aquí puedes añadir un evento al botón si lo deseas
+                dayButton.setOnAction(event -> {
+                    try {
+                        // System.out.println("Día seleccionado: " + day);
+                        selectDayRoutine(day); // Usar el texto del botón como el día
+                    } catch (Exception e) {
+                        handleException(new RoutineDaySelectorException("Error al seleccionar el día: " + day, e));
+                    }
+                });
 
-            // Añadir el botón al HBox
-            RoutineDaysList.getChildren().add(dayButton);
+                // Añadir el botón al HBox
+                RoutineDaysList.getChildren().add(dayButton);
+            }
+        } catch (Exception e){
+            throw new RoutineDaySelectorException("Error al establecer los días de la rutina.", e);
         }
+
     }
 
     public void setRoutine(Routine routine) {
@@ -75,7 +86,20 @@ public class RoutineDaySelectorController {
             AnchorPane.setLeftAnchor(newContent, 0.0);
             AnchorPane.setRightAnchor(newContent, 0.0);
         } catch (IOException e) {
-            e.printStackTrace();
+            handleException(new RoutineDaySelectorException("Error al cargar la vista para introducir los días.", e));
         }
+    }
+
+    private void handleException(RoutineDaySelectorException e) {
+        e.printStackTrace(); // Registro de la excepción (puedes cambiar esto a un logger)
+        showErrorAlert("Error", "Ha ocurrido un problema", e.getMessage());
+    }
+
+    private void showErrorAlert(String title, String header, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(header);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

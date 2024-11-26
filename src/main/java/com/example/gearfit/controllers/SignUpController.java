@@ -50,8 +50,7 @@ public class SignUpController {
             SessionManager.setCurrentUser(registeredUser);
             loadMainView(event);
         } else {
-            System.out.println("Excepcion!!!!!!!!!!!!");
-            //throw new UserRegistrationException("El usuario no se ha podido registrar");
+            throw new UserRegistrationException("El usuario no se ha podido registrar");
         }
     }
 

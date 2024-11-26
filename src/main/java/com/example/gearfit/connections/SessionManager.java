@@ -19,7 +19,7 @@ public class SessionManager {
 
     // Método para cerrar sesión
     public static void logOut() {
-        currentUser = null; // Limpiar la sesión
+        currentUser = null;
     }
 }
 

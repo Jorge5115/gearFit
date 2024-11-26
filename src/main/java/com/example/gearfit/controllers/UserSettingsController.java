@@ -1,6 +1,8 @@
 package com.example.gearfit.controllers;
 
 import com.example.gearfit.connections.SessionManager;
+import com.example.gearfit.exceptions.InvalidPasswordException;
+import com.example.gearfit.exceptions.UserDeleteException;
 import com.example.gearfit.models.User;
 import com.example.gearfit.repositories.UserDAO;
 import javafx.event.ActionEvent;
@@ -49,7 +51,7 @@ public class UserSettingsController {
 
     private UserDAO userDAO = new UserDAO();
 
-    private User currentUser; // Esto debería contener el usuario actualmente autenticado
+    private User currentUser;
 
     @FXML
     public void initialize() {
@@ -102,12 +104,12 @@ public class UserSettingsController {
         if (!password.isEmpty() || !repeatPassword.isEmpty()) {
             if (password.length() < 8) {
                 showAlert("Error", "La contraseña debe tener al menos 8 caracteres.");
-                return;
+                throw new InvalidPasswordException("La contraseña debe tener al menos 8 caracteres.");
             }
 
             if (!password.equals(repeatPassword)) {
                 showAlert("Error", "Las contraseñas no coinciden. Por favor, verifica e intenta nuevamente.");
-                return;
+                throw new InvalidPasswordException("Las contraseñas no coinciden. Por favor verifica e intenta nuevamente.");
             }
         }
 
@@ -164,14 +166,20 @@ public class UserSettingsController {
             if (response == ButtonType.OK) {
                 String password = passwordField.getText();
                 // Aquí puedes verificar la contraseña
-                boolean isCorrect = userDAO.verifyPassword(SessionManager.getCurrentUser().getEmail(), password);
-                if (isCorrect) {
-                    // Lógica para eliminar la cuenta
-                    userDAO.deleteUser(currentUser.getId());
-                    loadLoginView(event);
-                    System.out.println("Cuenta eliminada correctamente.");
-                } else {
-                    showAlert("Error", "La contraseña es incorrecta.");
+                try {
+                    boolean isCorrect = userDAO.verifyPassword(SessionManager.getCurrentUser().getEmail(), password);
+                    if (isCorrect) {
+                        // Lógica para eliminar la cuenta
+                        userDAO.deleteUser(currentUser.getId());
+                        loadLoginView(event);
+                        System.out.println("Cuenta eliminada correctamente.");
+                    } else {
+                        throw new UserDeleteException("La contraseña es incorrecta.");
+                    }
+                } catch (UserDeleteException e) {
+                    showAlert("Error", e.getMessage());
+                } catch (Exception e) {
+                    showAlert("Error", "Ocurrió un error inesperado al intentar eliminar la cuenta.");
                 }
             }
         });

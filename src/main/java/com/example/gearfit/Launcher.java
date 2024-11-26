@@ -18,7 +18,6 @@ public class Launcher extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Launcher.class.getResource("UserAuth.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         scene.setFill(Color.TRANSPARENT);
-
         stage.setScene(scene);
         stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();

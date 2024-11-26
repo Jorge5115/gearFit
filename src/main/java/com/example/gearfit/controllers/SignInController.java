@@ -1,6 +1,8 @@
 package com.example.gearfit.controllers;
 
 import com.example.gearfit.connections.SessionManager;
+import com.example.gearfit.exceptions.UserAuthenticationException;
+import com.example.gearfit.exceptions.UserRegistrationException;
 import com.example.gearfit.models.User;
 import com.example.gearfit.repositories.UserDAO;
 import javafx.animation.FadeTransition;
@@ -18,8 +20,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.util.Duration;
-
+import java.sql.SQLException;
 import java.io.IOException;
+
 
 public class SignInController {
 
@@ -30,23 +33,25 @@ public class SignInController {
     private PasswordField passwordField;
 
     private UserDAO usuarioDAO = new UserDAO();
+
     @FXML
     private void pressSignInButton(ActionEvent event) {
         String email = emailField.getText();
         String password = passwordField.getText();
 
-        // Validar las entradas
         if (email.isEmpty() || password.isEmpty()) {
             showAlert("Error", "Por favor, completa ambos campos.");
         } else {
-            User authenticatedUser = authenticate(email, password);
-            if (authenticatedUser != null) {
-                // Establecer el usuario en la sesión
-                SessionManager.setCurrentUser(authenticatedUser);
-                loadMainView(event);
-            } else {
-                //Hay que hacer expcecion porque aunque pongas bien las credenciales sale ese error por distintos motivos
-                showAlert("Error", "Credenciales incorrectas.");
+            try {
+                User authenticatedUser = authenticate(email, password);
+                if (authenticatedUser != null) {
+                    // Establecer el usuario en la sesión
+                    SessionManager.setCurrentUser(authenticatedUser);
+                    loadMainView(event);
+                }
+            } catch (UserAuthenticationException e) {
+                // Mostrar el mensaje de error personalizado
+                showAlert("Error", e.getMessage());
             }
         }
     }
@@ -71,15 +76,20 @@ public class SignInController {
             stage.show();  // Mostrar la ventana
 
         } catch (IOException e) {
-            e.printStackTrace();
+            showAlert("Error", e.getMessage());
         }
     }
 
 
     // Función para comprobar el email y la contraseña en la base de datos
     private User authenticate(String email, String password) {
-        return usuarioDAO.getUserByEmailAndPassword(email ,password);
+        try {
+            return usuarioDAO.getUserByEmailAndPassword(email, password);
+        } catch (Exception e) {
+            throw new UserAuthenticationException("Error de base de datos al autenticar al usuario.", e);
+        }
     }
+
 
     // Función para mostrar una alerta con un mensaje personalizado
     private void showAlert(String title, String message) {
