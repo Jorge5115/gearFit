@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineImporterController">
+    <children>
+        <Label layoutX="20.0" layoutY="20.0" text="Importar Rutinas" styleClass="title" />
+        <ScrollPane layoutX="20.0" layoutY="60.0" prefHeight="380.0" prefWidth="810.0">
+            <VBox fx:id="availableRoutinesList" spacing="10" />
+        </ScrollPane>
+        <Button layoutX="20.0" layoutY="460.0" text="Volver" onAction="#goBack" />
+    </children>
+</AnchorPane>

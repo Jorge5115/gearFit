@@ -78,6 +78,38 @@ public class Database {
                             "FOREIGN KEY (exercise_id) REFERENCES Exercises(id));";
                     conn.createStatement().execute(createExerciseSetsTable);
 
+                    // Insertar rutinas genéricas para el usuario con id = 5
+                    String insertRoutines = "INSERT OR IGNORE INTO routines (user_id, name) VALUES " +
+                            "(5, 'Rutina Full Body'), " +
+                            "(5, 'Rutina Fuerza'), " +
+                            "(5, 'Rutina Cardio');";
+                    conn.createStatement().execute(insertRoutines);
+
+                    // Si también necesitas agregar datos adicionales como los días de la rutina, ejercicios, series, etc.
+                    // También puedes hacerlo aquí usando más INSERTs. Ejemplo:
+
+                    // Insertar los días de la rutina
+                    String insertRoutineDays = "INSERT OR IGNORE INTO routine_days (routine_id, day_of_week) VALUES " +
+                            "(1, 'Lunes'), " +
+                            "(1, 'Miércoles'), " +
+                            "(1, 'Viernes');";
+                    conn.createStatement().execute(insertRoutineDays);
+
+                    // Insertar ejercicios para un día específico
+                    String insertExercises = "INSERT OR IGNORE INTO exercises (routine_day_id, name, tempo, rest_time) VALUES " +
+                            "(1, 'Sentadillas', '3-1-1-0', 60), " +
+                            "(1, 'Press de Banca', '2-0-2-0', 90);";
+                    conn.createStatement().execute(insertExercises);
+
+                    // Insertar series de los ejercicios
+                    String insertExerciseSets = "INSERT OR IGNORE INTO exercise_sets (exercise_id, set_number, repetitions, weight) VALUES " +
+                            "(1, 1, 12, 50), " +
+                            "(1, 2, 10, 55);";
+                    conn.createStatement().execute(insertExerciseSets);
+
+
+                    System.out.println("Datos iniciales insertados correctamente.");
+
                     // System.out.println("Tablas creadas o ya existen.");
                 } catch (SQLException e) {
                     throw new DatabaseInitializationException("Error al crear las tablas de la base de datos", e);

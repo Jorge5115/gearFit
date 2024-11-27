@@ -120,6 +120,31 @@ public class RoutineSelectorController {
         replaceContent("/com/example/gearfit/RoutineCreator.fxml");
     }
 
+    @FXML
+    public void importRoutines(ActionEvent event) {
+        try {
+            // Cargar la vista del importador de rutinas
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gearfit/RoutineImporter.fxml"));
+            Parent importerContent = loader.load();
+
+            // Obtener el controlador de RoutineImporter
+            RoutineImporterController importerController = loader.getController();
+
+            // Configurar lo que sea necesario en el controlador del importador
+
+            // Reemplazar el contenido del rootPane con el nuevo contenido
+            rootPane.getChildren().setAll(importerContent);
+
+            // Anclar el nuevo contenido al AnchorPane
+            AnchorPane.setTopAnchor(importerContent, 0.0);
+            AnchorPane.setBottomAnchor(importerContent, 0.0);
+            AnchorPane.setLeftAnchor(importerContent, 0.0);
+            AnchorPane.setRightAnchor(importerContent, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void replaceContent(String fxmlPath) {
         try {
             // Cargar el archivo FXML de la nueva vista

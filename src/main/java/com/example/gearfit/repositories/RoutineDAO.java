@@ -38,6 +38,56 @@ public class RoutineDAO {
         return false;
     }
 
+    // Listado de todas las rutinas insertadas en la bbdd sin ningun usuario especifico
+    public static List<Routine> getAllRoutines() {
+        List<Routine> routines = new ArrayList<>();
+
+        // Consulta para obtener rutinas disponibles (sin asociar a un usuario específico)
+        String query = "SELECT id, name FROM routines WHERE user_id = 5";
+        // O ajusta la consulta si hay un valor especial en user_id para rutinas generales (por ejemplo, user_id = 0)
+
+        try (Connection connection = Database.connect();
+             PreparedStatement statement = connection.prepareStatement(query);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id"); // ID de la rutina
+                String name = resultSet.getString("name"); // Nombre de la rutina
+
+                // Crear un objeto Routine sin asignar un userId
+                Routine routine = new Routine(id, 5, name);
+                routines.add(routine);
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al obtener las rutinas: " + e.getMessage());
+        }
+
+        return routines;
+    }
+
+    // Añadir rutinas importadas al usuario
+    public static void addRoutineToUser(int userId, String routineName) {
+        String query = "INSERT INTO routines (user_id, name) VALUES (?, ?)";
+
+        try (Connection connection = Database.connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+
+            statement.setInt(1, userId);
+            statement.setString(2, routineName);
+
+            int rowsInserted = statement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Rutina añadida al usuario correctamente.");
+            } else {
+                System.out.println("No se pudo añadir la rutina al usuario.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Error al añadir rutina al usuario: " + e.getMessage());
+        }
+    }
+
     // Obtener todas las rutinas de un usuario específico
     public static List<Routine> getRoutinesByUserId(int userId) {
         List<Routine> routines = new ArrayList<>();

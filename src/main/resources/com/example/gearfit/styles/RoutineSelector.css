@@ -55,6 +55,58 @@
 .add-button:hover .add-button-label {
     -fx-text-fill: #ffffff;
 }
+.import-button-box {
+    -fx-alignment: CENTER;
+}
+
+.import-button {
+    -fx-min-height: 60px;
+    -fx-max-height: 60px;
+    -fx-min-width: 280px;
+    -fx-max-width: 280px;
+    -fx-border-width: 3px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #FF5722; /* Naranja */
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff;
+}
+
+.import-button-icon {
+    -fx-font-size: 50px;
+    -fx-padding: 0 0 5 0;
+    -fx-text-fill: #FF5722; /* Naranja */
+}
+
+.import-button-label {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 10;
+    -fx-text-fill: #FF5722; /* Naranja */
+}
+
+.import-button:hover {
+    -fx-border-color: #E64A19; /* Rojo anaranjado */
+    -fx-background-color: #E64A19;
+}
+.add-button-label2 {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 0 0 10;
+    -fx-text-fill: #E64A19;
+}
+.add-button-icon2 {
+    -fx-font-size: 50px;
+    -fx-padding: 0 0 5 0;
+    -fx-text-fill: #E64A19;
+}
+
+.import-button:hover .import-button-icon {
+    -fx-text-fill: #ffffff;
+}
+
+.import-button:hover .import-button-label {
+    -fx-text-fill: #ffffff;
+}
 
 .routine-button {
     -fx-min-height: 40px;
@@ -113,7 +165,5 @@
 .scroll-vertical-vbox .scroll-bar:vertical {
     -fx-background-color: transparent;
 }
-
-
 
 

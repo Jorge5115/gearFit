@@ -13,7 +13,7 @@
                     <VBox fx:id="RoutinesList" alignment="CENTER" styleClass="global-vbox-training" />
                 </ScrollPane>
 
-                <Button layoutX="288.0" layoutY="383.0" mnemonicParsing="false" onAction="#addNewRoutine" styleClass="add-button">
+                <Button layoutX="80.0" layoutY="383.0" mnemonicParsing="false" onAction="#addNewRoutine" styleClass="add-button">
 
                 <graphic>
                   <HBox styleClass="add-button-box">
@@ -23,6 +23,17 @@
                      </children>
                   </HBox>
                 </graphic>
+                </Button>
+
+                <Button layoutX="400.0" layoutY="383.0" mnemonicParsing="false"  onAction="#importRoutines" styleClass="import-button">
+                    <graphic>
+                        <HBox styleClass="add-button-box">
+                            <children>
+                                <Label styleClass="add-button-icon2" text="-" />
+                                <Label styleClass="add-button-label2" text="Importar rutinas" />
+                            </children>
+                        </HBox>
+                    </graphic>
                 </Button>
             </children>
         </Pane>
