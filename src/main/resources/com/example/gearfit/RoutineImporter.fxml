@@ -3,12 +3,23 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineImporterController">
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/RoutineImporter.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineImporterController">
     <children>
-        <Label layoutX="20.0" layoutY="20.0" text="Importar Rutinas" styleClass="title" />
-        <ScrollPane layoutX="20.0" layoutY="60.0" prefHeight="380.0" prefWidth="810.0">
-            <VBox fx:id="availableRoutinesList" spacing="10" />
-        </ScrollPane>
-        <Button layoutX="20.0" layoutY="460.0" text="Volver" onAction="#goBack" />
+        <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
+            <children>
+                <!-- Título -->
+                <Label layoutX="41.0" layoutY="40.0" text="Lista de Rutinas disponibles" styleClass="title" />
+
+                <!-- Contenedor para las rutinas -->
+                <ScrollPane layoutX="41.0" layoutY="90.0" prefHeight="330.0" prefWidth="685.0">
+                    <content>
+                        <VBox fx:id="availableRoutinesList" spacing="10" />
+                    </content>
+                </ScrollPane>
+
+                <!-- Botón para volver -->
+                <Button layoutX="41.0" layoutY="430.0" text="Volver" styleClass="button-importer" onAction="#goBack" />
+            </children>
+        </Pane>
     </children>
 </AnchorPane>

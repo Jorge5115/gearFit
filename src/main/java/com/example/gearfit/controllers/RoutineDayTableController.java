@@ -5,11 +5,15 @@ import com.example.gearfit.models.ExerciseSet;
 import com.example.gearfit.repositories.RoutineDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +51,8 @@ public class RoutineDayTableController {
     private Label actualExerciseClicked;
     @FXML
     private Label actualExerciseSetClicked;
+    @FXML
+    private AnchorPane rootPane;
 
     @FXML
     public void initialize() {
@@ -59,7 +65,7 @@ public class RoutineDayTableController {
         if (exercisesScrollPane == null) {
             System.out.println("El ScrollPane no está inicializado.");
         } else {
-            System.out.println("El ScrollPane está inicializado.");
+            // System.out.println("El ScrollPane está inicializado.");
 
             // Añade un filtro para manejar el desplazamiento con la rueda del ratón
             exercisesScrollPane.addEventFilter(ScrollEvent.SCROLL, event -> {
@@ -158,7 +164,7 @@ public class RoutineDayTableController {
         exercise.setSets(sets); // Actualiza el objeto Exercise con las series cargadas
 
         if (sets == null || sets.isEmpty()) {
-            System.out.println("No hay series para mostrar para el ejercicio: " + exercise.getName());
+            //System.out.println("No hay series para mostrar para el ejercicio: " + exercise.getName());
             return;
         }
 
@@ -424,6 +430,24 @@ public class RoutineDayTableController {
             displayExercises(); // Actualizar la visualización
         } else {
             System.out.println("Error al actualizar la serie.");
+        }
+    }
+
+    @FXML
+    public void goBack(ActionEvent event) {
+        try {
+            // Regresar a la vista principal
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gearfit/RoutineSelector.fxml"));
+            Parent mainContent = loader.load();
+            rootPane.getChildren().setAll(mainContent);
+
+            // Anclar a los bordes
+            AnchorPane.setTopAnchor(mainContent, 0.0);
+            AnchorPane.setBottomAnchor(mainContent, 0.0);
+            AnchorPane.setLeftAnchor(mainContent, 0.0);
+            AnchorPane.setRightAnchor(mainContent, 0.0);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

@@ -43,7 +43,7 @@ public class RoutineDAO {
         List<Routine> routines = new ArrayList<>();
 
         // Consulta para obtener rutinas disponibles (sin asociar a un usuario específico)
-        String query = "SELECT id, name FROM routines WHERE user_id = 5";
+        String query = "SELECT id, name FROM routines WHERE user_id = 1";
         // O ajusta la consulta si hay un valor especial en user_id para rutinas generales (por ejemplo, user_id = 0)
 
         try (Connection connection = Database.connect();
@@ -67,11 +67,12 @@ public class RoutineDAO {
     }
 
     // Añadir rutinas importadas al usuario
-    public static void addRoutineToUser(int userId, String routineName) {
+    public static int addRoutineToUser (int userId, String routineName) {
         String query = "INSERT INTO routines (user_id, name) VALUES (?, ?)";
+        int newRoutineId = -1;
 
         try (Connection connection = Database.connect();
-             PreparedStatement statement = connection.prepareStatement(query)) {
+             PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
             statement.setInt(1, userId);
             statement.setString(2, routineName);
@@ -79,6 +80,12 @@ public class RoutineDAO {
             int rowsInserted = statement.executeUpdate();
             if (rowsInserted > 0) {
                 System.out.println("Rutina añadida al usuario correctamente.");
+
+                // Obtener el ID de la nueva rutina
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    newRoutineId = generatedKeys.getInt(1);
+                }
             } else {
                 System.out.println("No se pudo añadir la rutina al usuario.");
             }
@@ -86,7 +93,87 @@ public class RoutineDAO {
         } catch (SQLException e) {
             System.err.println("Error al añadir rutina al usuario: " + e.getMessage());
         }
+
+        return newRoutineId; // Devuelve el ID de la nueva rutina
     }
+
+    public static int importRoutineForUser(int sourceRoutineId, int targetUserId) {
+        String getRoutineNameQuery = "SELECT name FROM routines WHERE id = ?";
+        String getDaysQuery = "SELECT id, day_of_week FROM routine_days WHERE routine_id = ?";
+        String getExercisesQuery = "SELECT name, tempo, rest_time FROM exercises WHERE routine_day_id = ?";
+        int newRoutineId = -1;
+
+        try (Connection conn = Database.connect()) {
+            // 1. Obtener el nombre de la rutina original
+            String routineName;
+            try (PreparedStatement stmt = conn.prepareStatement(getRoutineNameQuery)) {
+                stmt.setInt(1, sourceRoutineId);
+                ResultSet rs = stmt.executeQuery();
+                if (rs.next()) {
+                    routineName = rs.getString("name");
+                } else {
+                    System.err.println("No se encontró la rutina con ID: " + sourceRoutineId);
+                    return -1;
+                }
+            }
+
+            // 2. Añadir la rutina al nuevo usuario
+            newRoutineId = addRoutineToUser(targetUserId, routineName);
+            if (newRoutineId == -1) {
+                System.err.println("No se pudo crear la nueva rutina.");
+                return -1;
+            }
+
+            // 3. Copiar los días asociados a la rutina
+            try (PreparedStatement stmtDays = conn.prepareStatement(getDaysQuery);
+                 PreparedStatement insertDays = conn.prepareStatement(
+                         "INSERT INTO routine_days (routine_id, day_of_week) VALUES (?, ?)",
+                         Statement.RETURN_GENERATED_KEYS
+                 )) {
+                stmtDays.setInt(1, sourceRoutineId);
+                ResultSet rsDays = stmtDays.executeQuery();
+                while (rsDays.next()) {
+                    int sourceDayId = rsDays.getInt("id");
+                    String dayOfWeek = rsDays.getString("day_of_week");
+
+                    // Insertar el día para la nueva rutina
+                    insertDays.setInt(1, newRoutineId);
+                    insertDays.setString(2, dayOfWeek);
+                    insertDays.executeUpdate();
+
+                    // Obtener el nuevo ID del día insertado
+                    ResultSet generatedKeys = insertDays.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        int newDayId = generatedKeys.getInt(1);
+
+                        // 4. Copiar los ejercicios para este día
+                        try (PreparedStatement stmtExercises = conn.prepareStatement(getExercisesQuery);
+                             PreparedStatement insertExercises = conn.prepareStatement(
+                                     "INSERT INTO exercises (routine_day_id, name, tempo, rest_time) VALUES (?, ?, ?, ?)"
+                             )) {
+                            stmtExercises.setInt(1, sourceDayId);
+                            ResultSet rsExercises = stmtExercises.executeQuery();
+                            while (rsExercises.next()) {
+                                insertExercises.setInt(1, newDayId);
+                                insertExercises.setString(2, rsExercises.getString("name"));
+                                insertExercises.setString(3, rsExercises.getString("tempo"));
+                                insertExercises.setInt(4, rsExercises.getInt("rest_time"));
+                                insertExercises.executeUpdate();
+                            }
+                        }
+                    }
+                }
+            }
+
+            System.out.println("Rutina importada con éxito al usuario ID: " + targetUserId);
+        } catch (SQLException e) {
+            System.err.println("Error al importar rutina: " + e.getMessage());
+            return -1;
+        }
+
+        return newRoutineId;
+    }
+
 
     // Obtener todas las rutinas de un usuario específico
     public static List<Routine> getRoutinesByUserId(int userId) {
@@ -122,9 +209,11 @@ public class RoutineDAO {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
             pstmt.setInt(1, routineId);
+            //System.out.println("Consultando días para la rutina ID: " + routineId);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
+                //System.out.println("Recuperado: " + rs.getString("day_of_week"));
                 days.add(rs.getString("day_of_week"));
             }
         } catch (SQLException e) {
@@ -226,6 +315,7 @@ public class RoutineDAO {
         }
     }
 
+
     // Metodo auxiliar para obtener el ID del día de la rutina
     private static int getRoutineDayId(int routineId, String day) {
         String sql = "SELECT id FROM routine_days WHERE routine_id = ? AND day_of_week = ?";
@@ -277,6 +367,41 @@ public class RoutineDAO {
             System.out.println("Error al actualizar la serie de ejercicio: " + e.getMessage());
             return false;
         }
+    }
+
+
+    // Este es el método que obtiene los ejercicios e incluye sus sets.
+    public List<Exercise> getImportedExercisesFromDatabase() {
+        List<Exercise> exercises = new ArrayList<>();
+        String sql = "SELECT * FROM exercises";  // Suponiendo que tienes una tabla 'exercises'
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                // Crear el ejercicio
+                Exercise exercise = new Exercise(
+                        rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("tempo"),
+                        rs.getInt("rest_time"),
+                        rs.getInt("routine_id")
+                );
+
+                // Obtener los sets de este ejercicio
+                List<ExerciseSet> sets = getExerciseSetsByExerciseId(exercise.getId());
+                exercise.setSets(sets);  // Asignar los sets al ejercicio
+
+                exercises.add(exercise);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error al obtener los ejercicios: " + e.getMessage());
+        }
+
+        return exercises;
     }
 
     // Obtener las series de un ejercicio

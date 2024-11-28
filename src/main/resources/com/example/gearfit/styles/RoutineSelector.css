@@ -88,17 +88,6 @@
     -fx-border-color: #E64A19; /* Rojo anaranjado */
     -fx-background-color: #E64A19;
 }
-.add-button-label2 {
-    -fx-font-size: 22px;
-    -fx-font-weight: bold;
-    -fx-padding: 0 0 0 10;
-    -fx-text-fill: #E64A19;
-}
-.add-button-icon2 {
-    -fx-font-size: 50px;
-    -fx-padding: 0 0 5 0;
-    -fx-text-fill: #E64A19;
-}
 
 .import-button:hover .import-button-icon {
     -fx-text-fill: #ffffff;

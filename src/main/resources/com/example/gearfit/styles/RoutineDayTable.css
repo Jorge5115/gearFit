@@ -226,3 +226,11 @@
     -fx-border-color: rgba(252, 0, 0, 0.56);
     -fx-background-color: rgba(252, 0, 0, 0.56);
 }
+
+.back-button {
+    -fx-background-color: red; /* Fondo rojo */
+    -fx-text-fill: white; /* Texto blanco */
+    -fx-font-size: 12px; /* Tamaño pequeño */
+    -fx-border-radius: 5px; /* Bordes redondeados */
+    -fx-background-radius: 5px; /* Bordes redondeados */
+}

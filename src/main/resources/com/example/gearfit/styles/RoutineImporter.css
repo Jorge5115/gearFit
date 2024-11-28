@@ -1,0 +1,91 @@
+/* General Pane Styles */
+.pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 10px;
+}
+
+/* Title Label Style */
+.title {
+    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-text-fill: #000000;
+    -fx-font-weight: bold;
+    -fx-font-size: 25px;
+}
+
+/* ScrollPane Style */
+.scroll-pane-importer {
+    -fx-background-color: #f9f9f9;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 10px;
+    -fx-padding: 10px;
+}
+
+/* VBox for Routine List */
+.vbox {
+    -fx-spacing: 10px;
+}
+
+/* Back Button Style */
+.button-importer {
+    -fx-min-width: 70px;
+    -fx-min-height: 40px;
+    -fx-background-color: #e3070e;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+}
+
+.button-importer:hover {
+    -fx-background-color: #e3070e;
+}
+
+.button-importer:pressed {
+    -fx-background-color: #e3070e;
+}
+
+/* Add extra padding for children in VBox if needed */
+.vbox > .label {
+    -fx-padding: 5px 10px;
+    -fx-font-size: 18px;
+}
+/* Estilo para el contenedor de cada rutina */
+.routine-import-box {
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+    -fx-alignment: CENTER_LEFT; /* Alinear elementos a la izquierda */
+    -fx-background-color: #f0f0f0;
+    -fx-border-color: #dddddd;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+}
+
+/* Estilo para las etiquetas de rutina */
+.routine-label {
+    -fx-font-size: 16px;
+    -fx-text-fill: #333333;
+    -fx-font-family: "HelveticaNeueLT Std";
+}
+
+/* Estilo para el botón de importar */
+.importer-button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-font-weight: bold;
+    -fx-border-radius: 5px;
+    -fx-background-radius: 5px;
+    -fx-cursor: hand;
+}
+
+.importer-button:hover {
+    -fx-background-color: #45a049;
+}
+
+.importer-button:pressed {
+    -fx-background-color: #3e8e41;
+}

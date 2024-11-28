@@ -27,10 +27,10 @@
 
                 <Button layoutX="400.0" layoutY="383.0" mnemonicParsing="false"  onAction="#importRoutines" styleClass="import-button">
                     <graphic>
-                        <HBox styleClass="add-button-box">
+                        <HBox styleClass="import-button-box">
                             <children>
-                                <Label styleClass="add-button-icon2" text="-" />
-                                <Label styleClass="add-button-label2" text="Importar rutinas" />
+                                <Label styleClass="import-button-icon" text="-" />
+                                <Label styleClass="import-button-label" text="Importar rutinas" />
                             </children>
                         </HBox>
                     </graphic>
