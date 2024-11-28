@@ -2,6 +2,7 @@ package com.example.gearfit.connections;
 
 import com.example.gearfit.exceptions.DatabaseConnectionException;
 import com.example.gearfit.exceptions.DatabaseInitializationException;
+import org.mindrot.jbcrypt.BCrypt;
 
 import java.sql.*;
 
@@ -83,13 +84,15 @@ public class Database {
                         if (rs.next() && rs.getInt(1) == 0) {
                             // Si el usuario no existe, lo insertamos
                             String insertAdminUser = "INSERT INTO registered_users (username, email, password, height, weight, calories) VALUES (?, ?, ?, ?, ?, ?)";
+                            String hashedPassword = BCrypt.hashpw("12345678", BCrypt.gensalt()); // Hashea la contraseña
+
                             try (PreparedStatement pstmt = conn.prepareStatement(insertAdminUser)) {
                                 pstmt.setString(1, "admin");
-                                pstmt.setString(2, "admin@example.com");
-                                pstmt.setString(3, "adminpassword"); // Asegúrate de encriptar la contraseña en producción
-                                pstmt.setInt(4, 180); // Altura
-                                pstmt.setDouble(5, 75.0); // Peso
-                                pstmt.setInt(6, 2000); // Calorías
+                                pstmt.setString(2, "admin@gmail.com");
+                                pstmt.setString(3, hashedPassword);
+                                pstmt.setInt(4, 180);
+                                pstmt.setDouble(5, 75.0);
+                                pstmt.setInt(6, 2000);
                                 pstmt.executeUpdate();
                             }
 

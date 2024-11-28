@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
     <data-source source="LOCAL" name="gearFit" uuid="fa155a21-b3da-4de7-b500-23cf408fe284">
-      <driver-ref>sqlite.xerial</driver-ref>
+      <driver-ref>4b30cb95-c9bc-4dbe-bec0-b7144181ec26</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
       <jdbc-url>jdbc:sqlite:C:\Users\jorge\IdeaProjects\gearFit\gearFit.db</jdbc-url>
