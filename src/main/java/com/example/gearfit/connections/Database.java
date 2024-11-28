@@ -3,9 +3,7 @@ package com.example.gearfit.connections;
 import com.example.gearfit.exceptions.DatabaseConnectionException;
 import com.example.gearfit.exceptions.DatabaseInitializationException;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Database {
     private static final String URL = "jdbc:sqlite:gearFit.db";
@@ -78,35 +76,65 @@ public class Database {
                             "FOREIGN KEY (exercise_id) REFERENCES Exercises(id));";
                     conn.createStatement().execute(createExerciseSetsTable);
 
-                    // Insertar rutinas genéricas para el usuario con id = 5
-                    String insertRoutines = "INSERT OR IGNORE INTO routines (user_id, name) VALUES " +
-                            "(5, 'Rutina Full Body'), " +
-                            "(5, 'Rutina Fuerza'), " +
-                            "(5, 'Rutina Cardio');";
-                    conn.createStatement().execute(insertRoutines);
+                    // Verificar si el usuario "admin" ya existe
+                    String checkAdminQuery = "SELECT COUNT(*) FROM registered_users WHERE username = 'admin'";
+                    try (Statement stmt = conn.createStatement();
+                         ResultSet rs = stmt.executeQuery(checkAdminQuery)) {
+                        if (rs.next() && rs.getInt(1) == 0) {
+                            // Si el usuario no existe, lo insertamos
+                            String insertAdminUser = "INSERT INTO registered_users (username, email, password, height, weight, calories) VALUES (?, ?, ?, ?, ?, ?)";
+                            try (PreparedStatement pstmt = conn.prepareStatement(insertAdminUser)) {
+                                pstmt.setString(1, "admin");
+                                pstmt.setString(2, "admin@example.com");
+                                pstmt.setString(3, "adminpassword"); // Asegúrate de encriptar la contraseña en producción
+                                pstmt.setInt(4, 180); // Altura
+                                pstmt.setDouble(5, 75.0); // Peso
+                                pstmt.setInt(6, 2000); // Calorías
+                                pstmt.executeUpdate();
+                            }
 
-                    // Si también necesitas agregar datos adicionales como los días de la rutina, ejercicios, series, etc.
-                    // También puedes hacerlo aquí usando más INSERTs. Ejemplo:
+                            // Ahora insertamos las rutinas genéricas para el usuario "admin"
+                            String insertRoutines = "INSERT INTO routines (user_id, name) VALUES " +
+                                    "(1, 'Rutina Full Body'), " +
+                                    "(1, 'Rutina Fuerza'), " +
+                                    "(1, 'Rutina Cardio');";
+                            conn.createStatement().execute(insertRoutines);
 
-                    // Insertar los días de la rutina
-                    String insertRoutineDays = "INSERT OR IGNORE INTO routine_days (routine_id, day_of_week) VALUES " +
-                            "(1, 'Lunes'), " +
-                            "(1, 'Miércoles'), " +
-                            "(1, 'Viernes');";
-                    conn.createStatement().execute(insertRoutineDays);
+                            // Insertar los días de la rutina
+                            String insertRoutineDays = "INSERT INTO routine_days (routine_id, day_of_week) VALUES " +
+                                    "(1, 'Lunes'), " +
+                                    "(1, 'Miércoles'), " +
+                                    "(1, 'Viernes'), " +
+                                    "(2, 'Martes'), " +
+                                    "(2, 'Jueves'), " +
+                                    "(3, 'Sábado');";
+                            conn.createStatement().execute(insertRoutineDays);
 
-                    // Insertar ejercicios para un día específico
-                    String insertExercises = "INSERT OR IGNORE INTO exercises (routine_day_id, name, tempo, rest_time) VALUES " +
-                            "(1, 'Sentadillas', '3-1-1-0', 60), " +
-                            "(1, 'Press de Banca', '2-0-2-0', 90);";
-                    conn.createStatement().execute(insertExercises);
+                            // Insertar ejercicios para cada día de rutina
+                            String insertExercises = "INSERT INTO exercises (routine_day_id, name, tempo, rest_time) VALUES " +
+                                    "(1, 'Sentadillas', '3-1-1-0', 60), " +
+                                    "(1, 'Press de Banca', '2-0-2-0', 90), " +
+                                    "(2, 'Dominadas', '3-1-1-0', 60), " +
+                                    "(2, 'Flexiones', '2-0-2-0', 90), " +
+                                    "(3, 'Correr', '1-0-1-0', 120), " +
+                                    "(3, 'Abdominales', '2-0-2-0', 60);";
+                            conn.createStatement().execute(insertExercises);
 
-                    // Insertar series de los ejercicios
-                    String insertExerciseSets = "INSERT OR IGNORE INTO exercise_sets (exercise_id, set_number, repetitions, weight) VALUES " +
-                            "(1, 1, 12, 50), " +
-                            "(1, 2, 10, 55);";
-                    conn.createStatement().execute(insertExerciseSets);
-
+                            // Insertar series de los ejercicios
+                            String insertExerciseSets = "INSERT INTO exercise_sets (exercise_id, set_number, repetitions, weight) VALUES " +
+                                    "(1, 1, 12, 50), " +
+                                    "(1, 2, 10, 55), " +
+                                    "(2, 1, 10, 40), " +
+                                    "(2, 2, 8, 45), " +
+                                    "(3, 1, 8, 0), " +
+                                    "(3, 2, 6, 0), " +
+                                    "(4, 1, 15, 0), " +
+                                    "(4, 2, 12, 0), " +
+                                    "(5, 1, 30, 0), " +
+                                    "(6, 1, 3, 20);"; // Ejemplo de series para ejercicios
+                            conn.createStatement().execute(insertExerciseSets);
+                        }
+                    }
 
                     System.out.println("Datos iniciales insertados correctamente.");
 

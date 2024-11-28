@@ -38,7 +38,6 @@ public class RoutineDaySelectorController {
                 Button dayButton = new Button(day);
                 dayButton.getStyleClass().add("day-button"); // Añadir clase CSS si es necesario
 
-
                 // Aquí puedes añadir un evento al botón si lo deseas
                 dayButton.setOnAction(event -> {
                     try {
