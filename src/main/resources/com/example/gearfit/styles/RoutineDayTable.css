@@ -25,7 +25,6 @@
     -fx-background-color: #bbbbbb;
 }
 
-/* Estilo para el botón de ejercicio seleccionado */
 .exercise-button.exercise-selected {
     -fx-font-size: 13px;
     -fx-min-width: 480px;
@@ -38,19 +37,15 @@
     -fx-background-color: #e3e3e3;
 }
 
-/* Estilo para el contenido del ejercicio dentro del botón */
 .exercise-content {
     -fx-spacing: 5;
 }
 
-/* Estilo para el HBox de las series */
 .sets-box {
     -fx-spacing: 10;
     -fx-background-color: transparent;
 }
 
-
-/* Estilo para los botones de serie */
 .set-button {
     -fx-padding: 10px;
     -fx-font-size: 13px;
@@ -74,8 +69,8 @@
 }
 
 .set-textfield {
-    -fx-min-width: 80px;
-    -fx-max-width: 80px;
+    -fx-min-width: 85px;
+    -fx-max-width: 85px;
 }
 
 .sets-scrollpane {
@@ -93,8 +88,8 @@
 }
 
 .scroll-vertical-vbox {
-    -fx-min-height: 350px;
-    -fx-max-height: 350px;
+    -fx-min-height: 300px;
+    -fx-max-height: 300px;
     -fx-padding: 20 0 0 0;
     -fx-background-color: transparent;
 }
@@ -111,8 +106,8 @@
     -fx-spacing: 10;
     -fx-min-width: 220px;
     -fx-max-width: 220px;
-    -fx-min-height: 200px;
-    -fx-max-height: 200px;
+    -fx-min-height: 240px;
+    -fx-max-height: 240px;
     -fx-border-width: 3px;
     -fx-alignment: center;
     -fx-border-radius: 10px;
@@ -198,6 +193,7 @@
     -fx-font-weight: bold;
     -fx-border-width: 2px;
     -fx-text-fill: #4CAF50;
+    -fx-border-radius: 10px;
     -fx-border-color: #4CAF50;
     -fx-background-color: #ffffff;
 }
@@ -205,6 +201,7 @@
 .button-add-exercise:hover {
     -fx-text-fill: #ffffff;
     -fx-border-color: #218328;
+    -fx-background-radius: 10px;
     -fx-background-color: #218328;
 }
 
@@ -217,20 +214,35 @@
     -fx-font-weight: bold;
     -fx-border-width: 2px;
     -fx-text-fill: #fc0000;
+    -fx-border-radius: 10px;
     -fx-border-color: #fc0000;
     -fx-background-color: #ffffff;
 }
 
 .button-delete-exercise:hover {
     -fx-text-fill: #ffffff;
-    -fx-border-color: rgba(252, 0, 0, 0.56);
-    -fx-background-color: rgba(252, 0, 0, 0.56);
+    -fx-border-color: #af0c0c;
+    -fx-background-radius: 10px;
+    -fx-background-color: #af0c0c;
 }
 
-.back-button {
-    -fx-background-color: red; /* Fondo rojo */
-    -fx-text-fill: white; /* Texto blanco */
-    -fx-font-size: 12px; /* Tamaño pequeño */
-    -fx-border-radius: 5px; /* Bordes redondeados */
-    -fx-background-radius: 5px; /* Bordes redondeados */
+.back-button{
+    -fx-font-size: 16px;
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #c90000;
+    -fx-border-radius: 10px;
+    -fx-border-color: #c90000;
+    -fx-background-color: #ffffff;
+}
+
+.back-button:hover{
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #d30e0e;
+    -fx-background-radius: 10px;
+    -fx-background-color: #d30e0e;
 }

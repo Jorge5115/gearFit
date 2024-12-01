@@ -2,6 +2,7 @@ package com.example.gearfit.controllers;
 
 import com.example.gearfit.models.Exercise;
 import com.example.gearfit.models.ExerciseSet;
+import com.example.gearfit.models.Routine;
 import com.example.gearfit.repositories.RoutineDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,6 +54,10 @@ public class RoutineDayTableController {
     private Label actualExerciseSetClicked;
     @FXML
     private AnchorPane rootPane;
+
+    private List<String> daysToDaySelector;
+
+    private Routine routineToDaySelector;
 
     @FXML
     public void initialize() {
@@ -118,8 +123,8 @@ public class RoutineDayTableController {
             exerciseContent.getStyleClass().add("exercise-content");
 
             Label nameLabel = new Label("Ejercicio: " + exercise.getName());
-            Label tempoLabel = new Label("Tempo: " + exercise.getTempo());
-            Label restLabel = new Label("Descanso: " + exercise.getRestTime() + " segundos");
+            Label tempoLabel = new Label("Tempo de ejecución: " + exercise.getTempo());
+            Label restLabel = new Label("Descanso entre series: " + exercise.getRestTime() + " segundos");
 
             exerciseContent.getChildren().addAll(nameLabel, tempoLabel, restLabel);
             exerciseButton.setGraphic(exerciseContent);
@@ -128,7 +133,7 @@ public class RoutineDayTableController {
             exerciseBox.getChildren().add(exerciseButton);
 
             // Cargar y mostrar las series automáticamente
-            loadAndDisplaySets(exercise, exerciseContent); // Cambiar exerciseBox a exerciseContent
+            loadAndDisplaySets(exercise, exerciseContent);
 
             // Evento para seleccionar el ejercicio
             exerciseButton.setOnAction(event -> {
@@ -142,7 +147,7 @@ public class RoutineDayTableController {
                 currentExercise = exercise;
 
                 // Actualizar el Label con el nombre del ejercicio seleccionado
-                actualExerciseClicked.setText("Ejercicio:" + exercise.getName());
+                actualExerciseClicked.setText("Ejercicio: " + exercise.getName());
                 System.out.println("Ejercicio seleccionado: " + exercise.getName());
             });
 
@@ -436,9 +441,16 @@ public class RoutineDayTableController {
     @FXML
     public void goBack(ActionEvent event) {
         try {
-            // Regresar a la vista principal
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gearfit/RoutineSelector.fxml"));
+            // Cargar la vista RoutineDaySelector
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gearfit/RoutineDaySelector.fxml"));
             Parent mainContent = loader.load();
+
+            // Obtener el controlador de RoutineDaySelector
+            RoutineDaySelectorController controller = loader.getController();
+            controller.setRoutine(routineToDaySelector); // Asegúrate de que tengas acceso a la rutina actual
+            controller.setDays(daysToDaySelector); // Asegúrate de que tengas acceso a los días actuales
+
+            // Reemplazar el contenido del rootPane con el nuevo contenido
             rootPane.getChildren().setAll(mainContent);
 
             // Anclar a los bordes
@@ -451,4 +463,11 @@ public class RoutineDayTableController {
         }
     }
 
+    public void setRoutine(Routine routineToTable) {
+        this.routineToDaySelector = routineToTable;
+    }
+
+    public void setDays(List<String> daysToTable) {
+        this.daysToDaySelector = daysToTable;
+    }
 }

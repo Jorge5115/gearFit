@@ -1,4 +1,3 @@
-
 .blue-panel {
     -fx-background-color: #151928;
 }
@@ -10,31 +9,36 @@
     -fx-text-fill: whitesmoke;
 }
 
-.auth{
+.auth {
     -fx-background-color: transparent;
 }
 
-.blue-btn{
-    -fx-background-color: #2196f3;
+.blue-btn {
+    -fx-background-color: #1b80d2;
     -fx-border-radius: 5px;
-    -fx-text-fill: #ffffff ;
+    -fx-text-fill: #ffffff;
+    -fx-cursor: hand;
 }
 
-.blue-btn:hover{
+.blue-btn:hover {
     -fx-background-color: #2196f3;
-    -fx-border-radius: 5px;
     -fx-text-fill: #000000;
 }
 
-.close-btn{
+.blue-btn:pressed {
+    -fx-cursor: closed-hand;
+}
+
+.close-btn {
     -fx-background-color: #ea2311;
     -fx-border-radius: 5px;
     -fx-opacity: 0.3;
 }
 
-.close-btn:hover{
-    -fx-background-color: #ea2311;
-    -fx-border-radius: 5px;
+.close-btn:hover {
     -fx-opacity: 1;
 }
 
+.close-btn:pressed {
+    -fx-cursor: closed-hand;
+}

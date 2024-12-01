@@ -10,6 +10,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -20,13 +21,30 @@ import java.util.ResourceBundle;
 
 public class MainViewController implements Initializable {
 
+    private Button selectedButton;
+
     @FXML
     private Pane mainVBoxWindows;
+
+    @FXML
+    private Button userSettingsButton;
+
+    @FXML
+    private Button welcomeGuideButton;
+
+    @FXML
+    private Button routineSelectorButton;
+
+    @FXML
+    private Button nutritionMainButton;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
             loadView("/com/example/gearfit/WelcomeGuide.fxml");
+            // Seleccionar el botón de bienvenida por defecto
+            selectedButton = welcomeGuideButton;
+            selectedButton.getStyleClass().add("selected-button");
         } catch (ViewLoadException e) {
             handleViewLoadException(e);
         }
@@ -35,16 +53,14 @@ public class MainViewController implements Initializable {
     public void logOutSession(ActionEvent event) {
         try {
             Parent mainView = FXMLLoader.load(getClass().getResource("/com/example/gearfit/UserAuth.fxml"));
-
-            // Crear la escena y establecer el fondo como transparente
             Scene mainScene = new Scene(mainView);
-            mainScene.setFill(Color.TRANSPARENT); // Establecer fondo transparente
+            mainScene.setFill(Color.TRANSPARENT);
 
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(mainScene);
             stage.show();
 
-            SessionManager.logOut(); // Limpia la sesión del usuario
+            SessionManager.logOut();
         } catch (IOException e) {
             handleViewLoadException(new ViewLoadException("Error al cargar la vista de autenticación", e));
         }
@@ -52,6 +68,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void handleUserSettings(ActionEvent event) {
+        selectButton(userSettingsButton);
         try {
             loadView("/com/example/gearfit/UserSettings.fxml");
         } catch (ViewLoadException e) {
@@ -61,6 +78,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void handleWelcomeGuide(ActionEvent event) {
+        selectButton(welcomeGuideButton);
         try {
             loadView("/com/example/gearfit/WelcomeGuide.fxml");
         } catch (ViewLoadException e) {
@@ -70,6 +88,7 @@ public class MainViewController implements Initializable {
 
     @FXML
     private void handleRoutineSelector(ActionEvent event) {
+        selectButton(routineSelectorButton);
         try {
             loadView("/com/example/gearfit/RoutineSelector.fxml");
         } catch (ViewLoadException e) {
@@ -77,9 +96,26 @@ public class MainViewController implements Initializable {
         }
     }
 
-    /**
-     * Carga una vista y la añade al panel principal.
-     */
+    @FXML
+    private void handleNutritionMain(ActionEvent event) {
+        selectButton(nutritionMainButton);
+        try {
+            loadView("/com/example/gearfit/NutritionMain.fxml");
+        } catch (ViewLoadException e) {
+            handleViewLoadException(e);
+        }
+    }
+
+    private void selectButton(Button button) {
+        // Deseleccionar el botón previamente seleccionado
+        if (selectedButton != null) {
+            selectedButton.getStyleClass().remove("selected-button");
+        }
+        // Seleccionar el nuevo botón
+        selectedButton = button;
+        selectedButton.getStyleClass().add("selected-button");
+    }
+
     private void loadView(String resourcePath) {
         try {
             Parent view = FXMLLoader.load(getClass().getResource(resourcePath));
@@ -90,17 +126,11 @@ public class MainViewController implements Initializable {
         }
     }
 
-    /**
-     * Maneja las excepciones relacionadas con la carga de vistas.
-     */
     private void handleViewLoadException(ViewLoadException e) {
         e.printStackTrace();
         showErrorAlert("Error", "No se pudo cargar la vista.", e.getMessage());
     }
 
-    /**
-     * Muestra un mensaje de error en una alerta.
-     */
     private void showErrorAlert(String title, String header, String content) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle(title);

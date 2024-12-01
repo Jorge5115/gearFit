@@ -76,6 +76,13 @@ public class RoutineSelectorController {
                 // Añadir el HBox al VBox principal
                 RoutinesList.getChildren().add(routineBox);
             }
+
+            // Verificar si la lista de rutinas está vacía
+            if (RoutinesList.getChildren().isEmpty()) {
+                Label noRoutinesLabel = new Label("Empieza tu camino creando una rutina de cero o importando una de nuestras rutinas personalizadas.");
+                noRoutinesLabel.getStyleClass().add("no-routines-label");
+                RoutinesList.getChildren().add(noRoutinesLabel);
+            }
         } else {
             System.out.println("No se encontró un usuario autenticado en la sesión.");
         }
@@ -111,7 +118,7 @@ public class RoutineSelectorController {
 
     private void deleteRoutine(Routine routine) {
         RoutineDAO.deleteRoutine(routine.getId());
-        System.out.println("Routine deleted: " + routine.getName());
+        loadUserRoutines();
     }
 
 
@@ -126,11 +133,6 @@ public class RoutineSelectorController {
             // Cargar la vista del importador de rutinas
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/gearfit/RoutineImporter.fxml"));
             Parent importerContent = loader.load();
-
-            // Obtener el controlador de RoutineImporter
-            RoutineImporterController importerController = loader.getController();
-
-            // Configurar lo que sea necesario en el controlador del importador
 
             // Reemplazar el contenido del rootPane con el nuevo contenido
             rootPane.getChildren().setAll(importerContent);

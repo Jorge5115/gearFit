@@ -1,6 +1,11 @@
-
 .parent {
     -fx-background-color: transparent;
+}
+
+.tittle-main {
+    -fx-background-color: #151928;
+    -fx-font-weight: bold;
+    -fx-font-size: 30px;
 }
 
 .pane {
@@ -41,6 +46,16 @@
     -fx-opacity: 1;
 }
 
+.selected-button {
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+    -fx-min-width: 50px;
+    -fx-max-width: 50px;
+    -fx-min-height: 50px;
+    -fx-max-height: 50px;
+    -fx-opacity: 1;
+}
+
 .logOut-btn-selector {
     -fx-background-radius: 20px;
     -fx-background-color: #ea2311;
@@ -61,10 +76,5 @@
     -fx-opacity: 1;
 }
 
-.tittle-main {
-    -fx-background-color: #151928;
-    -fx-font-weight: bold;
-    -fx-font-size: 30px;
-}
 
 

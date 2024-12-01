@@ -1,12 +1,11 @@
 .title {
-    -fx-font-family: "HelveticaNeueLT Std";
     -fx-text-fill: #000000;
     -fx-font-weight: bold;
     -fx-font-size: 25px;
 }
 
 .title-info {
-    -fx-font-size: 14px;
+    -fx-font-size: 15px;
     -fx-font-weight: bold;
 }
 
@@ -30,4 +29,31 @@
 .day-button:pressed {
     -fx-background-color: #1259ab;
     -fx-opacity: 1;
+}
+
+.motivational-label {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #04b200;
+}
+
+.cancel-button{
+    -fx-font-size: 16px;
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #c90000;
+    -fx-border-radius: 10px;
+    -fx-border-color: #c90000;
+    -fx-background-color: #ffffff;
+}
+
+.cancel-button:hover{
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #d30e0e;
+    -fx-background-radius: 10px;
+    -fx-background-color: #d30e0e;
 }

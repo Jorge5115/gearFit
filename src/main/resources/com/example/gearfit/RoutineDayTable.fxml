@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/RoutineDayTable.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineDayTableController">
+<AnchorPane fx:id="rootPane" prefHeight="500.0" prefWidth="850.0" styleClass="parent" stylesheets="@styles/RoutineDayTable.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.gearfit.controllers.RoutineDayTableController">
     <children>
-      <Pane layoutX="14.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
+      <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
          <children>
              <Label fx:id="title" layoutX="41.0" layoutY="40.0" styleClass="title" text="Nombre de la rutina + El dia de la rutina" />
 
-             <ScrollPane fx:id="exercisesScrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="38.0" layoutY="89.0" prefHeight="350.0" prefWidth="500.0" styleClass="scroll-vertical-vbox" vbarPolicy="AS_NEEDED">
+             <ScrollPane fx:id="exercisesScrollPane" fitToWidth="true" hbarPolicy="NEVER" layoutX="38.0" layoutY="89.0" maxHeight="358.0" prefHeight="350.0" prefWidth="500.0" styleClass="scroll-vertical-vbox" vbarPolicy="AS_NEEDED">
                  <VBox fx:id="exercisesContainer" alignment="CENTER" prefWidth="537.0" spacing="10.0">
                  <!-- Ejemplo de un botón de ejercicio -->
-                         <Button fx:id="exerciseButton" minHeight="63.0" prefWidth="480.0" styleClass="exercise-button">
+                         <Button minHeight="63.0" prefWidth="480.0" styleClass="exercise-button">
                              <graphic>
                                  <VBox styleClass="exercise-content">
                                      <Label text="Ejercicio: Nombre del Ejercicio" />
@@ -34,7 +40,7 @@
                          </Button>
                      </VBox>
              </ScrollPane>
-            <VBox alignment="CENTER" layoutX="560.0" layoutY="75.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
+            <VBox alignment="CENTER" layoutX="564.0" layoutY="56.0" prefHeight="200.0" prefWidth="100.0" spacing="20.0">
                <children>
                   <VBox prefHeight="200.0" prefWidth="200.0" styleClass="vbox-set">
                      <children>
@@ -51,7 +57,10 @@
                                  <TextField fx:id="weightField" promptText="Peso" styleClass="set-textfield" />
                            </children>
                         </HBox>
-                           <Button onAction="#handleUpdateSeries" prefHeight="25.0" prefWidth="88.0" styleClass="button-update-set" text="Actualizar" />
+                           <Button onAction="#handleUpdateSeries" prefHeight="25.0" prefWidth="88.0" styleClass="button-update-set" text="Actualizar">
+                           <VBox.margin>
+                              <Insets />
+                           </VBox.margin></Button>
             
                                     <Button onAction="#handleAddSeries" styleClass="button-add-set" text="Agregar Serie" />
                      </children>
@@ -68,11 +77,8 @@
                   </VBox>
                </children>
             </VBox>
+              <Button fx:id="backButton" layoutX="40.0" layoutY="400.0" onAction="#goBack" prefHeight="30.0" prefWidth="100.0" styleClass="back-button" text="Volver" />
          </children>
       </Pane>
-        <Button fx:id="backButton" text="Volver"
-                layoutX="10.0" layoutY="460.0"
-                prefHeight="30.0" prefWidth="100.0"
-                styleClass="back-button" onAction="#goBack" />
     </children>
 </AnchorPane>

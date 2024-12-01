@@ -8,12 +8,14 @@ import com.example.gearfit.repositories.RoutineDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -45,22 +47,23 @@ public class RoutineImporterController {
             availableRoutinesList.getChildren().clear();
 
             for (Routine routine : availableRoutines) {
-                HBox routineBox = new HBox(10);
+                HBox routineBox = new HBox();
+
                 routineBox.getStyleClass().add("routine-import-box");
 
                 Label routineLabel = new Label(routine.getName());
                 routineLabel.getStyleClass().add("routine-label");
-                routineLabel.setMaxWidth(700);
 
                 Button importButton = new Button("Importar");
                 importButton.getStyleClass().add("importer-button");
-                importButton.setPrefWidth(100);
 
                 // Asignar acción al botón de importar
                 importButton.setOnAction(event -> {
                     importRoutineToUser (routine);
-                    //System.out.println(routine.getId());
                 });
+
+                // Para que el Label ocupe el espacio disponible que haya
+                HBox.setHgrow(routineLabel, Priority.ALWAYS);
 
                 routineBox.getChildren().addAll(routineLabel, importButton);
                 availableRoutinesList.getChildren().add(routineBox);
@@ -74,7 +77,7 @@ public class RoutineImporterController {
     private void importRoutineToUser(Routine routine) {
         var currentUser = SessionManager.getCurrentUser();
         if (currentUser != null) {
-            // Llamar al método que importa la rutina completa
+            // Importar la rutina completa
             int newRoutineId = routineDAO.importRoutineForUser(routine.getId(), currentUser.getId());
 
             if (newRoutineId != -1) {

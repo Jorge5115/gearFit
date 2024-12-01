@@ -1,85 +1,63 @@
-/* General Pane Styles */
 .pane {
     -fx-background-color: #ffffff;
     -fx-background-radius: 10px;
 }
 
-/* Title Label Style */
 .title {
-    -fx-font-family: "HelveticaNeueLT Std";
     -fx-text-fill: #000000;
     -fx-font-weight: bold;
     -fx-font-size: 25px;
 }
 
-/* ScrollPane Style */
 .scroll-pane-importer {
-    -fx-background-color: #f9f9f9;
-    -fx-border-color: #dddddd;
-    -fx-border-radius: 10px;
     -fx-padding: 10px;
-}
-
-/* VBox for Routine List */
-.vbox {
-    -fx-spacing: 10px;
-}
-
-/* Back Button Style */
-.button-importer {
-    -fx-min-width: 70px;
-    -fx-min-height: 40px;
-    -fx-background-color: #e3070e;
-    -fx-text-fill: #ffffff;
-    -fx-font-family: "HelveticaNeueLT Std";
-    -fx-font-weight: bold;
-    -fx-font-size: 16px;
+    -fx-min-width: 700px;
+    -fx-max-width: 700px;
+    -fx-min-height: 280px;
+    -fx-max-height: 280px;
     -fx-border-radius: 10px;
-    -fx-background-radius: 10px;
-    -fx-cursor: hand;
+    -fx-border-color: #dddddd;
+    -fx-background-color: transparent;
 }
 
-.button-importer:hover {
-    -fx-background-color: #e3070e;
+.scroll-pane-importer .viewport {
+    -fx-background-color: transparent;
 }
 
-.button-importer:pressed {
-    -fx-background-color: #e3070e;
+.scroll-pane-importer .scroll-bar:vertical {
+    -fx-background-color: transparent;
 }
 
-/* Add extra padding for children in VBox if needed */
-.vbox > .label {
-    -fx-padding: 5px 10px;
-    -fx-font-size: 18px;
-}
-/* Estilo para el contenedor de cada rutina */
 .routine-import-box {
-    -fx-padding: 10px;
-    -fx-spacing: 10px;
-    -fx-alignment: CENTER_LEFT; /* Alinear elementos a la izquierda */
-    -fx-background-color: #f0f0f0;
-    -fx-border-color: #dddddd;
+    -fx-padding: -10px;
+    -fx-min-width: 660px;
+    -fx-max-width: 660px;
+    -fx-min-height: 55px;
+    -fx-max-height: 55px;
     -fx-border-radius: 5px;
+    -fx-border-color: #dddddd;
     -fx-background-radius: 5px;
+    -fx-alignment: CENTER_LEFT;
+    -fx-background-color: #f0f0f0;
 }
 
-/* Estilo para las etiquetas de rutina */
 .routine-label {
     -fx-font-size: 16px;
     -fx-text-fill: #333333;
-    -fx-font-family: "HelveticaNeueLT Std";
 }
 
-/* Estilo para el botón de importar */
 .importer-button {
-    -fx-background-color: #4CAF50;
-    -fx-text-fill: white;
+    -fx-cursor: hand;
     -fx-font-size: 14px;
-    -fx-font-family: "HelveticaNeueLT Std";
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 35px;
+    -fx-max-height: 35px;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-border-radius: 5px;
     -fx-background-radius: 5px;
-    -fx-cursor: hand;
+    -fx-background-color: #4CAF50;
 }
 
 .importer-button:hover {
@@ -88,4 +66,25 @@
 
 .importer-button:pressed {
     -fx-background-color: #3e8e41;
+}
+
+.back-button{
+    -fx-font-size: 16px;
+    -fx-min-width: 100px;
+    -fx-max-width: 100px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-text-fill: #c90000;
+    -fx-border-radius: 10px;
+    -fx-border-color: #c90000;
+    -fx-background-color: #ffffff;
+}
+
+.back-button:hover{
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #d30e0e;
+    -fx-background-radius: 10px;
+    -fx-background-color: #d30e0e;
 }

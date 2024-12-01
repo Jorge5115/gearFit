@@ -29,15 +29,19 @@ public class Database {
     public static void initializeDatabase() {
         try (Connection conn = connect()) {
             if (conn != null) {
-
-                //Habilitar claves foraneas
+                // Habilitar claves foráneas
                 enableForeignKeys(conn);
+
                 // Llamamos a los métodos para crear las tablas
                 createUsersTable(conn);
                 createRoutinesTable(conn);
                 createRoutineDaysTable(conn);
                 createExercisesTable(conn);
                 createExerciseSetsTable(conn);
+
+                // Crear las nuevas tablas de alimentos
+                createUserFoodsTable(conn);
+                createDailyFoodsTable(conn);
 
                 // Insertar datos iniciales (como el usuario admin)
                 insertInitialData(conn);
@@ -104,6 +108,30 @@ public class Database {
                 "weight DOUBLE," +                   // Peso en kg para esta serie
                 "FOREIGN KEY (exercise_id) REFERENCES exercises(id));";
         conn.createStatement().execute(createExerciseSetsTable);
+    }
+
+    private static void createUserFoodsTable(Connection conn) throws SQLException {
+        String createUserFoodsTable = "CREATE TABLE IF NOT EXISTS user_foods (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "user_id INTEGER NOT NULL," +
+                "name TEXT NOT NULL," +
+                "fats_per_100g REAL NOT NULL," +
+                "carbs_per_100g REAL NOT NULL," +
+                "proteins_per_100g REAL NOT NULL," +
+                "kcal_per_100g REAL NOT NULL," +
+                "FOREIGN KEY (user_id) REFERENCES registered_users(id));";
+        conn.createStatement().execute(createUserFoodsTable);
+    }
+
+    private static void createDailyFoodsTable(Connection conn) throws SQLException {
+        String createDailyFoodsTable = "CREATE TABLE IF NOT EXISTS daily_foods (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "food_id INTEGER NOT NULL," +
+                "date DATE NOT NULL," +
+                "meal_type TEXT NOT NULL," +
+                "grams REAL NOT NULL," +
+                "FOREIGN KEY (food_id) REFERENCES user_foods(id));";
+        conn.createStatement().execute(createDailyFoodsTable);
     }
 
     private static void insertInitialData(Connection conn) throws SQLException {
@@ -182,24 +210,6 @@ public class Database {
                     pstmtExercises.setString(3, "3-1-1-0");
                     pstmtExercises.setInt(4, 60);
                     pstmtExercises.executeUpdate();
-
-                    // NO CONSIGO QUE FUNCIONE PARA MOSTRAR LAS SERIES DE LOS EJERCICIOS
-                    /**try (PreparedStatement pstmtExerciseSets = conn.prepareStatement(
-                            "INSERT INTO exercise_sets (exercise_id, set_number, repetitions, weight) VALUES (?, ?, ?, ?)")) {
-
-                        // Series para Sentadillas (lunes)
-                        pstmtExerciseSets.setInt(1, getExerciseId(conn, "Sentadillas", routineDayIds1[0])); // Obtén el ID del ejercicio
-                        pstmtExerciseSets.setInt(2, 1); // Set 1
-                        pstmtExerciseSets.setInt(3, 12); // Repeticiones
-                        pstmtExerciseSets.setDouble(4, 50.0); // Peso
-                        pstmtExerciseSets.executeUpdate();
-
-                        pstmtExerciseSets.setInt(1, getExerciseId(conn, "Sentadillas", routineDayIds1[0]));
-                        pstmtExerciseSets.setInt(2, 2); // Set 2
-                        pstmtExerciseSets.setInt(3, 10); // Repeticiones
-                        pstmtExerciseSets.setDouble(4, 55.0); // Peso
-                        pstmtExerciseSets.executeUpdate();
-                    }**/
 
                     pstmtExercises.setInt(1, routineDayIds1[0]);
                     pstmtExercises.setString(2, "Press de Banca");
