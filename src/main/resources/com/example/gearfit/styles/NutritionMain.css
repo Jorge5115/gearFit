@@ -3,6 +3,19 @@
     -fx-background-radius: 10px;
 }
 
+.daily-food-vbox{
+    -fx-padding: 10px;
+    -fx-min-height: 400px;
+    -fx-max-height: 400px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #2196f3;
+    -fx-background-radius: 13px;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+}
+
 .food-vbox {
     -fx-padding: 10px;
     -fx-font-weight: bold;
@@ -35,8 +48,8 @@
 
 .add-new-food-button {
     -fx-font-size: 16px;
-    -fx-min-width: 220px;
-    -fx-max-width: 220px;
+    -fx-min-width: 170px;
+    -fx-max-width: 170px;
     -fx-min-height: 40px;
     -fx-max-height: 40px;
     -fx-font-weight: bold;
@@ -52,5 +65,31 @@
     -fx-border-color: #1259ab;
     -fx-background-radius: 10px;
     -fx-background-color: #1259ab;
+}
+
+.add-breakfast-button{
+    -fx-font-size: 16px;
+    -fx-min-width: 240px;
+    -fx-max-width: 240px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #af8a10;
+    -fx-border-radius: 10px;
+    -fx-border-color: #af8a10;
+    -fx-background-color: #ffffff;
+}
+
+.add-lunch-button{
+    -fx-font-size: 16px;
+    -fx-min-width: 240px;
+    -fx-max-width: 240px;
+    -fx-min-height: 40px;
+    -fx-max-height: 40px;
+    -fx-border-width: 2px;
+    -fx-text-fill: #1326a6;
+    -fx-border-radius: 10px;
+    -fx-border-color: #1326a6;
+    -fx-background-color: #ffffff;
 }
 

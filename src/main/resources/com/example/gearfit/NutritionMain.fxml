@@ -11,25 +11,25 @@
     <children>
         <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
             <children>
-                <VBox alignment="TOP_CENTER" layoutX="31.0" layoutY="138.0" prefHeight="295.0" prefWidth="260.0" styleClass="food-vbox">
+                <VBox alignment="TOP_CENTER" layoutX="34.0" layoutY="38.0" prefHeight="295.0" prefWidth="260.0" styleClass="daily-food-vbox">
                     <children>
                         <Button mnemonicParsing="false" onAction="#handleAddBreakfast" styleClass="add-breakfast-button" text="Añadir Desayuno" />
-                        <VBox fx:id="vboxBreakfastList" prefHeight="125.0" prefWidth="260.0" />
+                        <VBox fx:id="vboxBreakfastList" prefHeight="78.0" prefWidth="236.0" />
                         <Button layoutX="87.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddLunch" styleClass="add-lunch-button" text="Añadir Comida" />
                         <VBox fx:id="vboxLunchList" layoutX="10.0" layoutY="35.0" prefHeight="125.0" prefWidth="260.0" />
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" layoutX="551.0" layoutY="137.0" styleClass="food-vbox">
+                <VBox alignment="CENTER" layoutX="547.0" layoutY="142.0" styleClass="food-vbox">
                     <children>
                   <Label styleClass="food-vbox-label" text="Alimentos Registrados" />
                         <VBox fx:id="vboxFoodRegisteredList" alignment="TOP_CENTER" prefHeight="200.0">
                             <!-- Botón de ejemplo para un alimento -->
                             <Button styleClass="food-button" text="Manzana " />
                         </VBox>
-                        <Button mnemonicParsing="false" onAction="#handleAddNewFood" styleClass="add-new-food-button" text="Añadir Nuevo Alimento" />
+                        <Button mnemonicParsing="false" onAction="#handleAddNewFood" styleClass="add-new-food-button" text="Crear nueva rutina" />
                     </children>
                 </VBox>
-                <HBox fx:id="weeklyDaysHbox" layoutX="24.0" layoutY="14.0" prefHeight="100.0" prefWidth="777.0" style="-fx-background-color: #e21342;" styleClass="hbox-weekly-days" />
+                <HBox fx:id="weeklyDaysHbox" layoutX="325.0" layoutY="14.0" prefHeight="100.0" prefWidth="476.0" style="-fx-background-color: #e21342;" styleClass="hbox-weekly-days" />
             </children>
         </Pane>
     </children>
