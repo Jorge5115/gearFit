@@ -3,7 +3,37 @@
     -fx-background-radius: 10px;
 }
 
-.add-new-food-button{
+.food-vbox {
+    -fx-padding: 10px;
+    -fx-font-weight: bold;
+    -fx-border-width: 2px;
+    -fx-border-radius: 10px;
+    -fx-border-color: #2196f3;
+    -fx-background-radius: 13px;
+    -fx-background-color: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
+}
+
+.food-vbox-label {
+    -fx-font-size: 15px;
+    -fx-padding: 0 0 10 0;
+}
+
+.food-button {
+    -fx-font-size: 13px;
+    -fx-min-width: 200px;
+    -fx-max-width: 200px;
+    -fx-min-height: 30px;
+    -fx-max-height: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 10px;
+    -fx-border-color: #989898;
+    -fx-background-radius: 10px;
+    -fx-background-color: #989898;
+}
+
+.add-new-food-button {
     -fx-font-size: 16px;
     -fx-min-width: 220px;
     -fx-max-width: 220px;
@@ -23,3 +53,4 @@
     -fx-background-radius: 10px;
     -fx-background-color: #1259ab;
 }
+

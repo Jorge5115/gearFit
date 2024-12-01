@@ -23,8 +23,7 @@ public class NutritionMainController {
 
     @FXML
     public void initialize() {
-        this.userId= SessionManager.getCurrentUser().getId();
-
+        userId= SessionManager.getCurrentUser().getId();
         updateFoodsVBox();
     }
 
@@ -93,14 +92,13 @@ public class NutritionMainController {
             }
             return null;
         });
-
         dialog.showAndWait();
 
         // Después de agregar el alimento, actualizar la lista
         updateFoodsVBox();
     }
 
-    // Método para actualizar el VBox con los alimentos registrados
+    // Actualizar el VBox con los alimentos registrados
     private void updateFoodsVBox() {
         vboxFoodRegisteredList.getChildren().clear(); // Limpiar la lista
 
@@ -109,13 +107,16 @@ public class NutritionMainController {
 
         // Agregar cada alimento como un botón
         for (Food food : foods) {
-            Button foodButton = new Button(food.getName() + " - " + food.getCalories() + " kcal");
-            foodButton.setOnAction(event -> handleFoodButtonClicked(food));  // Manejar clic en el botón
+            Button foodButton = new Button(food.getName());
+            foodButton.getStyleClass().add("food-button");
+
+            // Manejar clic en el botón
+            foodButton.setOnAction(event -> handleFoodButtonClicked(food));
             vboxFoodRegisteredList.getChildren().add(foodButton);
         }
     }
 
-    // Método que maneja la acción de editar o eliminar un alimento
+    // Maneja la acción de editar o eliminar un alimento
     private void handleFoodButtonClicked(Food food) {
         // Crear una ventana emergente para editar o eliminar el alimento
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -143,7 +144,7 @@ public class NutritionMainController {
         });
     }
 
-    // Método para abrir una ventana emergente para editar los datos del alimento
+    // Abrir una ventana emergente para editar los datos del alimento
     private void openEditFoodDialog(Food food) {
         Dialog<Food> dialog = new Dialog<>();
         dialog.setTitle("Editar Alimento");
@@ -197,7 +198,7 @@ public class NutritionMainController {
         updateFoodsVBox();  // Actualizar la lista de alimentos después de la edición
     }
 
-    // Método para mostrar alertas
+    // Mostrar alertas
     private void showAlert(String title, String message, Alert.AlertType type) {
 
     }
