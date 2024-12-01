@@ -20,6 +20,15 @@ public class Food {
         this.kcalPer100g = kcalPer100g;
     }
 
+    public Food(int id, String name, double fatsPer100g, double carbsPer100g, double proteinsPer100g, double kcalPer100g) {
+        this.id = id;
+        this.name = name;
+        this.fatsPer100g = fatsPer100g;
+        this.carbsPer100g = carbsPer100g;
+        this.proteinsPer100g = proteinsPer100g;
+        this.kcalPer100g = kcalPer100g;
+    }
+
     // Getters y Setters
     public int getId() {
         return id;

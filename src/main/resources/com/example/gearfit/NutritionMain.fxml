@@ -11,6 +11,14 @@
     <children>
         <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
             <children>
+                <VBox alignment="TOP_CENTER" layoutX="31.0" layoutY="138.0" prefHeight="295.0" prefWidth="260.0" styleClass="food-vbox">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#handleAddBreakfast" styleClass="add-breakfast-button" text="Añadir Desayuno" />
+                        <VBox fx:id="vboxBreakfastList" prefHeight="125.0" prefWidth="260.0" />
+                        <Button layoutX="87.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddLunch" styleClass="add-lunch-button" text="Añadir Comida" />
+                        <VBox fx:id="vboxLunchList" layoutX="10.0" layoutY="35.0" prefHeight="125.0" prefWidth="260.0" />
+                    </children>
+                </VBox>
                 <VBox alignment="CENTER" layoutX="551.0" layoutY="137.0" styleClass="food-vbox">
                     <children>
                   <Label styleClass="food-vbox-label" text="Alimentos Registrados" />
@@ -19,14 +27,6 @@
                             <Button styleClass="food-button" text="Manzana " />
                         </VBox>
                         <Button mnemonicParsing="false" onAction="#handleAddNewFood" styleClass="add-new-food-button" text="Añadir Nuevo Alimento" />
-                    </children>
-                </VBox>
-                <VBox alignment="TOP_CENTER" layoutX="24.0" layoutY="130.0" prefHeight="295.0" prefWidth="260.0">
-                    <children>
-                        <Button mnemonicParsing="false" onAction="#handleAddBreakfast" styleClass="add-breakfast-button" text="Añadir Desayuno" />
-                        <VBox fx:id="vboxBreakfastList" prefHeight="125.0" prefWidth="260.0" />
-                        <Button layoutX="87.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddLunch" styleClass="add-lunch-button" text="Añadir Comida" />
-                        <VBox fx:id="vboxLunchList" layoutX="10.0" layoutY="35.0" prefHeight="125.0" prefWidth="260.0" />
                     </children>
                 </VBox>
                 <HBox fx:id="weeklyDaysHbox" layoutX="24.0" layoutY="14.0" prefHeight="100.0" prefWidth="777.0" style="-fx-background-color: #e21342;" styleClass="hbox-weekly-days" />
