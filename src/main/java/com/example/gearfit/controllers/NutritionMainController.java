@@ -1,7 +1,6 @@
 package com.example.gearfit.controllers;
 
 import com.example.gearfit.connections.SessionManager;
-import com.example.gearfit.exceptions.ViewLoadException;
 import com.example.gearfit.models.DailyFood;
 import com.example.gearfit.models.Food;
 import com.example.gearfit.repositories.NutritionDAO;
@@ -10,19 +9,27 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
-import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class NutritionMainController {
 
     private int userId;
 
+    public Label currentDateLabel;
+
+    public Label totalCaloriesLabel;
+
     public VBox vboxBreakfastList, vboxLunchList, vboxSnackList, vboxDinnerList;
 
+    public Label currentFatsLabel, currentCarbosLabel, currentProteinsLabel, currentCaloriesLabel;
 
+    private double totalCalories;
+
+    private double currentFats, currentCarbs, currentProteins, currentCalories;
 
     @FXML
     private VBox vboxFoodRegisteredList;  // VBox para mostrar los alimentos registrados
@@ -30,18 +37,46 @@ public class NutritionMainController {
     @FXML
     public void initialize() {
         userId = SessionManager.getCurrentUser().getId();
+        totalCalories = SessionManager.getCurrentUser().getCalories();
+
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd MMMM yyyy"); // Formato de fecha
+        currentDateLabel.setText(LocalDate.now().format(dateFormatter));
+
+        if (totalCalories == 0) {
+            showAlert("Ajustes de Usuario", "Por favor, ve a la pestaña de ajustes y establece tus calorías diarias objetivo.", Alert.AlertType.WARNING);
+        } else {
+            totalCaloriesLabel.setText("Objetivo: " + String.valueOf(formatNumber(totalCalories)) + " kcal");
+        }
+
         updateFoodsVBox();
         updateMealsVBox();
     }
 
+    private String formatNumber(double number) {
+        // Verifica si el valor es un entero (sin decimales)
+        if (number % 1 == 0) {
+            return String.valueOf((int) number); // Convierte a entero si no hay decimales
+        } else {
+            return String.format("%.1f", number); // Formato con un decimal
+        }
+    }
+
     // Actualizar los VBox de desayuno y almuerzo
     private void updateMealsVBox() {
+        // Reiniciar los valores acumulativos
+        currentFats = 0;
+        currentCarbs = 0;
+        currentProteins = 0;
+        currentCalories = 0;
+
         LocalDate today = LocalDate.now();
         List<DailyFood> dailyFoods = NutritionDAO.getDailyFoodsByUserIdAndDate(userId, today);
 
         // Limpiar los VBox
         vboxBreakfastList.getChildren().clear();
         vboxLunchList.getChildren().clear();
+        vboxSnackList.getChildren().clear();
+        vboxDinnerList.getChildren().clear();
 
         // Agregar alimentos consumidos a los VBox correspondientes
         for (DailyFood dailyFood : dailyFoods) {
@@ -63,6 +98,9 @@ public class NutritionMainController {
                 Button mealButton = new Button(buttonText);
                 mealButton.getStyleClass().add("meal-button");
 
+                // Agregar el manejador de clics para el botón de comida
+                mealButton.setOnAction(event -> handleMealButtonClicked(dailyFood, userFood.getName()));
+
                 // Agregar el botón al VBox correspondiente
                 if (dailyFood.getMealType().equalsIgnoreCase("Desayuno")) {
                     vboxBreakfastList.getChildren().add(mealButton);
@@ -73,10 +111,49 @@ public class NutritionMainController {
                 } else if (dailyFood.getMealType().equalsIgnoreCase("Cena")) {
                     vboxDinnerList.getChildren().add(mealButton);
                 }
+
+                // Acumular los valores
+                currentFats += fats;
+                currentCarbs += carbs;
+                currentProteins += proteins;
+                currentCalories += calories;
             } else {
                 System.out.println("No se encontró el alimento con ID: " + dailyFood.getFoodId());
             }
         }
+
+        // Actualizar las etiquetas con los valores calculados
+        currentFatsLabel.setText(String.format("%.1f", currentFats));
+        currentCarbosLabel.setText(String.format("%.1f", currentCarbs));
+        currentProteinsLabel.setText(String.format("%.1f", currentProteins));
+        currentCaloriesLabel.setText(String.format("%.1f", currentCalories));
+    }
+
+    private void handleMealButtonClicked(DailyFood dailyFood, String foodName) {
+        // Crear una ventana emergente para confirmar la eliminación del alimento diario
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Eliminar Alimento Diario");
+        alert.setHeaderText("¿Deseas eliminar " + foodName + " de tu registro diario?");
+        alert.setContentText("Esta acción no se puede deshacer.");
+
+        ButtonType deleteButtonType = new ButtonType("Eliminar", ButtonBar.ButtonData.OK_DONE);
+        ButtonType cancelButtonType = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        alert.getButtonTypes().setAll(deleteButtonType, cancelButtonType);
+
+        // Mostrar el alert y esperar la respuesta del usuario
+        alert.showAndWait().ifPresent(response -> {
+            if (response == deleteButtonType) {
+                // Si el usuario confirma, eliminar el alimento diario
+                boolean success = NutritionDAO.deleteDailyFood(dailyFood.getId());
+                if (success) {
+                    // Actualizar la vista después de la eliminación
+                    updateMealsVBox();
+                    System.out.println(foodName + " ha sido eliminado exitosamente.");
+                } else {
+                    System.out.println("Error al eliminar " + foodName + ".");
+                }
+            }
+        });
     }
 
     // Manejar el clic en el botón "Añadir Alimento"
@@ -189,6 +266,7 @@ public class NutritionMainController {
                 boolean success = NutritionDAO.deleteFood(food.getId());  // Eliminar el alimento de la base de datos
                 if (success) {
                     updateFoodsVBox();  // Actualizar la lista después de eliminarlo
+                    updateMealsVBox();
                 } else {
                     showAlert("Error", "No se pudo eliminar el alimento.", Alert.AlertType.ERROR);
                 }
@@ -248,11 +326,16 @@ public class NutritionMainController {
 
         dialog.showAndWait();
         updateFoodsVBox();
+        updateMealsVBox();
     }
 
     // Mostrar alertas
     private void showAlert(String title, String message, Alert.AlertType type) {
-
+        Alert alert = new Alert(type);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
     public void handleAddBreakfast(ActionEvent event) {
@@ -324,6 +407,7 @@ public class NutritionMainController {
             return null;
         });
         dialog.showAndWait();
+        updateMealsVBox();
     }
 
 }

@@ -118,6 +118,21 @@ public class NutritionDAO {
         return false;
     }
 
+    public static boolean deleteDailyFood(int dailyFoodId) {
+        String sql = "DELETE FROM daily_foods WHERE id = ?";
+
+        try (Connection conn = Database.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, dailyFoodId);
+            int affectedRows = pstmt.executeUpdate();
+
+            return affectedRows > 0; // Retorna true si se eliminó al menos un registro
+        } catch (SQLException e) {
+            System.out.println("Error al eliminar el alimento diario: " + e.getMessage());
+            return false; // Retorna false en caso de error
+        }
+    }
+
     // Obtener un alimento por su ID
     public static Food getUserFoodById(int foodId) {
         Food userFood = null;

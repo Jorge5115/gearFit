@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -10,28 +12,100 @@
     <children>
         <Pane layoutX="13.0" layoutY="13.0" prefHeight="475.0" prefWidth="825.0" styleClass="pane">
             <children>
-                <VBox alignment="TOP_CENTER" layoutX="45.0" layoutY="38.0" prefWidth="260.0" styleClass="daily-food-vbox">
+                <VBox alignment="TOP_CENTER" layoutX="53.0" layoutY="38.0" prefWidth="260.0" styleClass="daily-food-vbox">
                     <children>
                         <Button mnemonicParsing="false" onAction="#handleAddBreakfast" styleClass="add-breakfast-button" text="Añadir Desayuno" />
-                        <VBox fx:id="vboxBreakfastList" prefHeight="50.0" prefWidth="240.0" />
+                        <VBox fx:id="vboxBreakfastList" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="240.0" spacing="5.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding></VBox>
                         <Button layoutX="87.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddLunch" styleClass="add-lunch-button" text="Añadir Comida" />
-                        <VBox fx:id="vboxLunchList" layoutX="10.0" layoutY="35.0" prefHeight="50.0" prefWidth="260.0" />
+                        <VBox fx:id="vboxLunchList" alignment="TOP_CENTER" layoutX="10.0" layoutY="35.0" prefHeight="50.0" prefWidth="260.0" spacing="5.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding></VBox>
                         <Button mnemonicParsing="false" onAction="#handleAddSnack" styleClass="add-snack-button" text="Añadir Merienda" />
-                        <VBox fx:id="vboxSnackList" prefHeight="50.0" prefWidth="236.0" />
+                        <VBox fx:id="vboxSnackList" alignment="TOP_CENTER" prefHeight="50.0" prefWidth="236.0" spacing="5.0">
+                     <VBox.margin>
+                        <Insets bottom="5.0" top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding></VBox>
                         <Button layoutX="87.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleAddDinner" styleClass="add-dinner-button" text="Añadir Cena" />
-                        <VBox fx:id="vboxDinnerList" layoutX="10.0" layoutY="35.0" prefHeight="50.0" prefWidth="260.0" />
+                        <VBox fx:id="vboxDinnerList" alignment="TOP_CENTER" layoutX="10.0" layoutY="35.0" prefHeight="50.0" prefWidth="240.0" spacing="5.0">
+                     <VBox.margin>
+                        <Insets top="5.0" />
+                     </VBox.margin>
+                     <padding>
+                        <Insets left="10.0" right="10.0" />
+                     </padding></VBox>
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" layoutX="556.0" layoutY="143.0" styleClass="food-vbox">
+                <VBox alignment="CENTER" layoutX="573.0" layoutY="213.0" styleClass="food-vbox">
                     <children>
                   <Label styleClass="food-vbox-label" text="Alimentos Registrados" />
-                        <VBox fx:id="vboxFoodRegisteredList" alignment="TOP_CENTER" prefHeight="200.0">
+                        <VBox fx:id="vboxFoodRegisteredList" alignment="TOP_CENTER" prefHeight="200.0" spacing="5.0" styleClass="food-vbox-list">
                             <!-- Botón de ejemplo para un alimento -->
-                            <Button styleClass="food-button" text="Manzana " />
+                            <Button styleClass="food-button" text="Pechuga de pollo" />
+                     <Button layoutX="10.0" layoutY="10.0" styleClass="food-button" text="Lomo embuchado" />
                         </VBox>
                         <Button mnemonicParsing="false" onAction="#handleAddNewFood" styleClass="add-new-food-button" text="Crear nueva rutina" />
                     </children>
                 </VBox>
+            <VBox alignment="TOP_CENTER" layoutX="570.0" layoutY="38.0" prefHeight="132.0" prefWidth="210.0" styleClass="daily-macros-vbox">
+               <children>
+                  <Label fx:id="currentDateLabel" styleClass="current-date-label" text="Label">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Label>
+                  <Label fx:id="totalCaloriesLabel" styleClass="total-kcal-label" text="Label">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin></Label>
+                  <Label styleClass="macros-info-label" text="Registro de macros acumulados">
+                     <VBox.margin>
+                        <Insets bottom="10.0" top="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="34.0" prefWidth="210.0" spacing="10.0" styleClass="total-nacros-hbox">
+                     <children>
+                        <VBox alignment="CENTER" spacing="5.0" styleClass="macros-vbox">
+                           <children>
+                              <Label text="Grasas" />
+                              <Label fx:id="currentFatsLabel" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="5.0" styleClass="macros-vbox">
+                           <children>
+                              <Label text="Carbos" />
+                              <Label fx:id="currentCarbosLabel" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="5.0" styleClass="macros-vbox">
+                           <children>
+                              <Label text="Protes" />
+                              <Label fx:id="currentProteinsLabel" text="Label" />
+                           </children>
+                        </VBox>
+                        <VBox alignment="CENTER" spacing="5.0" styleClass="macros-vbox">
+                           <children>
+                              <Label text="Kcals" />
+                              <Label fx:id="currentCaloriesLabel" text="Label" />
+                           </children>
+                        </VBox>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin></HBox>
+               </children>
+            </VBox>
             </children>
         </Pane>
     </children>

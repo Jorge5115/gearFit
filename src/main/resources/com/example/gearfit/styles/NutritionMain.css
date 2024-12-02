@@ -5,6 +5,8 @@
 
 .daily-food-vbox {
     -fx-padding: 10px;
+    -fx-min-width: 470px;
+    -fx-max-width: 470px;
     -fx-min-height: 400px;
     -fx-max-height: 400px;
     -fx-font-weight: bold;
@@ -18,6 +20,8 @@
 
 .food-vbox {
     -fx-padding: 10px;
+    -fx-min-width: 204px;
+    -fx-max-width: 204px;
     -fx-font-weight: bold;
     -fx-border-width: 2px;
     -fx-border-radius: 10px;
@@ -27,20 +31,32 @@
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.3, 0, 4);
 }
 
+.food-vbox-list{
+    -fx-min-height: 130px;
+    -fx-max-height: 130px;
+}
+
 .food-vbox-label {
     -fx-font-size: 15px;
     -fx-padding: 0 0 10 0;
 }
 
 .food-button {
-    -fx-font-size: 13px;
-    -fx-min-width: 200px;
-    -fx-max-width: 200px;
+    -fx-font-size: 12px;
+    -fx-min-width: 180px;
+    -fx-max-width: 180px;
     -fx-min-height: 30px;
     -fx-max-height: 30px;
     -fx-font-weight: bold;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #989898;
     -fx-border-radius: 10px;
+    -fx-border-color: #989898;
+    -fx-background-radius: 10px;
+    -fx-background-color: #ffffff;
+}
+
+.food-button:hover {
+    -fx-text-fill: #ffffff;
     -fx-border-color: #989898;
     -fx-background-radius: 10px;
     -fx-background-color: #989898;
@@ -148,9 +164,35 @@
 }
 
 .meal-button {
-    -fx-font-size: 10px;
-    -fx-min-width: 300px;
-    -fx-max-width: 300px;
+    -fx-font-size: 11px;
+    -fx-min-width: 400px;
+    -fx-max-width: 400px;
     -fx-font-weight: normal;
     -fx-alignment: CENTER-LEFT;
+    -fx-background-color: #d0d0d0;
+}
+
+.meal-button:hover {
+    -fx-background-color: #9a9a9a;
+}
+
+.current-date-label{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+}
+
+.total-kcal-label{
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.macros-info-label{
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+.macros-vbox{
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
 }
