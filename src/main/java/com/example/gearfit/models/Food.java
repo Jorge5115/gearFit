@@ -88,14 +88,9 @@ public class Food {
 
     @Override
     public String toString() {
-        return "Food{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", name='" + name + '\'' +
-                ", fatsPer100g=" + fatsPer100g +
-                ", carbsPer100g=" + carbsPer100g +
-                ", proteinsPer100g=" + proteinsPer100g +
-                ", kcalPer100g=" + kcalPer100g +
-                '}';
+        return name + " (grasas/100g: " + fatsPer100g +
+                ", carbos/100g: " + carbsPer100g +
+                ", protes/100g: " + proteinsPer100g +
+                ", kcal/100g: " + kcalPer100g + ")";
     }
 }

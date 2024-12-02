@@ -18,16 +18,18 @@ import java.util.ResourceBundle;
 
 public class NutritionMainController {
 
-    public VBox vboxBreakfastList;
-    public VBox vboxLunchList;
     private int userId;
+
+    public VBox vboxBreakfastList, vboxLunchList, vboxSnackList, vboxDinnerList;
+
+
 
     @FXML
     private VBox vboxFoodRegisteredList;  // VBox para mostrar los alimentos registrados
 
     @FXML
     public void initialize() {
-        userId = SessionManager.getCurrentUser ().getId();
+        userId = SessionManager.getCurrentUser().getId();
         updateFoodsVBox();
         updateMealsVBox();
     }
@@ -55,7 +57,7 @@ public class NutritionMainController {
                 double calories = (userFood.getCalories() / 100) * gramsConsumed;
 
                 // Crear el texto del botón
-                String buttonText = String.format("%s: %.1fg - Grasas: %.1fg, Carbs: %.1fg, Proteínas: %.1fg, Calorías: %.1fg",
+                String buttonText = String.format("%s: %.1fg - G: %.1fg, C: %.1fg, P: %.1fg, Kcal: %.1f",
                         userFood.getName(), gramsConsumed, fats, carbs, proteins, calories);
 
                 Button mealButton = new Button(buttonText);
@@ -66,6 +68,10 @@ public class NutritionMainController {
                     vboxBreakfastList.getChildren().add(mealButton);
                 } else if (dailyFood.getMealType().equalsIgnoreCase("Almuerzo")) {
                     vboxLunchList.getChildren().add(mealButton);
+                } else if (dailyFood.getMealType().equalsIgnoreCase("Merienda")) {
+                    vboxSnackList.getChildren().add(mealButton);
+                } else if (dailyFood.getMealType().equalsIgnoreCase("Cena")) {
+                    vboxDinnerList.getChildren().add(mealButton);
                 }
             } else {
                 System.out.println("No se encontró el alimento con ID: " + dailyFood.getFoodId());
@@ -241,7 +247,7 @@ public class NutritionMainController {
         });
 
         dialog.showAndWait();
-        updateFoodsVBox();  // Actualizar la lista de alimentos después de la edición
+        updateFoodsVBox();
     }
 
     // Mostrar alertas
@@ -257,6 +263,14 @@ public class NutritionMainController {
         addMeal("Almuerzo");
     }
 
+    public void handleAddSnack(ActionEvent event) {
+        addMeal("Merienda");
+    }
+
+    public void handleAddDinner(ActionEvent event) {
+        addMeal("Cena");
+    }
+
     private void addMeal(String mealType) {
         // Crear una ventana emergente (Dialog) para agregar un nuevo registro de comida
         Dialog<DailyFood> dialog = new Dialog<>();
@@ -267,10 +281,10 @@ public class NutritionMainController {
         ButtonType cancelButtonType = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
         dialog.getDialogPane().getButtonTypes().addAll(addButtonType, cancelButtonType);
 
-        // Crear los campos de texto para ingresar los datos de la comida
+        // Campos de texto para ingresar los datos de la comida
         GridPane grid = new GridPane();
         ComboBox<Food> foodComboBox = new ComboBox<>();
-        foodComboBox.getItems().addAll(NutritionDAO.getFoodsByUserId(userId)); // Cargar los alimentos del usuario
+        foodComboBox.getItems().addAll(NutritionDAO.getFoodsByUserId(userId));
         TextField gramsField = new TextField();
         gramsField.setPromptText("Gramos consumidos");
 
@@ -294,6 +308,7 @@ public class NutritionMainController {
 
                         // Agregar el registro de comida a la base de datos
                         boolean success = NutritionDAO.addDailyFood(dailyFood);
+
                         if (success) {
                             return dailyFood;
                         } else {
@@ -310,4 +325,5 @@ public class NutritionMainController {
         });
         dialog.showAndWait();
     }
+
 }
