@@ -56,7 +56,7 @@
                             <Button styleClass="food-button" text="Pechuga de pollo" />
                      <Button layoutX="10.0" layoutY="10.0" styleClass="food-button" text="Lomo embuchado" />
                         </VBox>
-                        <Button mnemonicParsing="false" onAction="#handleAddNewFood" styleClass="add-new-food-button" text="Crear nueva rutina" />
+                        <Button mnemonicParsing="false" onAction="#handleAddNewFood" styleClass="add-new-food-button" text="Añadir alimentos" />
                     </children>
                 </VBox>
             <VBox alignment="TOP_CENTER" layoutX="570.0" layoutY="38.0" prefHeight="132.0" prefWidth="210.0" styleClass="daily-macros-vbox">
